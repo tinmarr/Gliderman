@@ -126,6 +126,7 @@ public class TerrainGen : MonoBehaviour
             float y_coord = (y - length / 2) / scale * frequency + octaveOffsets[i].y + scrollValue.y;
 
             float perlinNoiseValue = Mathf.PerlinNoise(x_coord, y_coord) * 2 - 1;
+            perlinNoiseValue = Mathf.Clamp(perlinNoiseValue, -1f, 0.5f);
             noiseHeight +=  perlinNoiseValue * amplitude;
 
             amplitude *= persitance;

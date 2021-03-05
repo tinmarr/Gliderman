@@ -746,8 +746,8 @@ MonoBehaviour:
   depth: 152.5
   scale: 56.5
   octaves: 10
-  persitance: 0.262
-  lacunarity: 3.43
+  persitance: 0.12
+  lacunarity: 2.8
   seed: 1
   scrollValue: {x: 0, y: 0}
   update: 0
