@@ -786,7 +786,7 @@ MonoBehaviour:
   terminalVelocity: 40
   jetPower: 90
   rollSpeed: 10
-  tiltSpeed: 4
+  tiltSpeed: 10
   particle: {fileID: 1518624335}
   anglefromground: 0
   energy: 0
@@ -827,7 +827,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1895329605}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 270, y: 279, z: 388}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 730706176}
