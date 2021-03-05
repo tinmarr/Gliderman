@@ -785,7 +785,7 @@ MonoBehaviour:
   gravity: 9.8
   terminalVelocity: 40
   jetPower: 90
-  rollSpeed: 2
+  rollSpeed: 10
   tiltSpeed: 4
   particle: {fileID: 1518624335}
   anglefromground: 0
