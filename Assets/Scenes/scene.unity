@@ -703,9 +703,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1895329609}
-  - component: {fileID: 1895329608}
   - component: {fileID: 1895329610}
   - component: {fileID: 1895329607}
+  - component: {fileID: 1895329608}
   - component: {fileID: 1895329606}
   m_Layer: 0
   m_Name: gliderman
@@ -730,8 +730,20 @@ MonoBehaviour:
   liftMultiplier: 1
   mass: 30
   wingArea: 20
-  areaDensity: 1.225
-  coefficentOfDrag: 1
+  areaDensityConstant: 1.225
+  rotationSpeed: 30
+  jetSpeed: 10
+  flapAngle: 0
+  liftSlope: 6.28
+  skinFriction: 0
+  zeroLiftAoA: 0
+  stallAngleHigh: 5
+  stallAngleLow: -5
+  chord: 1
+  flapFraction: 0
+  span: 5
+  autoAspectRatio: 1
+  aspectRatio: 5
   jet: {fileID: 1518624335}
 --- !u!143 &1895329607
 CharacterController:
@@ -744,8 +756,8 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 0.01
-  m_Radius: 0.01
+  m_Height: 0
+  m_Radius: 0
   m_SlopeLimit: 45
   m_StepOffset: 0
   m_SkinWidth: 0.08

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TerrainGen : MonoBehaviour
 {
-    [Range(32,4096)]
+    [Range(32, 4096)]
     public int width = 256;
     [Range(32, 4096)]
     public int length = 256;
@@ -11,9 +11,9 @@ public class TerrainGen : MonoBehaviour
 
     public float scale = 200f;
 
-    [Range(0,15)]
+    [Range(0, 15)]
     public int octaves = 1;
-    [Range(0,1)]
+    [Range(0, 1)]
     public float persitance = 0.5f;
     public float lacunarity = 2f;
 
@@ -62,7 +62,7 @@ public class TerrainGen : MonoBehaviour
     {
         if (Mathf.Log(width) % Mathf.Log(2) != 0)
         {
-            width = (int) Mathf.Pow(2, Mathf.Floor(Mathf.Log(width) / Mathf.Log(2)));
+            width = (int)Mathf.Pow(2, Mathf.Floor(Mathf.Log(width) / Mathf.Log(2)));
         }
         if (Mathf.Log(length) % Mathf.Log(2) != 0)
         {
@@ -94,7 +94,8 @@ public class TerrainGen : MonoBehaviour
                 if (noiseHeight > maxNoiseHeight)
                 {
                     maxNoiseHeight = noiseHeight;
-                } else if (noiseHeight < minNoiseHeight)
+                }
+                else if (noiseHeight < minNoiseHeight)
                 {
                     minNoiseHeight = noiseHeight;
                 }
@@ -127,12 +128,12 @@ public class TerrainGen : MonoBehaviour
 
             float perlinNoiseValue = Mathf.PerlinNoise(x_coord, y_coord) * 2 - 1;
             perlinNoiseValue = Mathf.Clamp(perlinNoiseValue, -1f, 0.5f);
-            noiseHeight +=  perlinNoiseValue * amplitude;
+            noiseHeight += perlinNoiseValue * amplitude;
 
             amplitude *= persitance;
             frequency *= lacunarity;
         }
-        
+
 
         return noiseHeight;
     }

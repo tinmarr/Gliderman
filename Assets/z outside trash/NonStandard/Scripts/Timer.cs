@@ -933,7 +933,7 @@ public class PropertyDrawer_ObjectPtr : PropertyDrawer
 		if (itemsToCleanup.Count != 0) { RequestCleanup(self); }
 	}
 
-	// TODO rename this to DoGUI
+	
 	public virtual Object EditorGUIObjectReference(Rect _position, Object obj, Component self) {
 		int oldIndent = EditorGUI.indentLevel;
 		EditorGUI.indentLevel = 0;

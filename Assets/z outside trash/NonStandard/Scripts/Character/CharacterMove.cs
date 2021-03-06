@@ -83,7 +83,7 @@ namespace NonStandard.Character {
 			[HideInInspector] public float turnClockwise;
 
 			[HideInInspector] public Vector3 moveDirection;
-			[HideInInspector] public Vector3 groundNormal; // TODO refactor in CharacterMove
+			[HideInInspector] public Vector3 groundNormal;
 			[HideInInspector] public Vector3 oppositionDirection;
 			[HideInInspector] public Vector3 lastVelocity;
 			[HideInInspector] public Vector3 lastOppositionDirection;
