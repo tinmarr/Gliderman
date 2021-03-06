@@ -120,7 +120,7 @@ public class Glider2 : MonoBehaviour
         // the dot product is shorter if the angles are farther apart
         float tip = Vector3.Dot(transform.right, Vector3.up);// or we could just get the dot product
         //float tip = (transform.right + Vector3.up).magnitude - 1.414214f;
-        roll -= tip * rotationSpeed;
+        roll -= tip;
         //float tip = Vector3.Dot(transform.right, Vector3.up); <-- find out about that
 
     }
@@ -143,12 +143,12 @@ public class Glider2 : MonoBehaviour
             if (359 > transform.eulerAngles.z || transform.eulerAngles.z > 1)
             {
                 yaw = (transform.eulerAngles.z < 60) ? 1 : -1;
-                transform.Rotate(transform.forward, yaw * Time.deltaTime, Space.World);
+                transform.Rotate(transform.forward, yaw * Time.deltaTime * -1, Space.World);
             }
         }
 
         if (roll != 0)
-            transform.Rotate(Vector3.up, roll * Time.deltaTime, Space.World);
+            transform.Rotate(Vector3.up, roll * Time.deltaTime * rotationSpeed, Space.World);
 
         if (transform.rotation.eulerAngles.z > 60 && transform.rotation.eulerAngles.z < 300)
         {
@@ -162,7 +162,6 @@ public class Glider2 : MonoBehaviour
     {
         if (Input.GetButton("Jump"))
         {
-            // TODO add thrust
             Vector3 jetForce = transform.forward * jetSpeed;
             controller.Move((controller.velocity + jetForce * Time.deltaTime) * Time.deltaTime);
             jet.Play();

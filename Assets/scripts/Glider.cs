@@ -15,9 +15,9 @@ public class Glider : MonoBehaviour
     public float energy;
 
     
-    float roll ;
-    float tilt ;
     float yaw ;
+    float tilt ;
+    float roll ;
     private void Start()
     {
         rigidbody = gameObject.GetComponent<Rigidbody>();
@@ -50,20 +50,20 @@ public class Glider : MonoBehaviour
     private void GetInputs()
     {
         // turn body from forward to backward
-        roll = Input.GetAxis("Horizontal") * rollSpeed / Time.timeScale;
+        yaw = Input.GetAxis("Horizontal") * rollSpeed / Time.timeScale;
         // go up or down
         tilt = Input.GetAxis("Vertical") * tiltSpeed / Time.timeScale;
 
-        // yaw cant really be adjusted by player
-        // yaw is if we had a string from top to bottom adjustment
-        yaw = 0;
+        // roll cant really be adjusted by player
+        // roll is if we had a string from top to bottom adjustment
+        roll = 0;
 
         // if your world.up is | and transform.right is -- then the we havent turned our body
         // and the magnitude of that vector would be exactly 1.414214
         // the dot product is shorter if the angles are farther apart
         float tip = Vector3.Dot(transform.right, Vector3.up);// or we could just get the dot product
         //float tip = (transform.right + Vector3.up).magnitude - 1.414214f;
-        yaw -= tip;
+        roll -= tip;
         // float tip = Vector3.Dot(transform.right, Vector3.up); <-- find out about that
 
     }
@@ -76,18 +76,18 @@ public class Glider : MonoBehaviour
         if (tilt != 0)
             transform.Rotate(transform.right, tilt * Time.deltaTime * 10, Space.World);
         //rotate yourself around the anchor point of your forward to the right and left
-        if (roll != 0)
-            transform.Rotate(transform.forward, roll * Time.deltaTime * -10, Space.World);
+        if (yaw != 0)
+            transform.Rotate(transform.forward, yaw * Time.deltaTime * -10, Space.World);
         else { 
             if (359 > transform.eulerAngles.z || transform.eulerAngles.z > 1){
-                roll = (transform.eulerAngles.z < 60) ? 1 : -1;
-                transform.Rotate(transform.forward, roll * Time.deltaTime * -10, Space.World);
+                yaw = (transform.eulerAngles.z < 60) ? 1 : -1;
+                transform.Rotate(transform.forward, yaw * Time.deltaTime * -10, Space.World);
             }
         }
             
         //this one is iffy
-        if (yaw != 0)
-            transform.Rotate(Vector3.up, yaw * Time.deltaTime * 15, Space.World);
+        if (roll != 0)
+            transform.Rotate(Vector3.up, roll * Time.deltaTime * 15, Space.World);
 
         if (transform.rotation.eulerAngles.z > 60 && transform.rotation.eulerAngles.z < 300)
         {
