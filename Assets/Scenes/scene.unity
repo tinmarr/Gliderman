@@ -346,7 +346,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 173122209}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -215.3, y: 120.4, z: 387.8}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1050747451}
@@ -557,7 +557,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1050747450}
   m_LocalRotation: {x: 0.7035842, y: -0, z: -0, w: 0.71061194}
-  m_LocalPosition: {x: 329.6, y: 128.98, z: -219.35}
+  m_LocalPosition: {x: 112.2, y: 340.5, z: 435.8}
   m_LocalScale: {x: 2.1191726, y: 2.1191726, z: 2.1191726}
   m_Children: []
   m_Father: {fileID: 173122210}
@@ -709,7 +709,7 @@ GameObject:
   - component: {fileID: 1895329606}
   m_Layer: 0
   m_Name: gliderman
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -733,14 +733,14 @@ MonoBehaviour:
   areaDensityConstant: 1.225
   rotationSpeed: 30
   jetSpeed: 10
-  flapAngle: 0
+  flapAngle: 0.74
   liftSlope: 6.28
   skinFriction: 0
   zeroLiftAoA: 0
   stallAngleHigh: 5
   stallAngleLow: -5
   chord: 1
-  flapFraction: 0
+  flapFraction: 0.22
   span: 5
   autoAspectRatio: 1
   aspectRatio: 5
@@ -784,7 +784,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1895329605}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 108.5, y: 240, z: 4.33}
+  m_LocalPosition: {x: 110, y: 234.3, z: 484.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 730706176}

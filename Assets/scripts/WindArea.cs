@@ -7,10 +7,10 @@ public class WindArea : MonoBehaviour
 
     void OnTriggerStay(Collider col)
     {
-        Rigidbody colRigidbody = col.GetComponent<Rigidbody>();
-        if (colRigidbody != null)
+        if (col.tag == "Player")
         {
-            colRigidbody.AddForce(WindDirection * Strength);
+            Glider2 script = col.GetComponent<Glider2>();
+            script.AddForce(new Vector3(0, 1000, 0), false, true);
         }
     }
 }

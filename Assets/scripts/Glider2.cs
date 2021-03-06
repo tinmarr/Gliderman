@@ -30,16 +30,20 @@ public class Glider2 : MonoBehaviour
 
     private CharacterController controller;
 
-    float yaw;
-    float tilt;
     float roll;
+    float tilt;
+    float yaw;
+
+    Vector3 dragDirection;
+    Vector3 liftDirection;
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         jet.Stop();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         float anglefromground = Vector3.Angle(Vector3.forward, transform.forward);
         float activeWingArea = Mathf.Cos(Mathf.Deg2Rad * anglefromground);
@@ -77,8 +81,8 @@ public class Glider2 : MonoBehaviour
         Vector3 airVelocity = transform.InverseTransformDirection(-controller.velocity);
         airVelocity = new Vector3(airVelocity.x, airVelocity.y);
 
-        Vector3 dragDirection = transform.TransformDirection(airVelocity.normalized);
-        Vector3 liftDirection = Vector3.Cross(dragDirection, transform.forward);
+        dragDirection = transform.TransformDirection(airVelocity.normalized);
+        liftDirection = Vector3.Cross(dragDirection, transform.forward);
 
         float dynamicPressure = 0.5f * AirDensity(transform.position.y) * airVelocity.sqrMagnitude;
         float angleOfAttack = Mathf.Atan2(airVelocity.y, -airVelocity.x);
@@ -93,12 +97,35 @@ public class Glider2 : MonoBehaviour
         Vector3 drag = dragDirection * aerodynamicCoefficients.y * dynamicPressure * wingArea;
         Vector3 torque = -transform.forward * aerodynamicCoefficients.z * dynamicPressure * wingArea * chord;
 
-        Vector3 netAccel = (gravityForce + lift + drag + torque) / mass;
-        Vector3 newVelocity = controller.velocity + netAccel * Time.deltaTime;
-        Debug.Log(newVelocity);
-        controller.Move(newVelocity * Time.deltaTime);
+        AddForce(gravityForce + lift + drag + torque);
     }
 
+    public void AddForce(Vector3 force, bool hasDirection = true, bool vertical = false)
+    {
+
+        Vector3 accel;
+        if (hasDirection)
+        {
+            accel = force / mass;
+        }
+        else
+        {
+            if (vertical)
+            {
+                accel = (force.magnitude * Vector3.up) / mass;
+                Debug.Log(accel);
+                Debug.Log(accel.magnitude);
+            }
+            else
+            {
+                accel = Vector3.zero;
+                //accel = (force.magnitude * -dragDirection) / mass;
+            }
+        }
+        Vector3 newVelocity = controller.velocity + (accel * Time.deltaTime);
+        controller.Move(newVelocity * Time.deltaTime);
+
+    }
     private float AirDensity(float altitude)
     {
         return areaDensityConstant;
@@ -107,20 +134,20 @@ public class Glider2 : MonoBehaviour
     private void GetInputs()
     {
         // turn body from forward to backward
-        yaw = Input.GetAxis("Horizontal") * rotationSpeed / Time.timeScale;
+        roll = Input.GetAxis("Horizontal") * rotationSpeed / Time.timeScale;
         // go up or down
         tilt = Input.GetAxis("Vertical") * rotationSpeed / Time.timeScale;
 
         // roll cant really be adjusted by player
         // roll is if we had a string from top to bottom adjustment
-        roll = 0;
+        yaw = 0;
 
         // if your world.up is | and transform.right is -- then the we havent turned our body
         // and the magnitude of that vector would be exactly 1.414214
         // the dot product is shorter if the angles are farther apart
         float tip = Vector3.Dot(transform.right, Vector3.up);// or we could just get the dot product
         //float tip = (transform.right + Vector3.up).magnitude - 1.414214f;
-        roll -= tip;
+        yaw -= tip;
         //float tip = Vector3.Dot(transform.right, Vector3.up); <-- find out about that
 
     }
@@ -132,9 +159,9 @@ public class Glider2 : MonoBehaviour
             transform.Rotate(transform.right, tilt * Time.deltaTime, Space.World);
         }
         //rotate yourself around the anchor point of your forward to the right and left
-        if (yaw != 0)
+        if (roll != 0)
         {
-            transform.Rotate(transform.forward, yaw * Time.deltaTime * -1, Space.World);
+            transform.Rotate(transform.forward, roll * Time.deltaTime * -1, Space.World);
         }
 
         // --------------------- AUTO CORRECT ROTATION CODE --------------------------- //
@@ -142,13 +169,13 @@ public class Glider2 : MonoBehaviour
         {
             if (359 > transform.eulerAngles.z || transform.eulerAngles.z > 1)
             {
-                yaw = (transform.eulerAngles.z < 60) ? 1 : -1;
-                transform.Rotate(transform.forward, yaw * Time.deltaTime * -1, Space.World);
+                roll = (transform.eulerAngles.z < 60) ? 1 : -1;
+                transform.Rotate(transform.forward, roll * Time.deltaTime * -10, Space.World);
             }
         }
 
-        if (roll != 0)
-            transform.Rotate(Vector3.up, roll * Time.deltaTime * rotationSpeed, Space.World);
+        if (yaw != 0)
+            transform.Rotate(Vector3.up, yaw * Time.deltaTime * rotationSpeed, Space.World);
 
         if (transform.rotation.eulerAngles.z > 60 && transform.rotation.eulerAngles.z < 300)
         {
@@ -162,8 +189,7 @@ public class Glider2 : MonoBehaviour
     {
         if (Input.GetButton("Jump"))
         {
-            Vector3 jetForce = transform.forward * jetSpeed;
-            controller.Move((controller.velocity + jetForce * Time.deltaTime) * Time.deltaTime);
+            AddForce(transform.forward * jetSpeed);
             jet.Play();
         }
         else
