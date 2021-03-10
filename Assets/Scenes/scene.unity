@@ -312,7 +312,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359681308}
-  m_LocalRotation: {x: 0.16018224, y: 0.000000004234459, z: -6.871579e-10, w: 0.9870875}
+  m_LocalRotation: {x: 0.16018225, y: 0.00000002330982, z: -0.000000003782663, w: 0.9870875}
   m_LocalPosition: {x: 110, y: 236.29898, z: 478.2024}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -516,6 +516,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Visual Model
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d1dc7921c3adb2c4399ff515fc96002e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1dc7921c3adb2c4399ff515fc96002e, type: 3}
 --- !u!1 &935012702
@@ -560,8 +564,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.017601, y: 0.49121094, z: 1.5207825}
-  m_Center: {x: -0.053325653, y: 0.07191467, z: -0.034500122}
+  m_Size: {x: 3.286415, y: 0.49121094, z: 4.608185}
+  m_Center: {x: -0.022579193, y: 0.07191467, z: 0.07307434}
 --- !u!1 &1050747450
 GameObject:
   m_ObjectHideFlags: 0
@@ -874,7 +878,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f757b66b6a514bd4ba564317f0917af2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controlSurfaces: []
+  controlSurfaces:
+  - {fileID: 0}
+  - {fileID: 0}
   rollControlSensitivity: 0.2
   pitchControlSensitivity: 0.2
   yawControlSensitivity: 0.2
@@ -892,11 +898,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1895329605}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a82a38eccd42dea468bf6634fdcf8e65, type: 3}
+  m_Script: {fileID: 11500000, guid: ca8daf7183e8bcf488cfff80de591ae6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thrust: 500
-  aerodynamicSurfaces: []
+  thrust: 1000
+  aerodynamicSurfaces:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &1895329609
 Transform:
   m_ObjectHideFlags: 0
@@ -923,7 +931,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1895329605}
   serializedVersion: 2
-  m_Mass: 30
+  m_Mass: 100
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 1

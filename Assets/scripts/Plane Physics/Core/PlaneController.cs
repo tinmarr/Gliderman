@@ -54,11 +54,11 @@ public class PlaneController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //SetControlSurfecesAngles(Pitch, Roll, Yaw, Flap);
+        SetControlSurfacesAngles(Pitch, Roll, Yaw, Flap);
         aircraftPhysics.SetThrustPercent(thrustPercent);
     }
 
-    public void SetControlSurfecesAngles(float pitch, float roll, float yaw, float flap)
+    public void SetControlSurfacesAngles(float pitch, float roll, float yaw, float flap)
     {
         foreach (var surface in controlSurfaces)
         {
@@ -80,10 +80,4 @@ public class PlaneController : MonoBehaviour
             }
         }
     }
-
-    //private void OnDrawGizmos()
-    //{
-    //    if (!Application.isPlaying)
-    //        SetControlSurfecesAngles(Pitch, Roll, Yaw, Flap);
-    //}
 }
