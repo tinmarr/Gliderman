@@ -9,8 +9,8 @@ public class WindArea : MonoBehaviour
     {
         if (col.tag == "Player")
         {
-            Glider2 script = col.GetComponent<Glider2>();
-            script.AddForce(new Vector3(0, 1000, 0), false, true);
+            Rigidbody rb = col.GetComponent<Rigidbody>();
+            rb.AddForce(new Vector3(0, 1000, 0));
         }
     }
 }

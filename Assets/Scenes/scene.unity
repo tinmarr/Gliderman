@@ -261,67 +261,6 @@ MonoBehaviour:
   horizontalRotateInput: 0
   verticalRotateInput: 0
   zoomInput: 0
---- !u!1001 &37110189
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1895329609}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 1c79f74626e227c4cb03235427989856, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1c79f74626e227c4cb03235427989856, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1c79f74626e227c4cb03235427989856, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.42
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1c79f74626e227c4cb03235427989856, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1c79f74626e227c4cb03235427989856, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1c79f74626e227c4cb03235427989856, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1c79f74626e227c4cb03235427989856, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1c79f74626e227c4cb03235427989856, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1c79f74626e227c4cb03235427989856, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1c79f74626e227c4cb03235427989856, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 1c79f74626e227c4cb03235427989856, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 1c79f74626e227c4cb03235427989856, type: 3}
-      propertyPath: m_Name
-      value: glider
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 1c79f74626e227c4cb03235427989856, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 1c79f74626e227c4cb03235427989856, type: 3}
 --- !u!1 &173122209
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,11 +396,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &730706176 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1c79f74626e227c4cb03235427989856, type: 3}
-  m_PrefabInstance: {fileID: 37110189}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &898899759
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -471,7 +405,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: d1dc7921c3adb2c4399ff515fc96002e, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d1dc7921c3adb2c4399ff515fc96002e, type: 3}
       propertyPath: m_LocalScale.x
@@ -527,7 +461,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d1dc7921c3adb2c4399ff515fc96002e, type: 3}
       propertyPath: m_Name
-      value: Glider Model
+      value: Visual Model
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1dc7921c3adb2c4399ff515fc96002e, type: 3}
@@ -704,9 +638,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1895329609}
   - component: {fileID: 1895329610}
-  - component: {fileID: 1895329607}
   - component: {fileID: 1895329608}
   - component: {fileID: 1895329606}
+  - component: {fileID: 1895329607}
   m_Layer: 0
   m_Name: gliderman
   m_TagString: Player
@@ -729,21 +663,22 @@ MonoBehaviour:
   gravity: -9.8
   liftMultiplier: 1
   mass: 30
+  momentOfInertia: 30
   wingArea: 20
   areaDensityConstant: 1.225
   rotationSpeed: 30
-  jetSpeed: 10
-  flapAngle: 0.74
-  liftSlope: 6.28
+  jetSpeed: 500
+  flapAngle: 0
+  liftSlope: 6
   skinFriction: 0
   zeroLiftAoA: 0
   stallAngleHigh: 5
   stallAngleLow: -5
-  chord: 1
-  flapFraction: 0.22
-  span: 5
+  chord: 2.01
+  flapFraction: 0.4
+  span: 10
   autoAspectRatio: 1
-  aspectRatio: 5
+  aspectRatio: 4.9751244
   jet: {fileID: 1518624335}
 --- !u!143 &1895329607
 CharacterController:
@@ -756,8 +691,8 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 0
-  m_Radius: 0
+  m_Height: 0.01
+  m_Radius: 0.01
   m_SlopeLimit: 45
   m_StepOffset: 0
   m_SkinWidth: 0.08
@@ -772,7 +707,7 @@ BoxCollider:
   m_GameObject: {fileID: 1895329605}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 3.745163, y: 0.28665018, z: 2.0034807}
   m_Center: {x: 0.0015563965, y: -0.016073465, z: -0.037558198}
@@ -784,10 +719,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1895329605}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 110, y: 234.3, z: 484.2}
+  m_LocalPosition: {x: 110, y: 234.29898, z: 484.2024}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 730706176}
   - {fileID: 1518624333}
   - {fileID: 222436848}
   m_Father: {fileID: 0}
@@ -801,9 +735,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1895329605}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 30
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
@@ -822,7 +756,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3007062426827714850, guid: e12c6fc04d1f8bc4db07a096f236b1bb, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3007062426827714850, guid: e12c6fc04d1f8bc4db07a096f236b1bb, type: 3}
       propertyPath: m_LocalPosition.x
