@@ -623,11 +623,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3007062426827714850, guid: e12c6fc04d1f8bc4db07a096f236b1bb, type: 3}
   m_PrefabInstance: {fileID: 2084484907}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &1518624335 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 6917189029572803971, guid: e12c6fc04d1f8bc4db07a096f236b1bb, type: 3}
-  m_PrefabInstance: {fileID: 2084484907}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1895329605
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,9 +633,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1895329609}
   - component: {fileID: 1895329610}
-  - component: {fileID: 1895329608}
   - component: {fileID: 1895329606}
-  - component: {fileID: 1895329607}
   m_Layer: 0
   m_Name: gliderman
   m_TagString: Player
@@ -657,60 +650,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1895329605}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a3a02a83bf991941a7e0f9dc702cd68, type: 3}
+  m_Script: {fileID: 11500000, guid: f757b66b6a514bd4ba564317f0917af2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: -9.8
-  liftMultiplier: 1
-  mass: 30
-  momentOfInertia: 30
-  wingArea: 20
-  areaDensityConstant: 1.225
-  rotationSpeed: 30
-  jetSpeed: 500
-  flapAngle: 0
-  liftSlope: 6
-  skinFriction: 0
-  zeroLiftAoA: 0
-  stallAngleHigh: 5
-  stallAngleLow: -5
-  chord: 2.01
-  flapFraction: 0.4
-  span: 10
-  autoAspectRatio: 1
-  aspectRatio: 4.9751244
-  jet: {fileID: 1518624335}
---- !u!143 &1895329607
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1895329605}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 0.01
-  m_Radius: 0.01
-  m_SlopeLimit: 45
-  m_StepOffset: 0
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &1895329608
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1895329605}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 3.745163, y: 0.28665018, z: 2.0034807}
-  m_Center: {x: 0.0015563965, y: -0.016073465, z: -0.037558198}
+  controlSurfaces: []
+  wheels: []
+  rollControlSensitivity: 0.2
+  pitchControlSensitivity: 0.2
+  yawControlSensitivity: 0.2
+  Pitch: 0
+  Yaw: 0
+  Roll: 0
+  Flap: 0
+  displayText: {fileID: 0}
 --- !u!4 &1895329609
 Transform:
   m_ObjectHideFlags: 0
@@ -739,7 +691,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
