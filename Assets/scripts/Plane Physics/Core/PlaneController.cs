@@ -41,6 +41,11 @@ public class PlaneController : MonoBehaviour
         Roll = Input.GetAxis("Horizontal");
         Yaw = 0;
 
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    setThrust(1f, 3);
+        //}
+
         if (thrustPercent > 0f)
         {
             jet.Play();
@@ -79,11 +84,17 @@ public class PlaneController : MonoBehaviour
         }
     }
 
-    public void setThrust(float thrustPercent, int time = -1)
+    public void setThrust(float thrustPercent, int time = 0)
     {
-        if (time == -1)
+        this.thrustPercent = thrustPercent;
+        if (time != 0)
         {
-            this.thrustPercent = thrustPercent;
+            Invoke("resetThrust", time);
         }
+    }
+
+    public void resetThrust()
+    {
+        thrustPercent = 0;
     }
 }
