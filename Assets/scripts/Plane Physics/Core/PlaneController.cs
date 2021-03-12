@@ -19,7 +19,7 @@ public class PlaneController : MonoBehaviour
     public float Yaw;
     [Range(-1, 1)]
     public float Roll;
-    [Range(0, 1)]
+    [Range(-1, 1)]
     public float Flap;
 
     float thrustPercent;
@@ -41,13 +41,11 @@ public class PlaneController : MonoBehaviour
         Roll = Input.GetAxis("Horizontal");
         Yaw = 0;
 
-        if (Input.GetKey(KeyCode.Space))
+        if (thrustPercent > 0f)
         {
-            thrustPercent = 1f;
             jet.Play();
         } else
         {
-            thrustPercent = 0f;
             jet.Stop();
         }
     }
@@ -78,6 +76,14 @@ public class PlaneController : MonoBehaviour
                     surface.SetFlapAngle(Flap * surface.InputMultiplyer);
                     break;
             }
+        }
+    }
+
+    public void setThrust(float thrustPercent, int time = -1)
+    {
+        if (time == -1)
+        {
+            this.thrustPercent = thrustPercent;
         }
     }
 }

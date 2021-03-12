@@ -14,11 +14,16 @@ public class AircraftPhysics : MonoBehaviour
 
     Rigidbody rb;
     float thrustPercent;
+    Vector3 wind = Vector3.zero;
     BiVector3 currentForceAndTorque;
 
     public void SetThrustPercent(float percent)
     {
         thrustPercent = percent;
+    }
+    public void setWind(Vector3 wind)
+    {
+        this.wind = wind;
     }
 
     private void Awake()
@@ -29,7 +34,7 @@ public class AircraftPhysics : MonoBehaviour
     private void FixedUpdate()
     {
         BiVector3 forceAndTorqueThisFrame = 
-            CalculateAerodynamicForces(rb.velocity, rb.angularVelocity, Vector3.zero, 1.2f, rb.worldCenterOfMass);
+            CalculateAerodynamicForces(rb.velocity, rb.angularVelocity, wind, 1.2f, rb.worldCenterOfMass);
 
         Vector3 velocityPrediction = PredictVelocity(forceAndTorqueThisFrame.p
             + transform.forward * thrust * thrustPercent + Physics.gravity * rb.mass);
