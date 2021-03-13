@@ -2,12 +2,15 @@ using UnityEngine;
 
 public class SpeedBoost : MonoBehaviour
 {
+    public int time = 2;
+    public float thrustPercent = 1f;
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
             PlaneController contoller = other.gameObject.GetComponentInParent<PlaneController>();
-            contoller.setThrust(1f, 2);
+            contoller.SetThrust(thrustPercent, time);
         }
     }
 }

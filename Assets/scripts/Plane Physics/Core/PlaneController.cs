@@ -88,16 +88,16 @@ public class PlaneController : MonoBehaviour
         }
     }
 
-    public void setThrust(float thrustPercent, int time = 0)
+    public void SetThrust(float thrustPercent, int time = 0)
     {
         this.thrustPercent = thrustPercent;
         if (time != 0)
         {
-            Invoke("resetThrust", time);
+            Invoke(nameof(ResetThrust), time);
         }
     }
 
-    public void resetThrust()
+    public void ResetThrust()
     {
         thrustPercent = 0;
     }

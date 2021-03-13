@@ -3,14 +3,22 @@
 public class WindArea : MonoBehaviour
 {
     public float Strength;
-    public Vector3 WindDirection;
 
     void OnTriggerStay(Collider col)
     {
-        if (col.tag == "Player")
+        if (col.CompareTag("Player"))
         {
-            Rigidbody rb = col.GetComponent<Rigidbody>();
-            rb.AddForce(new Vector3(0, 1000, 0));
+            AircraftPhysics aircraft = col.GetComponentInParent<AircraftPhysics>();
+            aircraft.SetWind(Vector3.up * Strength);
+        }
+    }
+
+    private void OnTriggerExit(Collider col)
+    {
+        if (col.CompareTag("Player"))
+        {
+            AircraftPhysics aircraft = col.GetComponentInParent<AircraftPhysics>();
+            aircraft.SetWind(Vector3.zero);
         }
     }
 }
