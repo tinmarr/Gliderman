@@ -27,6 +27,7 @@ public class PlaneController : MonoBehaviour
     AircraftPhysics aircraftPhysics;
     Rigidbody rb;
     public ParticleSystem jet;
+    public Text planeInfo;
 
     private void Start()
     {
@@ -39,7 +40,7 @@ public class PlaneController : MonoBehaviour
     {
         Pitch = Input.GetAxis("Vertical");
         Roll = Input.GetAxis("Horizontal");
-        Yaw = 0;
+        Yaw = Input.GetAxis("Yaw");
 
         //if (Input.GetKeyDown(KeyCode.Space))
         //{
@@ -53,6 +54,9 @@ public class PlaneController : MonoBehaviour
         {
             jet.Stop();
         }
+
+        planeInfo.text = "V: "+(int)rb.velocity.magnitude+" m/s\nA: "+(int) transform.position.y+" m";
+
     }
 
     private void FixedUpdate()
