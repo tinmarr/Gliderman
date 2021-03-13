@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 using UnityEngine.UI;
 
 public class PlaneController : MonoBehaviour
@@ -28,12 +29,15 @@ public class PlaneController : MonoBehaviour
     Rigidbody rb;
     public ParticleSystem jet;
     public Text planeInfo;
+    public GameObject cam;
+    CinemachineVirtualCamera cinemachine;
 
     private void Start()
     {
         aircraftPhysics = GetComponent<AircraftPhysics>();
         rb = GetComponent<Rigidbody>();
         jet.Stop();
+        cinemachine = cam.GetComponent<CinemachineVirtualCamera>();
     }
 
     private void Update()
@@ -47,11 +51,14 @@ public class PlaneController : MonoBehaviour
         //    setThrust(1f, 3);
         //}
 
-        if (thrustPercent > 0f)
+        if (thrustPercent > 0.7f)
         {
+            cinemachine.Priority = 3;
+            CinemachineBasicMultiChannelPerlin noise = cinemachine.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
             jet.Play();
         } else
         {
+            cinemachine.Priority = 1;
             jet.Stop();
         }
 
@@ -86,6 +93,11 @@ public class PlaneController : MonoBehaviour
                     break;
             }
         }
+    }
+
+    public void GetDistanceFromGround()
+    {
+
     }
 
     public void SetThrust(float thrustPercent, int time = 0)
