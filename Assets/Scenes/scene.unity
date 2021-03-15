@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44635516, g: 0.49616176, b: 0.5746802, a: 1}
+  m_IndirectSpecularColor: {r: 0.44635588, g: 0.4961626, b: 0.57468134, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -473,8 +473,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359681308}
-  m_LocalRotation: {x: 0.16018224, y: -0.000000004252742, z: 6.9012535e-10, w: 0.9870875}
-  m_LocalPosition: {x: 110, y: 502, z: 478.2024}
+  m_LocalRotation: {x: 0.16018225, y: 0.000000023309845, z: -0.000000003782667, w: 0.9870875}
+  m_LocalPosition: {x: 110, y: 361, z: 478.2024}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 474596127}
@@ -1709,6 +1709,73 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   time: 3
   thrustPercent: 1
+--- !u!1 &1863767154
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1863767155}
+  - component: {fileID: 1863767156}
+  m_Layer: 0
+  m_Name: ControlDampener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1863767155
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863767154}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1895329609}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1863767156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863767154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5b14a717e27d864cb074947c6693ad5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pitchCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.007499695
+      value: 1.0006409
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.9577356
+      value: 0.3312497
+      inSlope: 0.03259045
+      outSlope: 0.03259045
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.102898866
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1895329605
 GameObject:
   m_ObjectHideFlags: 0
@@ -1758,6 +1825,7 @@ MonoBehaviour:
   jet: {fileID: 1518624335}
   planeInfo: {fileID: 2085553405}
   cam: {fileID: 222106960}
+  controlDampener: {fileID: 1863767156}
 --- !u!114 &1895329607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1796,6 +1864,7 @@ Transform:
   - {fileID: 171175054}
   - {fileID: 935012703}
   - {fileID: 811178531}
+  - {fileID: 1863767155}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
