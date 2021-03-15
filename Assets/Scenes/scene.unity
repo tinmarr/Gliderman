@@ -473,8 +473,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359681308}
-  m_LocalRotation: {x: 0.16018225, y: -0.000000023309845, z: 0.000000003782667, w: 0.9870875}
-  m_LocalPosition: {x: 110, y: 361, z: 478.2024}
+  m_LocalRotation: {x: 0.15047249, y: 0.33843836, z: -0.054920897, w: 0.9272547}
+  m_LocalPosition: {x: 106.10933, y: 361, z: 479.6223}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 474596127}
@@ -843,6 +843,7 @@ GameObject:
   m_Component:
   - component: {fileID: 935012703}
   - component: {fileID: 935012704}
+  - component: {fileID: 935012705}
   m_Layer: 0
   m_Name: Collision
   m_TagString: Player
@@ -877,6 +878,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.6830368, y: 0.2, z: 1.5191956}
   m_Center: {x: 0, y: 0, z: 0.25959778}
+--- !u!65 &935012705
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935012702}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.6861305, y: 1.4548645, z: 0.019646645}
+  m_Center: {x: 0, y: 0, z: 1.1378968}
 --- !u!1 &949497100
 GameObject:
   m_ObjectHideFlags: 3
@@ -1628,7 +1642,7 @@ Transform:
   m_GameObject: {fileID: 1710495259}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 110, y: 359, z: 484.2024}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
@@ -1765,13 +1779,37 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.9973315
-      value: 0.64995396
+      time: 1.0223463
+      value: 0.50336474
       inSlope: 0.03259045
       outSlope: 0.03259045
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.102898866
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  rollCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1.0158364
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.99997556
+      value: 0.5076755
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -1815,8 +1853,8 @@ MonoBehaviour:
   - {fileID: 1999455046}
   - {fileID: 1203758633}
   - {fileID: 266878813}
-  rollControlSensitivity: 0.05
-  pitchControlSensitivity: 0.05
+  rollControlSensitivity: 0.075
+  pitchControlSensitivity: 0.075
   yawControlSensitivity: 0.5
   Pitch: 0
   Yaw: 0
@@ -1855,8 +1893,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1895329605}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 110, y: 359, z: 484.2024}
+  m_LocalRotation: {x: -0, y: 0.34286624, z: -0, w: 0.9393842}
+  m_LocalPosition: {x: 109.97433, y: 359, z: 484.21164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1518624333}
@@ -1867,7 +1905,7 @@ Transform:
   - {fileID: 1863767155}
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 40.103, z: 0}
 --- !u!54 &1895329610
 Rigidbody:
   m_ObjectHideFlags: 0

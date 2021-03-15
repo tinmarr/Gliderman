@@ -47,9 +47,10 @@ public class PlaneController : MonoBehaviour
     private void Update()
     {
         Pitch = Input.GetAxis("Vertical");
-        controlDampener.DampenPitch(ref Pitch, rb.velocity.magnitude);
         Roll = Input.GetAxis("Horizontal");
         Yaw = Input.GetAxis("Yaw");
+
+        controlDampener.DampenPitch(ref Pitch, ref Roll, rb.velocity.magnitude, terminalVelocity);
 
         if (thrustPercent > 0.7f)
         {
