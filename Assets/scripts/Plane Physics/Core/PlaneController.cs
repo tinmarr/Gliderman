@@ -52,9 +52,12 @@ public class PlaneController : MonoBehaviour
 
         controlDampener.DampenPitch(ref Pitch, ref Roll, rb.velocity.magnitude, terminalVelocity);
 
-        if (thrustPercent > 0.7f)
+        if (thrustPercent > 0.6f)
         {
             cinemachine.Priority = 3;
+            
+        } else if (thrustPercent > 0.3f)
+        {
             jet.Play();
         } else
         {
@@ -63,21 +66,22 @@ public class PlaneController : MonoBehaviour
         }
 
         
+        // Get Distance from Terrain
         Vector3[] dirs = { transform.forward, -transform.forward, transform.up, -transform.up, transform.right, -transform.right };
-        List<float> groundNear = new List<float>();
-        foreach (Vector3 dir in dirs)
+        float[] groundNear = new float[dirs.Length];
+        for (int i=0; i<dirs.Length; i++)
         {
+            Vector3 dir = dirs[i];
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, dir, out hit, Mathf.Infinity))
+            if (Physics.Raycast(transform.position, dir, out hit, Mathf.Infinity, 1 << 3)) // Mathf.Infinity is fine for now... might need to lessen that
             {
-                groundNear.Add(hit.distance);
+                groundNear[i] = (hit.distance);
             } else
             {
-                groundNear.Add(10000);
+                groundNear[i] = Mathf.Infinity; // Also update here
             }
         }
-
-        planeInfo.text = "V: " + (int)rb.velocity.magnitude + " m/s\nA: " + (int)transform.position.y + " m\nD: " + (int) Mathf.Min(groundNear.ToArray()) + " m";
+        planeInfo.text = "V: " + (int)rb.velocity.magnitude + " m/s\nA: " + (int)transform.position.y + " m\nD: " + (int) Mathf.Min(groundNear) + " m";
     }
         
     private void FixedUpdate()
@@ -107,11 +111,6 @@ public class PlaneController : MonoBehaviour
                     break;
             }
         }
-    }
-
-    public void GetDistanceFromGround()
-    {
-
     }
 
     public void SetThrust(float thrustPercent, int time = 0)
