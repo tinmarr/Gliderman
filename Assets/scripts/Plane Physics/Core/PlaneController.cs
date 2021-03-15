@@ -32,7 +32,9 @@ public class PlaneController : MonoBehaviour
     public GameObject cam;
     CinemachineVirtualCamera cinemachine;
 
+    // dampening
     float terminalVelocity = 200f;
+    public ControlDampener controlDampener;
 
     private void Start()
     {
@@ -45,18 +47,13 @@ public class PlaneController : MonoBehaviour
     private void Update()
     {
         Pitch = Input.GetAxis("Vertical");
+        controlDampener.DampenPitch(ref Pitch, rb.velocity.magnitude);
         Roll = Input.GetAxis("Horizontal");
         Yaw = Input.GetAxis("Yaw");
-
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    setThrust(1f, 3);
-        //}
 
         if (thrustPercent > 0.7f)
         {
             cinemachine.Priority = 3;
-            CinemachineBasicMultiChannelPerlin noise = cinemachine.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
             jet.Play();
         } else
         {
@@ -131,4 +128,5 @@ public class PlaneController : MonoBehaviour
     {
         thrustPercent = 0;
     }
+    public float GetTerminalVelocity() { return terminalVelocity; }
 }
