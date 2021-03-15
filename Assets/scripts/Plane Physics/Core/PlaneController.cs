@@ -64,10 +64,26 @@ public class PlaneController : MonoBehaviour
             jet.Stop();
         }
 
-        planeInfo.text = "V: "+(int)rb.velocity.magnitude+" m/s\nA: "+(int) transform.position.y+" m";
+        
+        Vector3[] dirs = { transform.forward, -transform.forward, transform.up, -transform.up, transform.right, -transform.right };
+        List<float> groundNear = new List<float>();
+        foreach (Vector3 dir in dirs)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, dir, out hit, Mathf.Infinity))
+            {
+                groundNear.Add(hit.distance);
+            } else
+            {
+                groundNear.Add(Mathf.Infinity);
+            }
+        }
+
+        planeInfo.text = "V: " + (int)rb.velocity.magnitude + " m/s\nA: " + (int)transform.position.y + " m\nD: " + (int)Mathf.Min(groundNear.ToArray()) + " m";
+        Debug.Log(groundNear.IndexOf(Mathf.Min(groundNear.ToArray())));
 
     }
-
+        
     private void FixedUpdate()
     {
         SetControlSurfacesAngles(Pitch, Roll, Yaw, Flap);

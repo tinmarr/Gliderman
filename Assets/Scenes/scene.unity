@@ -473,8 +473,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359681308}
-  m_LocalRotation: {x: 0.16018225, y: 0.000000023309845, z: -0.000000003782667, w: 0.9870875}
-  m_LocalPosition: {x: 110, y: 361, z: 478.2024}
+  m_LocalRotation: {x: 0.16018224, y: -0.000000004252742, z: 6.9012535e-10, w: 0.9870875}
+  m_LocalPosition: {x: 110, y: 502, z: 478.2024}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 474596127}
@@ -1243,8 +1243,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -100, y: 50}
-  m_SizeDelta: {x: 100, y: 50}
+  m_AnchoredPosition: {x: -100, y: 80}
+  m_SizeDelta: {x: 100, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1446793434
 MonoBehaviour:
@@ -1954,7 +1954,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 90, y: 40}
+  m_SizeDelta: {x: 90, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2085553405
 MonoBehaviour:
@@ -1991,7 +1991,9 @@ MonoBehaviour:
     m_LineSpacing: 1.5
   m_Text: 'V: 100 m/s
 
-    A: 100 m'
+    A: 100 m
+
+    D: 100 m'
 --- !u!222 &2085553406
 CanvasRenderer:
   m_ObjectHideFlags: 0
