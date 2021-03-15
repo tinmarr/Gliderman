@@ -32,6 +32,8 @@ public class PlaneController : MonoBehaviour
     public GameObject cam;
     CinemachineVirtualCamera cinemachine;
 
+    float terminalVelocity = 200f;
+
     private void Start()
     {
         aircraftPhysics = GetComponent<AircraftPhysics>();
