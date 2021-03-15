@@ -73,13 +73,11 @@ public class PlaneController : MonoBehaviour
                 groundNear.Add(hit.distance);
             } else
             {
-                groundNear.Add(Mathf.Infinity);
+                groundNear.Add(10000);
             }
         }
 
-        planeInfo.text = "V: " + (int)rb.velocity.magnitude + " m/s\nA: " + (int)transform.position.y + " m\nD: " + (int)Mathf.Min(groundNear.ToArray()) + " m";
-        Debug.Log(groundNear.IndexOf(Mathf.Min(groundNear.ToArray())));
-
+        planeInfo.text = "V: " + (int)rb.velocity.magnitude + " m/s\nA: " + (int)transform.position.y + " m\nD: " + (int) Mathf.Min(groundNear.ToArray()) + " m";
     }
         
     private void FixedUpdate()

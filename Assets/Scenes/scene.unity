@@ -1515,8 +1515,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1458320646}
-  m_LocalRotation: {x: 0.16018224, y: 1e-45, z: 0, w: 0.9870875}
-  m_LocalPosition: {x: 110, y: 239.29898, z: 469.2024}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1855,7 +1855,7 @@ MonoBehaviour:
   - {fileID: 266878813}
   rollControlSensitivity: 0.075
   pitchControlSensitivity: 0.075
-  yawControlSensitivity: 0.5
+  yawControlSensitivity: 0.075
   Pitch: 0
   Yaw: 0
   Roll: 0
