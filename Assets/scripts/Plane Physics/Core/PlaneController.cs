@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PlaneController : MonoBehaviour
 {
+    [Header("Control Parameters")]
     [SerializeField]
     List<AeroSurface> controlSurfaces = null;
     [SerializeField]
@@ -14,6 +15,7 @@ public class PlaneController : MonoBehaviour
     [SerializeField]
     float yawControlSensitivity = 0.2f;
 
+    [Header("Display Variables")]
     [Range(-1, 1)]
     public float Pitch;
     [Range(-1, 1)]
@@ -23,21 +25,31 @@ public class PlaneController : MonoBehaviour
     [Range(-1, 1)]
     public float Flap;
 
-    float thrustPercent;
-
+    [Header("Jet Parameters")]
+    public float thrustPercent;
     AircraftPhysics aircraftPhysics;
     Rigidbody rb;
     public ParticleSystem jet;
+    public AnimationCurve proximityCurve;
+    bool speeding = false;
+
+    [Header("Dampening Parameters")]
+    // dampening
+    public float terminalVelocity = 200f;
+    public ControlDampener controlDampener;
+
+    [Header("UI")]
     public Text planeInfo;
+    public Text ded;
+
+    [Header("Camera")]
     public GameObject cam;
     CinemachineVirtualCamera cinemachine;
-
-    // dampening
-    float terminalVelocity = 200f;
-    public ControlDampener controlDampener;
+    bool dead = false;
 
     private void Start()
     {
+        dead = false;
         aircraftPhysics = GetComponent<AircraftPhysics>();
         rb = GetComponent<Rigidbody>();
         jet.Stop();
@@ -48,13 +60,14 @@ public class PlaneController : MonoBehaviour
     {
         Pitch = Input.GetAxis("Vertical");
         Roll = Input.GetAxis("Horizontal");
-        Yaw = Input.GetAxis("Yaw");
+        Yaw = 0;
 
         controlDampener.DampenPitch(ref Pitch, ref Roll, rb.velocity.magnitude, terminalVelocity);
 
         if (thrustPercent > 0.6f)
         {
             cinemachine.Priority = 3;
+            jet.Play();
             
         } else if (thrustPercent > 0.3f)
         {
@@ -81,13 +94,32 @@ public class PlaneController : MonoBehaviour
                 groundNear[i] = Mathf.Infinity; // Also update here
             }
         }
-        planeInfo.text = "V: " + (int)rb.velocity.magnitude + " m/s\nA: " + (int)transform.position.y + " m\nD: " + (int) Mathf.Min(groundNear) + " m";
+
+        if (!speeding)
+        {
+            thrustPercent += proximityCurve.Evaluate(Mathf.InverseLerp(0, 100, Mathf.Min(groundNear))) * Time.deltaTime;
+        }
+
+        thrustPercent = Mathf.Clamp(thrustPercent, 0, 1);
+
+        if (dead)
+        {
+            thrustPercent = 0;
+            rb.constraints = RigidbodyConstraints.FreezeAll;
+            ded.enabled = true;
+        }
+
+        planeInfo.text = "V: " + (int)rb.velocity.magnitude + " m/s\nA: " + (int)transform.position.y + " m\nT: " + (int) (thrustPercent * 100) + "%";
     }
-        
+
     private void FixedUpdate()
     {
-        SetControlSurfacesAngles(Pitch, Roll, Yaw, Flap);
-        aircraftPhysics.SetThrustPercent(thrustPercent);
+        if (!dead)
+        {
+            SetControlSurfacesAngles(Pitch, Roll, Yaw, Flap);
+            aircraftPhysics.SetThrustPercent(thrustPercent);
+        }
+        
     }
 
     public void SetControlSurfacesAngles(float pitch, float roll, float yaw, float flap)
@@ -113,18 +145,30 @@ public class PlaneController : MonoBehaviour
         }
     }
 
-    public void SetThrust(float thrustPercent, int time = 0)
+    public void SetThrust(float thrustPercent, float time = 0)
     {
         this.thrustPercent = thrustPercent;
         if (time != 0)
         {
+            speeding = true;
             Invoke(nameof(ResetThrust), time);
         }
     }
 
     public void ResetThrust()
     {
-        thrustPercent = 0;
+        speeding = false;
     }
+
     public float GetTerminalVelocity() { return terminalVelocity; }
+    
+    public void Kill()
+    {
+        dead = true;
+    }
+
+    public bool IsDead()
+    {
+        return dead;
+    }
 }

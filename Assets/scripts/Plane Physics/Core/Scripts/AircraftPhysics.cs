@@ -13,6 +13,7 @@ public class AircraftPhysics : MonoBehaviour
     List<AeroSurface> aerodynamicSurfaces = null;
 
     Rigidbody rb;
+    PlaneController controller;
     float thrustPercent;
     public Vector3 wind = Vector3.zero;
     BiVector3 currentForceAndTorque;
@@ -30,6 +31,7 @@ public class AircraftPhysics : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        controller = GetComponent<PlaneController>();
     }
 
     private void FixedUpdate()
@@ -45,11 +47,14 @@ public class AircraftPhysics : MonoBehaviour
             CalculateAerodynamicForces(velocityPrediction, angularVelocityPrediction, Vector3.zero, 1.2f, rb.worldCenterOfMass);
 
         currentForceAndTorque = (forceAndTorqueThisFrame + forceAndTorquePrediction) * 0.5f;
-        rb.AddForce(currentForceAndTorque.p);
-        rb.AddTorque(currentForceAndTorque.q);
+        if (!controller.IsDead())
+        {
+            rb.AddForce(currentForceAndTorque.p);
+            rb.AddTorque(currentForceAndTorque.q);
 
-        rb.AddForce(transform.forward * thrust * thrustPercent);
-        rb.AddForce(wind);
+            rb.AddForce(transform.forward * thrust * thrustPercent);
+            rb.AddForce(wind);
+        }
     }
 
     private void Update()
