@@ -40,12 +40,18 @@ public class PlaneController : MonoBehaviour
 
     [Header("UI")]
     public Text planeInfo;
-    public Text ded;
+    public GameObject ded;
 
     [Header("Camera")]
     public GameObject cam;
     CinemachineVirtualCamera cinemachine;
+    
+    [Header("Other")]
     bool dead = false;
+    Vector3 startPos;
+    Quaternion startRot;
+    Vector3 startScale;
+
 
     private void Start()
     {
@@ -54,6 +60,9 @@ public class PlaneController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         jet.Stop();
         cinemachine = cam.GetComponent<CinemachineVirtualCamera>();
+        startPos = transform.position;
+        startRot = transform.rotation;
+        startScale = transform.localScale;
     }
 
     private void Update()
@@ -106,7 +115,7 @@ public class PlaneController : MonoBehaviour
         {
             thrustPercent = 0;
             rb.constraints = RigidbodyConstraints.FreezeAll;
-            ded.enabled = true;
+            ded.SetActive(true);
         }
 
         planeInfo.text = "V: " + (int)rb.velocity.magnitude + " m/s\nA: " + (int)transform.position.y + " m\nT: " + (int) (thrustPercent * 100) + "%";
@@ -170,5 +179,17 @@ public class PlaneController : MonoBehaviour
     public bool IsDead()
     {
         return dead;
+    }
+
+    public void Respawn()
+    {
+        dead = false;
+        ded.SetActive(false);
+        transform.position = startPos;
+        transform.rotation = startRot;
+        transform.localScale = startScale;
+        rb.constraints = RigidbodyConstraints.None;
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
     }
 }
