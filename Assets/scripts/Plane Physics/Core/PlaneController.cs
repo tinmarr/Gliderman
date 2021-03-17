@@ -53,6 +53,8 @@ public class PlaneController : MonoBehaviour
     Vector3 startPos;
     Quaternion startRot;
     Vector3 startScale;
+    bool turnStart = false;
+    float turnAltitude = 0;
 
     private void Start()
     {
@@ -70,7 +72,9 @@ public class PlaneController : MonoBehaviour
     {
         Pitch = Input.GetAxis("Vertical");
         Roll = Input.GetAxis("Horizontal");
-        Yaw = 0;
+        Yaw = Input.GetAxis("Yaw");
+
+        // Automation
         HandleNoob();
         if (noobSettings) NoobSettings();
 
@@ -107,6 +111,7 @@ public class PlaneController : MonoBehaviour
             }
         }
 
+        // Boost
         if (!speeding)
         {
             thrustPercent += proximityCurve.Evaluate(Mathf.InverseLerp(0, 100, Mathf.Min(groundNear))) * Time.deltaTime;
@@ -114,6 +119,7 @@ public class PlaneController : MonoBehaviour
 
         thrustPercent = Mathf.Clamp(thrustPercent, 0, 1);
 
+        // Death
         if (dead)
         {
             thrustPercent = 0;
@@ -121,8 +127,20 @@ public class PlaneController : MonoBehaviour
             ded.SetActive(true);
         }
 
+        // HUD
         planeInfo.text = "V: " + (int)rb.velocity.magnitude + " m/s\nA: " + (int)transform.position.y + " m\nT: " + (int) (thrustPercent * 100) + "%";
     }
+
+    private void FixedUpdate()
+    {
+        if (!dead)
+        {
+            SetControlSurfacesAngles(Pitch, Roll, Yaw, Flap);
+            aircraftPhysics.SetThrustPercent(thrustPercent);
+        }
+
+    }
+
     private void HandleNoob()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -134,37 +152,32 @@ public class PlaneController : MonoBehaviour
     {
         if (Roll != 0 && Pitch == 0)
         {
-            controlDampener.TurnSmooth(ref Pitch, Roll, ref Yaw);
-        }
+            if (!turnStart)
+            {
+                turnAltitude = transform.position.y;
+                turnStart = true;
+            }
+            controlDampener.TurnSmooth(ref Pitch, Roll, ref Yaw, turnAltitude);
+        } else { turnStart = false; }
         if (Roll == 0)
         {
+            turnStart = false;
             if (359 > transform.eulerAngles.z && transform.eulerAngles.z > 1)
             {
                 Roll = (transform.eulerAngles.z < 60) ? 1 : -1;
-                transform.Rotate(transform.forward, Roll * Time.deltaTime * -10, Space.World);
             }
         }
-        if (transform.rotation.eulerAngles.z > 60 && transform.rotation.eulerAngles.z < 300)
-        {
-            int turnAngle;
-            if (transform.rotation.eulerAngles.z < 170) { turnAngle = 60; } else { turnAngle = 300; }
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, turnAngle);
-        }
-        if (transform.rotation.eulerAngles.x > 70 && transform.rotation.eulerAngles.x < 290)
-        {
-            int turnAngle;
-            if (transform.rotation.eulerAngles.x < 170) { turnAngle = 70; } else { turnAngle = 290; }
-            transform.eulerAngles = new Vector3(turnAngle, transform.eulerAngles.y, transform.eulerAngles.z);
-        }
-    }
-    private void FixedUpdate()
-    {
-        if (!dead)
-        {
-            SetControlSurfacesAngles(Pitch, Roll, Yaw, Flap);
-            aircraftPhysics.SetThrustPercent(thrustPercent);
-        }
-        
+
+        Vector3 angle = transform.eulerAngles;
+        if (angle.x > 180) angle.x -= 360;
+        if (angle.y > 180) angle. y -= 360;
+        if (angle.z > 180) angle.z -= 360;
+
+        transform.rotation = Quaternion.Euler(
+            Mathf.Clamp(angle.x, -80, 80),
+            angle.y,
+            Mathf.Clamp(angle.z, -45, 45)
+        );
     }
 
     public void SetControlSurfacesAngles(float pitch, float roll, float yaw, float flap)
