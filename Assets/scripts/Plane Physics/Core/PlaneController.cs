@@ -24,8 +24,8 @@ public class PlaneController : MonoBehaviour
     public float Roll;
     [Range(-1, 1)]
     public float Flap;
-    [Tooltip("Activated by shift, this lets you lock at 60deg turn")]
-    public bool Lock;
+    [Tooltip("Toggled by shift, this helps you do the stuffs")]
+    public bool noobSettings;
 
     [Header("Jet Parameters")]
     public float thrustPercent;
@@ -75,18 +75,8 @@ public class PlaneController : MonoBehaviour
         {
             controlDampener.TurnSmooth(ref Pitch, Roll, ref Yaw);
         }
-        if (transform.rotation.eulerAngles.z > 60 && transform.rotation.eulerAngles.z < 300)
-        {
-            int turnAngle;
-            if (transform.rotation.eulerAngles.z < 170) { turnAngle = 60; } else { turnAngle = 300; }
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, turnAngle);
-        }
-        //if (transform.rotation.eulerAngles.x > 70 && transform.rotation.eulerAngles.x < 290)
-        //{
-        //    int turnAngle;
-        //    if (transform.rotation.eulerAngles.x < 170) { turnAngle = 60; } else { turnAngle = 300; }
-        //    transform.eulerAngles = new Vector3(turnAngle, transform.eulerAngles.y, transform.eulerAngles.z);
-        //}
+        HandleNoob();
+        if (noobSettings) NoobSettings();
 
         controlDampener.Dampen(ref Pitch, ref Roll, rb.velocity.magnitude, terminalVelocity);
 
@@ -137,7 +127,36 @@ public class PlaneController : MonoBehaviour
 
         planeInfo.text = "V: " + (int)rb.velocity.magnitude + " m/s\nA: " + (int)transform.position.y + " m\nT: " + (int) (thrustPercent * 100) + "%";
     }
-
+    private void HandleNoob()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            noobSettings = !noobSettings;
+        }
+    }
+    private void NoobSettings()
+    {
+        if (Roll == 0)
+        {
+            if (359 > transform.eulerAngles.z && transform.eulerAngles.z > 1)
+            {
+                Roll = (transform.eulerAngles.z < 60) ? 1 : -1;
+                transform.Rotate(transform.forward, Roll * Time.deltaTime * -10, Space.World);
+            }
+        }
+        if (transform.rotation.eulerAngles.z > 60 && transform.rotation.eulerAngles.z < 300)
+        {
+            int turnAngle;
+            if (transform.rotation.eulerAngles.z < 170) { turnAngle = 60; } else { turnAngle = 300; }
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, turnAngle);
+        }
+        if (transform.rotation.eulerAngles.x > 70 && transform.rotation.eulerAngles.x < 290)
+        {
+            int turnAngle;
+            if (transform.rotation.eulerAngles.x < 170) { turnAngle = 70; } else { turnAngle = 290; }
+            transform.eulerAngles = new Vector3(turnAngle, transform.eulerAngles.y, transform.eulerAngles.z);
+        }
+    }
     private void FixedUpdate()
     {
         if (!dead)
