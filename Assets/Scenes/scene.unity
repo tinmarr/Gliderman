@@ -620,7 +620,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359681308}
-  m_LocalRotation: {x: 0.14798918, y: 0.37774196, z: -0.061299123, w: 0.91194993}
+  m_LocalRotation: {x: 0.1479892, y: 0.37774202, z: -0.061299123, w: 0.91194993}
   m_LocalPosition: {x: 95.75736, y: 352, z: 95.75736}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -848,7 +848,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
   m_LookaheadTime: 0
-  m_LookaheadSmoothing: 10
+  m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
   m_HorizontalDamping: 0.5
   m_VerticalDamping: 0.5
@@ -879,7 +879,7 @@ MonoBehaviour:
   m_YDamping: 0.2
   m_ZDamping: 0.2
   m_AngularDampingMode: 0
-  m_PitchDamping: 0
+  m_PitchDamping: 2.5
   m_YawDamping: 0
   m_RollDamping: 0
   m_AngularDamping: 0
@@ -1209,11 +1209,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BindingMode: 2
   m_FollowOffset: {x: 0, y: 2, z: -6}
-  m_XDamping: 1
+  m_XDamping: 0.2
   m_YDamping: 0.2
-  m_ZDamping: 0.2
+  m_ZDamping: 0.4
   m_AngularDampingMode: 0
-  m_PitchDamping: 0
+  m_PitchDamping: 2.5
   m_YawDamping: 0
   m_RollDamping: 0
   m_AngularDamping: 0
@@ -2560,7 +2560,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3007062426827714850, guid: e12c6fc04d1f8bc4db07a096f236b1bb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3007062426827714850, guid: e12c6fc04d1f8bc4db07a096f236b1bb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2568,7 +2568,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3007062426827714850, guid: e12c6fc04d1f8bc4db07a096f236b1bb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.69
+      value: -0.77
       objectReference: {fileID: 0}
     - target: {fileID: 3007062426827714850, guid: e12c6fc04d1f8bc4db07a096f236b1bb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2596,6 +2596,66 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3007062426827714850, guid: e12c6fc04d1f8bc4db07a096f236b1bb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917189029572803971, guid: e12c6fc04d1f8bc4db07a096f236b1bb, type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917189029572803971, guid: e12c6fc04d1f8bc4db07a096f236b1bb, type: 3}
+      propertyPath: lengthInSec
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917189029572803971, guid: e12c6fc04d1f8bc4db07a096f236b1bb, type: 3}
+      propertyPath: ShapeModule.type
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917189029572803971, guid: e12c6fc04d1f8bc4db07a096f236b1bb, type: 3}
+      propertyPath: ShapeModule.angle
+      value: 41.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917189029572803971, guid: e12c6fc04d1f8bc4db07a096f236b1bb, type: 3}
+      propertyPath: ShapeModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917189029572803971, guid: e12c6fc04d1f8bc4db07a096f236b1bb, type: 3}
+      propertyPath: InitialModule.size3D
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917189029572803971, guid: e12c6fc04d1f8bc4db07a096f236b1bb, type: 3}
+      propertyPath: ShapeModule.arc.mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917189029572803971, guid: e12c6fc04d1f8bc4db07a096f236b1bb, type: 3}
+      propertyPath: ShapeModule.arc.value
+      value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917189029572803971, guid: e12c6fc04d1f8bc4db07a096f236b1bb, type: 3}
+      propertyPath: EmissionModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917189029572803971, guid: e12c6fc04d1f8bc4db07a096f236b1bb, type: 3}
+      propertyPath: ShapeModule.arc.spread
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917189029572803971, guid: e12c6fc04d1f8bc4db07a096f236b1bb, type: 3}
+      propertyPath: VelocityModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917189029572803971, guid: e12c6fc04d1f8bc4db07a096f236b1bb, type: 3}
+      propertyPath: InitialModule.rotation3D
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917189029572803971, guid: e12c6fc04d1f8bc4db07a096f236b1bb, type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 0.0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917189029572803971, guid: e12c6fc04d1f8bc4db07a096f236b1bb, type: 3}
+      propertyPath: ShapeModule.alignToDirection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917189029572803971, guid: e12c6fc04d1f8bc4db07a096f236b1bb, type: 3}
+      propertyPath: InitialModule.gravityModifier.scalar
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
