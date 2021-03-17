@@ -23,7 +23,7 @@ public class ControlDampener : MonoBehaviour
 
     public void TurnSmooth(ref float pitch,  float roll, ref float yaw)
     {
-        pitch += pitchChange;
+        if (pitch < 0) pitch += 1 / 3 * pitchChange; else pitch += pitchChange;
         yaw += roll / Mathf.Abs(roll) * yawChange;
         // basic idea:
         // pitch slightly up

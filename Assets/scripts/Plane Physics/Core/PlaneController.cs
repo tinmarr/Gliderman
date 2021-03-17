@@ -71,10 +71,6 @@ public class PlaneController : MonoBehaviour
         Pitch = Input.GetAxis("Vertical");
         Roll = Input.GetAxis("Horizontal");
         Yaw = 0;
-        if (Roll != 0 && Pitch == 0)
-        {
-            controlDampener.TurnSmooth(ref Pitch, Roll, ref Yaw);
-        }
         HandleNoob();
         if (noobSettings) NoobSettings();
 
@@ -136,6 +132,10 @@ public class PlaneController : MonoBehaviour
     }
     private void NoobSettings()
     {
+        if (Roll != 0 && Pitch == 0)
+        {
+            controlDampener.TurnSmooth(ref Pitch, Roll, ref Yaw);
+        }
         if (Roll == 0)
         {
             if (359 > transform.eulerAngles.z && transform.eulerAngles.z > 1)
