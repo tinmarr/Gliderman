@@ -54,7 +54,6 @@ public class PlaneController : MonoBehaviour
     Quaternion startRot;
     Vector3 startScale;
 
-
     private void Start()
     {
         dead = false;
@@ -69,16 +68,27 @@ public class PlaneController : MonoBehaviour
 
     private void Update()
     {
-        
         Pitch = Input.GetAxis("Vertical");
         Roll = Input.GetAxis("Horizontal");
         Yaw = 0;
         if (Roll != 0 && Pitch == 0)
         {
-            Pitch = -1f;
+            controlDampener.TurnSmooth(ref Pitch, Roll, ref Yaw);
         }
+        if (transform.rotation.eulerAngles.z > 60 && transform.rotation.eulerAngles.z < 300)
+        {
+            int turnAngle;
+            if (transform.rotation.eulerAngles.z < 170) { turnAngle = 60; } else { turnAngle = 300; }
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, turnAngle);
+        }
+        //if (transform.rotation.eulerAngles.x > 70 && transform.rotation.eulerAngles.x < 290)
+        //{
+        //    int turnAngle;
+        //    if (transform.rotation.eulerAngles.x < 170) { turnAngle = 60; } else { turnAngle = 300; }
+        //    transform.eulerAngles = new Vector3(turnAngle, transform.eulerAngles.y, transform.eulerAngles.z);
+        //}
 
-        controlDampener.DampenPitch(ref Pitch, ref Roll, rb.velocity.magnitude, terminalVelocity);
+        controlDampener.Dampen(ref Pitch, ref Roll, rb.velocity.magnitude, terminalVelocity);
 
         if (thrustPercent > 0.6f)
         {
@@ -182,6 +192,7 @@ public class PlaneController : MonoBehaviour
     {
         dead = true;
     }
+
 
     public bool IsDead()
     {
