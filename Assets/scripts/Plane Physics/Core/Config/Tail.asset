@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tail
   m_EditorClassIdentifier: 
   liftSlope: 1.67
-  skinFriction: 0
+  skinFriction: 0.01
   zeroLiftAoA: 0
   stallAngleHigh: 15
   stallAngleLow: -15
