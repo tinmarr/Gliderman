@@ -79,7 +79,10 @@ public class PlaneController : MonoBehaviour
         if (noobSettings) NoobSettings();
 
         controlDampener.Dampen(ref Pitch, ref Roll, rb.velocity.magnitude, terminalVelocity);
-
+        if (Input.GetKey(KeyCode.Space))
+        {
+            thrustPercent = 1;
+        }
         if (thrustPercent > 0.6f)
         {
             cinemachine.Priority = 3;
