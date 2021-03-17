@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44635516, g: 0.49616176, b: 0.5746802, a: 1}
+  m_IndirectSpecularColor: {r: 0.44635588, g: 0.4961626, b: 0.57468134, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -620,7 +620,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359681308}
-  m_LocalRotation: {x: 0.1479892, y: 0.37774202, z: -0.061299123, w: 0.91194993}
+  m_LocalRotation: {x: 0.14798918, y: 0.37774202, z: -0.06129913, w: 0.91194993}
   m_LocalPosition: {x: 95.75736, y: 352, z: 95.75736}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1069,6 +1069,7 @@ GameObject:
   m_Component:
   - component: {fileID: 935012703}
   - component: {fileID: 935012704}
+  - component: {fileID: 935012705}
   m_Layer: 0
   m_Name: Collision
   m_TagString: Player
@@ -1103,6 +1104,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.6830368, y: 0.2, z: 1.5191956}
   m_Center: {x: 0, y: 0, z: 0.25959778}
+--- !u!65 &935012705
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935012702}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.6861305, y: 0.6519165, z: 0.019646645}
+  m_Center: {x: 0, y: 0, z: 1.1378968}
 --- !u!1 &949497100
 GameObject:
   m_ObjectHideFlags: 3
@@ -2197,6 +2211,7 @@ MonoBehaviour:
   Yaw: 0
   Roll: 0
   Flap: 0
+  Lock: 0
   thrustPercent: 0
   jet: {fileID: 1518624335}
   proximityCurve:

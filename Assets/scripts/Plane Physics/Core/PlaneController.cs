@@ -24,6 +24,8 @@ public class PlaneController : MonoBehaviour
     public float Roll;
     [Range(-1, 1)]
     public float Flap;
+    [Tooltip("Activated by shift, this lets you lock at 60deg turn")]
+    public bool Lock;
 
     [Header("Jet Parameters")]
     public float thrustPercent;
@@ -67,9 +69,14 @@ public class PlaneController : MonoBehaviour
 
     private void Update()
     {
+        
         Pitch = Input.GetAxis("Vertical");
         Roll = Input.GetAxis("Horizontal");
         Yaw = 0;
+        if (Roll != 0 && Pitch == 0)
+        {
+            Pitch = -1f;
+        }
 
         controlDampener.DampenPitch(ref Pitch, ref Roll, rb.velocity.magnitude, terminalVelocity);
 
