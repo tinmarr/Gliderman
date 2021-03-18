@@ -140,11 +140,14 @@ public class GliderController : MonoBehaviour
             rb.constraints = RigidbodyConstraints.FreezeAll;
             ded.SetActive(true);
         }
+        float angle = transform.eulerAngles.x;
+        if (angle > 180) angle -= 360;
+        float abspitch = (angle/180);
         // HUD
         planeInfo.text = "V: " + (int)rb.velocity.magnitude + " m/s"+
             "\nA: " + (int)transform.position.y + " m"+
             "\nT: " + (int) (thrustPercent * 100) + "%"+
-            "\nPitch: " + (2*Mathf.InverseLerp(0, 360, transform.eulerAngles.x) - 1).ToString("n2");
+            "\nPitch: " + abspitch.ToString("n2");
     }
 
     private void FixedUpdate()
