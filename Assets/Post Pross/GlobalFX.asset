@@ -46,7 +46,7 @@ MonoBehaviour:
     value: 65472
   diffusion:
     overrideState: 0
-    value: 7
+    value: 10
   anamorphicRatio:
     overrideState: 0
     value: 0
@@ -1392,13 +1392,13 @@ MonoBehaviour:
     value: 1
   focusDistance:
     overrideState: 1
-    value: 5.39
+    value: 1.07
   aperture:
     overrideState: 1
     value: 32
   focalLength:
     overrideState: 1
-    value: 50
+    value: 53
   kernelSize:
     overrideState: 1
     value: 3
