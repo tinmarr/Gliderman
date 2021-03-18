@@ -3,7 +3,7 @@ using UnityEngine;
 using Cinemachine;
 using UnityEngine.UI;
 
-public class PlaneController : MonoBehaviour
+public class GliderController : MonoBehaviour
 {
     [Header("Control Parameters")]
     [SerializeField]
@@ -53,8 +53,7 @@ public class PlaneController : MonoBehaviour
     Vector3 startPos;
     Quaternion startRot;
     Vector3 startScale;
-    bool turnStart = false;
-    float turnAltitude = 0;
+    Automation automation;
 
     private void Start()
     {
@@ -66,6 +65,7 @@ public class PlaneController : MonoBehaviour
         startPos = transform.position;
         startRot = transform.rotation;
         startScale = transform.localScale;
+        automation = GetComponent<Automation>();
     }
 
     private void Update()
@@ -76,7 +76,7 @@ public class PlaneController : MonoBehaviour
 
         // Automation
         HandleNoob();
-        if (noobSettings) NoobSettings();
+        if (noobSettings) automation.NoobSettings(ref Pitch, ref Roll, ref Yaw);
 
         controlDampener.Dampen(ref Pitch, ref Roll, rb.velocity.magnitude, terminalVelocity);
         if (Input.GetKey(KeyCode.Space))
@@ -150,37 +150,6 @@ public class PlaneController : MonoBehaviour
         {
             noobSettings = !noobSettings;
         }
-    }
-    private void NoobSettings()
-    {
-        if (Roll != 0 && Pitch == 0)
-        {
-            if (!turnStart)
-            {
-                turnAltitude = transform.position.y;
-                turnStart = true;
-            }
-            controlDampener.TurnSmooth(ref Pitch, Roll, ref Yaw, turnAltitude);
-        } else { turnStart = false; }
-        if (Roll == 0)
-        {
-            turnStart = false;
-            if (359 > transform.eulerAngles.z && transform.eulerAngles.z > 1)
-            {
-                Roll = (transform.eulerAngles.z < 60) ? 1 : -1;
-            }
-        }
-
-        Vector3 angle = transform.eulerAngles;
-        if (angle.x > 180) angle.x -= 360;
-        if (angle.y > 180) angle. y -= 360;
-        if (angle.z > 180) angle.z -= 360;
-
-        transform.rotation = Quaternion.Euler(
-            Mathf.Clamp(angle.x, -80, 80),
-            angle.y,
-            Mathf.Clamp(angle.z, -45, 45)
-        );
     }
 
     public void SetControlSurfacesAngles(float pitch, float roll, float yaw, float flap)

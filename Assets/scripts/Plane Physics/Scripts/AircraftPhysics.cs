@@ -13,7 +13,7 @@ public class AircraftPhysics : MonoBehaviour
     List<AeroSurface> aerodynamicSurfaces = null;
 
     Rigidbody rb;
-    PlaneController controller;
+    GliderController controller;
     float thrustPercent;
     public Vector3 wind = Vector3.zero;
     BiVector3 currentForceAndTorque;
@@ -31,7 +31,7 @@ public class AircraftPhysics : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        controller = GetComponent<PlaneController>();
+        controller = GetComponent<GliderController>();
     }
 
     private void FixedUpdate()

@@ -620,7 +620,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359681308}
-  m_LocalRotation: {x: 0.14798918, y: 0.37774196, z: -0.061299123, w: 0.91194993}
+  m_LocalRotation: {x: 0.14798921, y: 0.37774202, z: -0.06129913, w: 0.91194993}
   m_LocalPosition: {x: 95.75736, y: 352, z: 95.75736}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2240,6 +2240,7 @@ GameObject:
   - component: {fileID: 1895329610}
   - component: {fileID: 1895329606}
   - component: {fileID: 1895329607}
+  - component: {fileID: 1895329608}
   m_Layer: 0
   m_Name: gliderman
   m_TagString: Player
@@ -2283,24 +2284,24 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0.5
-      inSlope: 0.028873853
-      outSlope: 0.028873853
+      inSlope: -3.9294596
+      outSlope: -3.9294596
       tangentMode: 0
       weightedMode: 3
       inWeight: 0
-      outWeight: 0.9630982
+      outWeight: 0.1217223
     - serializedVersion: 3
-      time: 0.21198945
+      time: 0.61615664
       value: -0.0002631275
-      inSlope: -0.022780005
+      inSlope: -0.1926557
       outSlope: -0.7840621
       tangentMode: 1
       weightedMode: 3
-      inWeight: 1
+      inWeight: 0.8377036
       outWeight: 0.09410534
     - serializedVersion: 3
-      time: 0.23518711
-      value: -2
+      time: 0.62268406
+      value: -2.0117798
       inSlope: -1.4186696
       outSlope: -0.004580506
       tangentMode: 1
@@ -2346,6 +2347,21 @@ MonoBehaviour:
   - {fileID: 1203758633}
   - {fileID: 266878813}
   wind: {x: 0, y: 0, z: 0}
+--- !u!114 &1895329608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1895329605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13e5bf60d7a8fd94e8439859355fdc92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angleClamp: 1
+  autoTurn: 1
+  autoCorrect: 1
 --- !u!4 &1895329609
 Transform:
   m_ObjectHideFlags: 0

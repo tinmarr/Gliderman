@@ -9,7 +9,7 @@ public class SpeedBoost : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PlaneController contoller = other.gameObject.GetComponentInParent<PlaneController>();
+            GliderController contoller = other.gameObject.GetComponentInParent<GliderController>();
             contoller.SetThrust(thrustPercent, time);
         }
     }

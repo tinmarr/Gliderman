@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ControlDampener : MonoBehaviour
 {
-    PlaneController controller;
+    GliderController controller;
 
     public AnimationCurve pitchCurve;
     public AnimationCurve rollCurve;
@@ -16,7 +16,7 @@ public class ControlDampener : MonoBehaviour
 
     private void Start()
     {
-        controller = GetComponentInParent<PlaneController>();
+        controller = GetComponentInParent<GliderController>();
     }
 
     public void Dampen(ref float pitch, ref float roll, float velocity, float terminalVelocity)
@@ -26,18 +26,4 @@ public class ControlDampener : MonoBehaviour
         roll *= this.rollCurve.Evaluate(Mathf.InverseLerp(0, terminalVelocity, velocity));
         // pitch between -1 and 1, the higher the velocity the same it will be
     }
-
-    public void TurnSmooth(ref float pitch,  float roll, ref float yaw, float altitude)
-    {
-        //if (pitch < 0) pitch += 1 / 3 * pitchChange; else pitch += pitchChange;
-        //yaw += roll / Mathf.Abs(roll) * yawChange;
-
-        pitch = (controller.transform.position.y - altitude) / 20;
-
-        // basic idea:
-        // pitch slightly up
-        // yaw slightly to place you turn
-        // possibly
-    }
-
 }

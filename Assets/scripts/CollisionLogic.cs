@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CollisionLogic : MonoBehaviour
 {
-    public PlaneController player;
+    public GliderController player;
 
     private void OnCollisionEnter(Collision collision)
     {
