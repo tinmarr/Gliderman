@@ -615,7 +615,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359681308}
-  m_LocalRotation: {x: 0.21226415, y: 0.37244627, z: -0.08792268, w: 0.89916486}
+  m_LocalRotation: {x: 0.21226414, y: 0.37244627, z: -0.08792268, w: 0.89916486}
   m_LocalPosition: {x: 95.75736, y: 353, z: 95.75736}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2119,20 +2119,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SampleCount: 4
-  ScatteringCoef: 0.093
+  SampleCount: 1
+  ScatteringCoef: 0.106
   ExtinctionCoef: 0.0087
-  SkyboxExtinctionCoef: 0.485
-  MieG: 0.1
-  HeightFog: 0
-  HeightScale: 0.054
-  GroundLevel: 1000
-  Noise: 1
-  NoiseScale: 0.015
-  NoiseIntensity: 3.06
-  NoiseIntensityOffset: 0.32
-  NoiseVelocity: {x: 3, y: 3}
-  MaxRayLength: 400
+  SkyboxExtinctionCoef: 0.254
+  MieG: 0
+  HeightFog: 1
+  HeightScale: 0.01
+  GroundLevel: 0
+  Noise: 0
+  NoiseScale: 0
+  NoiseIntensity: 4.55
+  NoiseIntensityOffset: 0.35
+  NoiseVelocity: {x: 0, y: 0}
+  MaxRayLength: 1000
 --- !u!1 &1501318151
 GameObject:
   m_ObjectHideFlags: 0
