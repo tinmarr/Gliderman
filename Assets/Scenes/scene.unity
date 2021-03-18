@@ -2475,7 +2475,7 @@ MonoBehaviour:
   Yaw: 0
   Roll: 0
   Flap: 0
-  noobSettings: 0
+  noobSettings: 1
   thrustPercent: 0
   jet: {fileID: 1518624335}
   proximityCurve:
@@ -2565,9 +2565,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e5bf60d7a8fd94e8439859355fdc92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angleClamp: 1
-  autoTurn: 1
-  autoCorrect: 1
+  angleClamp: 0
+  autoTurn: 0
+  autoCorrect: 0
 --- !u!4 &1895329609
 Transform:
   m_ObjectHideFlags: 0

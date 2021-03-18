@@ -76,11 +76,11 @@ public class GliderController : MonoBehaviour
     {
         Pitch = Input.GetAxis("Vertical");
         Roll = Input.GetAxis("Horizontal");
-        Yaw = Input.GetAxis("Yaw");
+        Yaw = 0;
 
         // Automation
         HandleNoob();
-        if (noobSettings) automation.NoobSettings(ref Pitch, ref Roll, ref Yaw);
+        if (noobSettings) automation.NoobSettings(ref Pitch, ref Yaw, ref Roll);
 
         controlDampener.Dampen(ref Pitch, ref Roll, rb.velocity.magnitude, terminalVelocity);
 

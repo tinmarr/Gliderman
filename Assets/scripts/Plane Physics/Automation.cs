@@ -54,7 +54,6 @@ public class Automation : MonoBehaviour
     {
         if (Roll == 0)
         {
-            turnStart = false;
             if (359 > transform.eulerAngles.z && transform.eulerAngles.z > 1)
             {
                 Roll = (transform.eulerAngles.z < 60) ? 1 : -1;
