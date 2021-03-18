@@ -47,7 +47,10 @@ public class GliderController : MonoBehaviour
     [Header("Camera")]
     public GameObject cam;
     CinemachineVirtualCamera cinemachine;
-    
+
+    [Header("Brakes")]
+    public Transform[] brakes = new Transform[2];
+
     [Header("Other")]
     bool dead = false;
     Vector3 startPos;
@@ -79,10 +82,17 @@ public class GliderController : MonoBehaviour
         if (noobSettings) automation.NoobSettings(ref Pitch, ref Roll, ref Yaw);
 
         controlDampener.Dampen(ref Pitch, ref Roll, rb.velocity.magnitude, terminalVelocity);
+
+        // Jet
         if (Input.GetKey(KeyCode.Space))
         {
             thrustPercent = 1;
         }
+
+        // Brakes
+        Brake();
+
+        // Camera
         if (thrustPercent > 0.6f)
         {
             cinemachine.Priority = 3;
@@ -213,5 +223,22 @@ public class GliderController : MonoBehaviour
         rb.constraints = RigidbodyConstraints.None;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
+    }
+
+    public void Brake()
+    {
+        if (Input.GetKey(KeyCode.B))
+        {
+            foreach (Transform brake in brakes)
+            {
+                brake.localRotation = Quaternion.Euler(brake.localEulerAngles.x, brake.localEulerAngles.y, 90);
+            }
+        } else
+        {
+            foreach (Transform brake in brakes)
+            {
+                brake.localRotation = Quaternion.Euler(brake.localEulerAngles.x, brake.localEulerAngles.y, 0);
+            }
+        }
     }
 }
