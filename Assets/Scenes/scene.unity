@@ -615,7 +615,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359681308}
-  m_LocalRotation: {x: 0.21226414, y: 0.37244627, z: -0.08792268, w: 0.89916486}
+  m_LocalRotation: {x: 0.21226415, y: 0.37244627, z: -0.08792268, w: 0.89916486}
   m_LocalPosition: {x: 95.75736, y: 353, z: 95.75736}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1555,7 +1555,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 15e2dff84a3dd5b4fb91a1711fe78372, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 15e2dff84a3dd5b4fb91a1711fe78372, type: 3}
       propertyPath: m_LocalScale.x
@@ -1617,6 +1617,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 81b0373d99b2411458a10a27ea664cb4, type: 2}
+    - target: {fileID: -4226945930933836880, guid: 15e2dff84a3dd5b4fb91a1711fe78372, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 85e57da527b3b894098862fce4579518, type: 2}
     - target: {fileID: 919132149155446097, guid: 15e2dff84a3dd5b4fb91a1711fe78372, type: 3}
       propertyPath: m_Name
       value: glider (1)
@@ -1625,6 +1629,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1617453595550147438, guid: 15e2dff84a3dd5b4fb91a1711fe78372, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 85e57da527b3b894098862fce4579518, type: 2}
     - target: {fileID: 2003093966877970912, guid: 15e2dff84a3dd5b4fb91a1711fe78372, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
