@@ -140,9 +140,11 @@ public class GliderController : MonoBehaviour
             rb.constraints = RigidbodyConstraints.FreezeAll;
             ded.SetActive(true);
         }
-
         // HUD
-        planeInfo.text = "V: " + (int)rb.velocity.magnitude + " m/s\nA: " + (int)transform.position.y + " m\nT: " + (int) (thrustPercent * 100) + "%";
+        planeInfo.text = "V: " + (int)rb.velocity.magnitude + " m/s"+
+            "\nA: " + (int)transform.position.y + " m"+
+            "\nT: " + (int) (thrustPercent * 100) + "%"+
+            "\nPitch: " + (2*Mathf.InverseLerp(0, 360, transform.eulerAngles.x) - 1).ToString("n2");
     }
 
     private void FixedUpdate()
@@ -157,7 +159,7 @@ public class GliderController : MonoBehaviour
 
     private void HandleNoob()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             noobSettings = !noobSettings;
         }
@@ -228,7 +230,7 @@ public class GliderController : MonoBehaviour
 
     public void Brake()
     {
-        if (Input.GetKey(KeyCode.B) && rb.velocity.magnitude > minVelocity)
+        if (Input.GetKey(KeyCode.LeftShift) && rb.velocity.magnitude > minVelocity)
         {
             foreach (Transform brake in brakes)
             {
