@@ -50,6 +50,7 @@ public class GliderController : MonoBehaviour
 
     [Header("Brakes")]
     public Transform[] brakes = new Transform[2];
+    public float minVelocity = 30;
 
     [Header("Other")]
     bool dead = false;
@@ -227,7 +228,7 @@ public class GliderController : MonoBehaviour
 
     public void Brake()
     {
-        if (Input.GetKey(KeyCode.B))
+        if (Input.GetKey(KeyCode.B) && rb.velocity.magnitude > minVelocity)
         {
             foreach (Transform brake in brakes)
             {
