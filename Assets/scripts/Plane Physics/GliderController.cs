@@ -133,6 +133,15 @@ public class GliderController : MonoBehaviour
 
         thrustPercent = Mathf.Clamp(thrustPercent, 0, 1);
 
+        // Ground Effect
+        if (Mathf.Min(groundNear) < 40)
+        {
+            aircraftPhysics.SetGroundEffect(true);
+        } else
+        {
+            aircraftPhysics.SetGroundEffect(false);
+        }
+
         // Death
         if (dead)
         {

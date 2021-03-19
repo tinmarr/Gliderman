@@ -17,6 +17,22 @@ public class AircraftPhysics : MonoBehaviour
     float thrustPercent;
     public Vector3 wind = Vector3.zero;
     BiVector3 currentForceAndTorque;
+    bool groundEffect = false;
+    public float groundEffectMultiplier = 0.75f;
+
+    public void SetGroundEffect(bool ge)
+    {
+        groundEffect = ge;
+    }
+
+    /// <summary>
+    /// Is Ground Effect Active?
+    /// </summary>
+    /// <returns>Ground Effect</returns>
+    public bool GetGE()
+    {
+        return groundEffect;
+    }
 
     public void SetThrustPercent(float percent)
     {
@@ -57,11 +73,6 @@ public class AircraftPhysics : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        
-    }
-
     private BiVector3 CalculateAerodynamicForces(Vector3 velocity, Vector3 angularVelocity, Vector3 wind, float airDensity, Vector3 centerOfMass)
     {
         BiVector3 forceAndTorque = new BiVector3();
@@ -92,6 +103,14 @@ public class AircraftPhysics : MonoBehaviour
 
         return rb.angularVelocity + Time.fixedDeltaTime * PREDICTION_TIMESTEP_FRACTION
             * (inertiaTensorWorldRotation * angularVelocityChangeInDiagonalSpace);
+    }
+
+    private void OnValidate()
+    {
+        if (groundEffectMultiplier == 0)
+        {
+            groundEffectMultiplier = 0.1f;
+        }    
     }
 
 #if UNITY_EDITOR
