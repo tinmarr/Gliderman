@@ -137,7 +137,7 @@ public class GliderController : MonoBehaviour
         if (!speeding)
         {
             thrustPercent = proximityCurve.Evaluate(Mathf.InverseLerp(0, 100, Mathf.Min(groundNear)));
-            if (thrustPercent > 0f) // Trails
+            if (thrustPercent > 0.25f) // Trails
             {
                 Vector3 closestDir = dirs[Array.IndexOf(groundNear, Mathf.Min(groundNear))];
                 if (closestDir == transform.right) { rightTrail.emitting = true; leftTrail.emitting = false; }
@@ -145,9 +145,6 @@ public class GliderController : MonoBehaviour
                 else { rightTrail.emitting = true; leftTrail.emitting = true; }
             }
             else
-            {
-
-            }
             {
                 rightTrail.emitting = false;
                 leftTrail.emitting = false;
