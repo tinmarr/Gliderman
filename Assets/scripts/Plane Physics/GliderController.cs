@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.UI;
@@ -35,6 +36,10 @@ public class GliderController : MonoBehaviour
     public AnimationCurve proximityCurve;
     bool speeding = false;
 
+    [Header("Trails")]
+    public TrailRenderer rightTrail;
+    public TrailRenderer leftTrail;
+
     [Header("Dampening Parameters")]
     // dampening
     public float terminalVelocity = 200f;
@@ -70,6 +75,8 @@ public class GliderController : MonoBehaviour
         startRot = transform.rotation;
         startScale = transform.localScale;
         automation = GetComponent<Automation>();
+        rightTrail.emitting = false;
+        leftTrail.emitting = false;
     }
 
     private void Update()
@@ -87,7 +94,14 @@ public class GliderController : MonoBehaviour
         // Jet
         if (Input.GetKey(KeyCode.Space))
         {
-            thrustPercent = 1;
+            SetThrust(1, 0.1f);
+        }
+        if (speeding)
+        {
+            jet.Play();
+        } else
+        {
+            jet.Stop();
         }
 
         // Brakes
@@ -97,15 +111,9 @@ public class GliderController : MonoBehaviour
         if (thrustPercent > 0.6f)
         {
             cinemachine.Priority = 3;
-            jet.Play();
-            
-        } else if (thrustPercent > 0.3f)
-        {
-            jet.Play();
         } else
         {
             cinemachine.Priority = 1;
-            jet.Stop();
         }
 
         
@@ -128,19 +136,22 @@ public class GliderController : MonoBehaviour
         // Boost
         if (!speeding)
         {
-            thrustPercent += proximityCurve.Evaluate(Mathf.InverseLerp(0, 100, Mathf.Min(groundNear))) * Time.deltaTime;
+            thrustPercent = proximityCurve.Evaluate(Mathf.InverseLerp(0, 100, Mathf.Min(groundNear)));
+            if (thrustPercent > 0) // Trails
+            {
+                Vector3 closestDir = dirs[Array.IndexOf(groundNear, Mathf.Min(groundNear))];
+                if (closestDir == transform.right) { rightTrail.emitting = true; leftTrail.emitting = false; }
+                else if (closestDir == transform.right) { leftTrail.emitting = true; rightTrail.emitting = false; }
+                else if (closestDir == transform.up || closestDir == -transform.up) { rightTrail.emitting = true; leftTrail.emitting = true; }
+            }
+            else
+            {
+                rightTrail.emitting = false;
+                leftTrail.emitting = false;
+            }
         }
 
         thrustPercent = Mathf.Clamp(thrustPercent, 0, 1);
-
-        // Ground Effect
-        if (Mathf.Min(groundNear) < 40)
-        {
-            aircraftPhysics.SetGroundEffect(true);
-        } else
-        {
-            aircraftPhysics.SetGroundEffect(false);
-        }
 
         // Death
         if (dead)
@@ -156,7 +167,8 @@ public class GliderController : MonoBehaviour
         planeInfo.text = "V: " + (int)rb.velocity.magnitude + " m/s"+
             "\nA: " + (int)transform.position.y + " m"+
             "\nT: " + (int) (thrustPercent * 100) + "%"+
-            "\nPitch: " + abspitch.ToString("n2");
+            "\nPitch: " + abspitch.ToString("n2")+
+            "\nD: " + (int) Mathf.Min(groundNear) + " m";
     }
 
     private void FixedUpdate()

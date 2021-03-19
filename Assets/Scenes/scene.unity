@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45014918, g: 0.49135578, b: 0.5672702, a: 1}
+  m_IndirectSpecularColor: {r: 0.45014888, g: 0.49135554, b: 0.5672691, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 89162974}
   - component: {fileID: 89162975}
   m_Layer: 0
-  m_Name: Right
+  m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -196,7 +196,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 89162973}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.809, y: 0, z: -0.366}
+  m_LocalPosition: {x: -1.81, y: 0.08, z: -0.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 636844402}
@@ -243,7 +243,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.5
+  m_Time: 1
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -803,7 +803,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359681308}
-  m_LocalRotation: {x: 0.21226254, y: 0.37244642, z: -0.08792203, w: 0.8991652}
+  m_LocalRotation: {x: 0.21226254, y: 0.3724464, z: -0.087922, w: 0.8991652}
   m_LocalPosition: {x: 1995.7573, y: 353, z: 1995.7573}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -905,7 +905,7 @@ GameObject:
   - component: {fileID: 388203547}
   - component: {fileID: 388203548}
   m_Layer: 0
-  m_Name: Left
+  m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -919,7 +919,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 388203546}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.708, y: 0, z: -0.369}
+  m_LocalPosition: {x: 1.81, y: 0.07998657, z: -0.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 636844402}
@@ -966,7 +966,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.5
+  m_Time: 1
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -1944,23 +1944,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 15e2dff84a3dd5b4fb91a1711fe78372, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 15e2dff84a3dd5b4fb91a1711fe78372, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 15e2dff84a3dd5b4fb91a1711fe78372, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 15e2dff84a3dd5b4fb91a1711fe78372, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 15e2dff84a3dd5b4fb91a1711fe78372, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 270
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 15e2dff84a3dd5b4fb91a1711fe78372, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -1968,7 +1968,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 15e2dff84a3dd5b4fb91a1711fe78372, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7456669980388087499, guid: 15e2dff84a3dd5b4fb91a1711fe78372, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2104,8 +2104,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -84.37677, y: 114.53544}
-  m_SizeDelta: {x: 84.5491, y: 114.4979}
+  m_AnchoredPosition: {x: -84.37677, y: 134}
+  m_SizeDelta: {x: 84.5491, y: 134}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1446793434
 MonoBehaviour:
@@ -2914,44 +2914,37 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.0024280548
-      value: 1.5294418
-      inSlope: -3.9294596
-      outSlope: -3.9294596
+      time: 0.006584607
+      value: 1.1622573
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.15330273
+      value: 1.0411937
+      inSlope: -0.21035782
+      outSlope: -0.21035782
       tangentMode: 0
       weightedMode: 3
-      inWeight: 0
+      inWeight: 0.3333315
       outWeight: 0.1217223
     - serializedVersion: 3
-      time: 0.12024599
-      value: -0.01947394
+      time: 0.99224764
+      value: -0.016010195
       inSlope: -0.1926557
       outSlope: -0.7840621
       tangentMode: 1
       weightedMode: 3
       inWeight: 0.8377036
       outWeight: 0.09410534
-    - serializedVersion: 3
-      time: 0.5665317
-      value: -2.0743437
-      inSlope: -1.4186696
-      outSlope: -0.004580506
-      tangentMode: 1
-      weightedMode: 3
-      inWeight: 1
-      outWeight: 0.76364297
-    - serializedVersion: 3
-      time: 1
-      value: -2.1798706
-      inSlope: 0.004561803
-      outSlope: 0.004561803
-      tangentMode: 0
-      weightedMode: 1
-      inWeight: 0
-      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  rightTrail: {fileID: 388203548}
+  leftTrail: {fileID: 89162975}
   terminalVelocity: 200
   controlDampener: {fileID: 1863767156}
   planeInfo: {fileID: 2085553405}
@@ -2985,7 +2978,6 @@ MonoBehaviour:
   - {fileID: 1501318153}
   - {fileID: 962908309}
   wind: {x: 0, y: 0, z: 0}
-  groundEffectMultiplier: 1.25
 --- !u!114 &1895329608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8126,7 +8118,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 3.3735, y: 0}
-  m_SizeDelta: {x: 77.802, y: 95.4627}
+  m_SizeDelta: {x: 77.802, y: 114}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2085553405
 MonoBehaviour:
@@ -8165,7 +8157,11 @@ MonoBehaviour:
 
     A: 100 m
 
-    D: 100 m'
+    T:
+
+    Pitch:
+
+    D: '
 --- !u!222 &2085553406
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -66,12 +66,6 @@ public class AeroSurface : MonoBehaviour
         Vector3 drag = dragDirection * aerodynamicCoefficients.y * dynamicPressure * area;
         Vector3 torque = -transform.forward * aerodynamicCoefficients.z * dynamicPressure * area * config.chord;
 
-        if (aircraft.GetGE())
-        {
-            lift *= aircraft.groundEffectMultiplier;
-            drag /= aircraft.groundEffectMultiplier;
-        }
-
         forceAndTorque.p += lift + drag;
         forceAndTorque.q += Vector3.Cross(relativePosition, forceAndTorque.p);
         forceAndTorque.q += torque;
