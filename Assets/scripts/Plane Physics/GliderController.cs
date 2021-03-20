@@ -173,9 +173,10 @@ public class GliderController : MonoBehaviour
             "\nPitch: " + abspitch.ToString("n2")+
             "\nD: " + (int) Mathf.Min(groundNear) + " m";
 
+        // Flaps
         for (int i = 0; i < flaps.Length; i++)
         {
-            flaps[i].SetFlap(flapAngles[i % 2]);
+            flaps[i].SetFlap(flapAngles[i]);
         }
     }
 
@@ -213,8 +214,8 @@ public class GliderController : MonoBehaviour
                     break;
                 case ControlInputType.Roll:
                     surface.SetFlapAngle(roll * rollControlSensitivity * surface.InputMultiplyer);
-                    if (surface.InputMultiplyer > 0) { leftFlaps += roll * rollControlSensitivity * surface.InputMultiplyer; }
-                    else { rightFlaps -= roll * rollControlSensitivity * surface.InputMultiplyer; }
+                    if (surface.InputMultiplyer > 0) { leftFlaps += roll * rollControlSensitivity * surface.InputMultiplyer * 2; }
+                    else if (surface.InputMultiplyer < 0) { rightFlaps += roll * rollControlSensitivity * surface.InputMultiplyer * 2; }
                     break;
                 case ControlInputType.Yaw:
                     surface.SetFlapAngle(yaw * yawControlSensitivity * surface.InputMultiplyer);
@@ -224,8 +225,9 @@ public class GliderController : MonoBehaviour
                     break;
             }
         }
-        leftFlaps *= -140;
-        rightFlaps *= -140;
+
+        leftFlaps *= -300;
+        rightFlaps *= -300;
         for (int i = 0; i < flapAngles.Length; i++)
         {
             flapAngles[i] = i < flapAngles.Length / 2 ? leftFlaps : rightFlaps;
@@ -285,8 +287,8 @@ public class GliderController : MonoBehaviour
             {
                 flapAngles[i] = (i % 2) switch
                 {
-                    0 => 70,
-                    _ => -70,
+                    0 => 90,
+                    _ => -90,
                 };
             }
         } else

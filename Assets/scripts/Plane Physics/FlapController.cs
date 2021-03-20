@@ -1,28 +1,39 @@
 using UnityEngine;
 
+public enum Side { Right, Left}
+
 public class FlapController : MonoBehaviour
 {
     public float flapAngle = 0;
+    public Side side;
     private Vector3 initialRotation;
+
+    float multiplier = 10;
+
     /// <summary>
     /// Set Flap Angle
     /// </summary>
-    /// <param name="flapAngle">Number between -90 and 90</param>
+    /// <param name="flapAngle">Number between -70 and 70</param>
     public void SetFlap(float flapAngle)
     {
-        this.flapAngle = Mathf.Clamp(flapAngle, -90, 90);
+        this.flapAngle = Mathf.Clamp(flapAngle, -70, 70);
     }
 
     private void Start()
     {
         initialRotation = transform.localRotation.eulerAngles;
+
+        if (side == Side.Right)
+        {
+            multiplier *= -1f;
+        }
     }
 
     private void Update()
     {
         transform.localRotation = Quaternion.Euler(
             initialRotation.x + flapAngle, 
-            initialRotation.y, 
+            initialRotation.y + flapAngle/multiplier, 
             initialRotation.z
            );
     }
