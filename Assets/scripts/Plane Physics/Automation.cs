@@ -70,7 +70,7 @@ public class Automation : MonoBehaviour
         transform.rotation = Quaternion.Euler(
             Mathf.Clamp(angle.x, -80, 80),
             angle.y,
-            Mathf.Clamp(angle.z, -45, 45)
+            Mathf.Clamp(angle.z, -60, 60)
         );
     }
 
