@@ -15,6 +15,8 @@ public class GliderController : MonoBehaviour
     float pitchControlSensitivity = 0.2f;
     [SerializeField]
     float yawControlSensitivity = 0.2f;
+    public FlapController[] flaps;
+    float[] flapAngles = { 0, 0, 0, 0}; // top to bottom then left to right
 
     [Header("Display Variables")]
     [Range(-1, 1)]
@@ -63,6 +65,7 @@ public class GliderController : MonoBehaviour
     Quaternion startRot;
     Vector3 startScale;
     Automation automation;
+    
 
     private void Start()
     {
@@ -169,6 +172,11 @@ public class GliderController : MonoBehaviour
             "\nT: " + (int) (thrustPercent * 100) + "%"+
             "\nPitch: " + abspitch.ToString("n2")+
             "\nD: " + (int) Mathf.Min(groundNear) + " m";
+
+        for (int i = 0; i < flaps.Length; i++)
+        {
+            flaps[i].SetFlap(flapAngles[i % 2]);
+        }
     }
 
     private void FixedUpdate()
@@ -191,6 +199,8 @@ public class GliderController : MonoBehaviour
 
     public void SetControlSurfacesAngles(float pitch, float roll, float yaw, float flap)
     {
+        float rightFlaps = 0;
+        float leftFlaps = 0;
         foreach (var surface in controlSurfaces)
         {
             if (surface == null || !surface.IsControlSurface) continue;
@@ -198,9 +208,13 @@ public class GliderController : MonoBehaviour
             {
                 case ControlInputType.Pitch:
                     surface.SetFlapAngle(pitch * pitchControlSensitivity * surface.InputMultiplyer);
+                    rightFlaps += pitch * pitchControlSensitivity * surface.InputMultiplyer;
+                    leftFlaps += pitch * pitchControlSensitivity * surface.InputMultiplyer;
                     break;
                 case ControlInputType.Roll:
                     surface.SetFlapAngle(roll * rollControlSensitivity * surface.InputMultiplyer);
+                    if (surface.InputMultiplyer > 0) { leftFlaps += roll * rollControlSensitivity * surface.InputMultiplyer; }
+                    else { rightFlaps -= roll * rollControlSensitivity * surface.InputMultiplyer; }
                     break;
                 case ControlInputType.Yaw:
                     surface.SetFlapAngle(yaw * yawControlSensitivity * surface.InputMultiplyer);
@@ -209,6 +223,12 @@ public class GliderController : MonoBehaviour
                     surface.SetFlapAngle(Flap * surface.InputMultiplyer);
                     break;
             }
+        }
+        leftFlaps *= -140;
+        rightFlaps *= -140;
+        for (int i = 0; i < flapAngles.Length; i++)
+        {
+            flapAngles[i] = i < flapAngles.Length / 2 ? leftFlaps : rightFlaps;
         }
     }
 
@@ -259,6 +279,15 @@ public class GliderController : MonoBehaviour
             foreach (Transform brake in brakes)
             {
                 brake.localRotation = Quaternion.Euler(brake.localEulerAngles.x, brake.localEulerAngles.y, 90);
+            }
+
+            for (int i = 0; i < flapAngles.Length; i++)
+            {
+                flapAngles[i] = (i % 2) switch
+                {
+                    0 => 70,
+                    _ => -70,
+                };
             }
         } else
         {
