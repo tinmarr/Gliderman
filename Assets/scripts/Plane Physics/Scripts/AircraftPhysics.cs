@@ -37,14 +37,14 @@ public class AircraftPhysics : MonoBehaviour
     private void FixedUpdate()
     {
         BiVector3 forceAndTorqueThisFrame = 
-            CalculateAerodynamicForces(rb.velocity, rb.angularVelocity, Vector3.zero, 1.2f, rb.worldCenterOfMass);
+            CalculateAerodynamicForces(rb.velocity, rb.angularVelocity, wind, 1.2f, rb.worldCenterOfMass);
 
         Vector3 velocityPrediction = PredictVelocity(forceAndTorqueThisFrame.p
             + transform.forward * thrust * thrustPercent + Physics.gravity * rb.mass);
         Vector3 angularVelocityPrediction = PredictAngularVelocity(forceAndTorqueThisFrame.q);
 
         BiVector3 forceAndTorquePrediction = 
-            CalculateAerodynamicForces(velocityPrediction, angularVelocityPrediction, Vector3.zero, 1.2f, rb.worldCenterOfMass);
+            CalculateAerodynamicForces(velocityPrediction, angularVelocityPrediction, wind, 1.2f, rb.worldCenterOfMass);
 
         currentForceAndTorque = (forceAndTorqueThisFrame + forceAndTorquePrediction) * 0.5f;
         if (!controller.IsDead())
@@ -53,7 +53,7 @@ public class AircraftPhysics : MonoBehaviour
             rb.AddTorque(currentForceAndTorque.q);
 
             rb.AddForce(transform.forward * thrust * thrustPercent);
-            rb.AddForce(wind);
+            //rb.AddForce(wind);
         }
     }
 
