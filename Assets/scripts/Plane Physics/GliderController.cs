@@ -94,6 +94,12 @@ public class GliderController : MonoBehaviour
 
         controlDampener.Dampen(ref Pitch, ref Roll, rb.velocity.magnitude, terminalVelocity);
 
+        // Restart
+        if (Input.GetKey(KeyCode.Return))
+        {
+            Respawn();
+        }
+
         // Jet
         if (Input.GetKey(KeyCode.Space))
         {
@@ -272,6 +278,7 @@ public class GliderController : MonoBehaviour
         rb.constraints = RigidbodyConstraints.None;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
+        ResetThrust();
     }
 
     public void Brake()
