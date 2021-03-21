@@ -109,8 +109,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.5, y: 5492.45, z: 4.5}
-  m_Center: {x: 0, y: 2745.7246, z: 0}
+  m_Size: {x: 4.5, y: 10000, z: 4.5}
+  m_Center: {x: 0, y: 5000, z: 0}
 --- !u!114 &6637008322892789032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,7 +292,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 50
+      scalar: 100
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -408,7 +408,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 1
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -724,7 +724,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 5000
+    maxNumParticles: 1000
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -783,7 +783,7 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 8
+    type: 18
     angle: 24.99
     length: 0
     boxThickness: {x: 0, y: 0, z: 0}
@@ -791,7 +791,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 1, y: 1, z: 1}
+    m_Scale: {x: 450, y: 450, z: 450}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -989,7 +989,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 500
+      scalar: 100
       minScalar: 10
       maxCurve:
         serializedVersion: 2
