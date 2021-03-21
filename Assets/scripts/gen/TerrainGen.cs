@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class TerrainGen : MonoBehaviour
 {
-    [Range(32, 4096)]
+    [Range(33, 4097)]
     public int width = 256;
-    [Range(32, 4096)]
+    [Range(33, 4097)]
     public int length = 256;
 
     public float depth = 20;
@@ -16,7 +16,7 @@ public class TerrainGen : MonoBehaviour
     [Range(0, 1)]
     public float persitance = 0.5f;
     public float lacunarity = 2f;
-
+    public int exp = 1;
 
     public int seed = 1;
     private Vector2[] octaveOffsets;
@@ -44,6 +44,7 @@ public class TerrainGen : MonoBehaviour
     {
         if (update)
         {
+            update = false;
             System.Random prng = new System.Random(seed);
             octaveOffsets = new Vector2[octaves];
             for (int i = 0; i < octaves; i++)
@@ -60,19 +61,19 @@ public class TerrainGen : MonoBehaviour
 
     private void OnValidate()
     {
-        if (Mathf.Log(width) % Mathf.Log(2) != 0)
+        if (Mathf.Log(width) % Mathf.Log(2) != 1)
         {
-            width = (int)Mathf.Pow(2, Mathf.Floor(Mathf.Log(width) / Mathf.Log(2)));
+            width = (int)Mathf.Pow(2, Mathf.Floor(Mathf.Log(width) / Mathf.Log(2))) + 1;
         }
-        if (Mathf.Log(length) % Mathf.Log(2) != 0)
+        if (Mathf.Log(length) % Mathf.Log(2) != 1)
         {
-            length = (int)Mathf.Pow(2, Mathf.Floor(Mathf.Log(length) / Mathf.Log(2)));
+            length = (int)Mathf.Pow(2, Mathf.Floor(Mathf.Log(length) / Mathf.Log(2))) + 1;
         }
         if (lacunarity < 1) { lacunarity = 1; }
     }
     TerrainData GenerateTerrain(TerrainData data)
     {
-        data.heightmapResolution = Mathf.Max(width, length) + 1;
+        data.heightmapResolution = Mathf.Max(width, length);
 
         data.size = new Vector3(width, depth, length);
 
@@ -127,7 +128,7 @@ public class TerrainGen : MonoBehaviour
             float y_coord = (y - length / 2) / scale * frequency + octaveOffsets[i].y + scrollValue.y;
 
             float perlinNoiseValue = Mathf.PerlinNoise(x_coord, y_coord) * 2 - 1;
-            perlinNoiseValue = Mathf.Clamp(perlinNoiseValue, -1f, 0.5f);
+            perlinNoiseValue = Mathf.Pow(perlinNoiseValue, exp);
             noiseHeight += perlinNoiseValue * amplitude;
 
             amplitude *= persitance;
