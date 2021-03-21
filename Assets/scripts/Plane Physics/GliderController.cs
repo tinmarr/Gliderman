@@ -52,8 +52,11 @@ public class GliderController : MonoBehaviour
     public GameObject ded;
 
     [Header("Camera")]
-    public GameObject cam;
-    CinemachineVirtualCamera cinemachine;
+    public CinemachineVirtualCamera followCam;
+    public CinemachineVirtualCamera followCamRoll;
+    public CinemachineVirtualCamera shakeCam;
+    public CinemachineVirtualCamera shakeCamRoll;
+    CinemachineVirtualCamera currentCam;
 
     [Header("Brakes")]
     public Transform[] brakes = new Transform[2];
@@ -73,7 +76,6 @@ public class GliderController : MonoBehaviour
         aircraftPhysics = GetComponent<AircraftPhysics>();
         rb = GetComponent<Rigidbody>();
         jet.Stop();
-        cinemachine = cam.GetComponent<CinemachineVirtualCamera>();
         startPos = transform.position;
         startRot = transform.rotation;
         startScale = transform.localScale;
@@ -117,14 +119,32 @@ public class GliderController : MonoBehaviour
         Brake();
 
         // Camera
+        float angle = transform.eulerAngles.x;
+        if (angle > 180) angle -= 360;
+        float abspitch = (angle / 180);
+
+        CinemachineVirtualCamera cam = followCam;
+        currentCam = currentCam == null ? cam : currentCam;
+        bool roll = Mathf.Abs(abspitch) > 0.3f;
         if (thrustPercent > 0.6f)
         {
-            cinemachine.Priority = 3;
-        } else
+            cam = roll ? shakeCamRoll : shakeCam;
+        } else if (roll)
         {
-            cinemachine.Priority = 1;
+            cam = followCamRoll;
         }
 
+        if (currentCam != cam)
+        {
+            currentCam.Priority = 1;
+            cam.Priority = 2;
+            currentCam = cam;
+        }
+
+        // Clamp Control
+        automation.angleClamp = !roll;
+        automation.autoCorrect = !roll;
+        automation.autoTurn = !roll;
         
         // Get Distance from Terrain
         Vector3[] dirs = { transform.forward, -transform.forward, transform.up, -transform.up, transform.right, -transform.right };
@@ -169,14 +189,12 @@ public class GliderController : MonoBehaviour
             rb.constraints = RigidbodyConstraints.FreezeAll;
             ded.SetActive(true);
         }
-        float angle = transform.eulerAngles.x;
-        if (angle > 180) angle -= 360;
-        float abspitch = (angle/180);
+        
         // HUD
         planeInfo.text = "V: " + (int)rb.velocity.magnitude + " m/s"+
             "\nA: " + (int)transform.position.y + " m"+
             "\nT: " + (int) (thrustPercent * 100) + "%"+
-            "\nPitch: " + abspitch.ToString("n2")+
+            "\nPitch: " + abspitch.ToString("n2")+ // Calculated above for the camera
             "\nD: " + (int) Mathf.Min(groundNear) + " m";
 
         // Flaps

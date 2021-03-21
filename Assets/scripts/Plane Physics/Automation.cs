@@ -4,20 +4,13 @@ using UnityEngine;
 
 public class Automation : MonoBehaviour
 {
-    GliderController controller;
-
     [Header("Noob Settings")]
-    [SerializeField] bool angleClamp = true;
-    [SerializeField] bool autoTurn = true;
-    [SerializeField] bool autoCorrect = true;
+    public bool angleClamp = true;
+    public bool autoTurn = true;
+    public bool autoCorrect = true;
     
     bool turnStart = false;
     float turnAltitude = 0;
-
-    private void Start()
-    {
-        controller = GetComponent<GliderController>();
-    }
 
     public void NoobSettings(ref float Pitch, ref float Yaw, ref float Roll)
     {
@@ -58,10 +51,11 @@ public class Automation : MonoBehaviour
             {
                 Vector3 angle = transform.eulerAngles;
                 if (angle.z > 180) angle.z -= 360;
-                Roll = Mathf.InverseLerp(-60, 60, angle.z);
+                Roll = Mathf.InverseLerp(60, -60, angle.z) * -2 + 1;
             }
         }
     }
+
     private void AngleClamp()
     {
         Vector3 angle = transform.eulerAngles;
@@ -78,14 +72,6 @@ public class Automation : MonoBehaviour
 
     public void TurnSmooth(ref float pitch, float roll, ref float yaw, float altitude)
     {
-        //if (pitch < 0) pitch += 1 / 3 * pitchChange; else pitch += pitchChange;
-        //yaw += roll / Mathf.Abs(roll) * yawChange;
-
-        pitch = (controller.transform.position.y - altitude) / 20;
-
-        // basic idea:
-        // pitch slightly up
-        // yaw slightly to place you turn
-        // possibly
+        pitch = Mathf.InverseLerp(altitude - 10, altitude + 10, transform.position.y) * 2 - 1;
     }
 }
