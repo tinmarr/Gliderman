@@ -119,9 +119,11 @@ public class GliderController : MonoBehaviour
         Brake();
 
         // Camera
-        float angle = transform.eulerAngles.x;
-        if (angle > 180) angle -= 360;
-        float abspitch = (angle / 180);
+        float anglex = transform.eulerAngles.x;
+        float anglez = transform.eulerAngles.z;
+        if (anglex > 180) anglex -= 360;
+        if (anglez > 180) anglez -= 360;
+        float abspitch = (anglex / 180);
 
         CinemachineVirtualCamera cam = followCam;
         currentCam = currentCam == null ? cam : currentCam;
@@ -136,6 +138,7 @@ public class GliderController : MonoBehaviour
 
         if (currentCam != cam)
         {
+            
             currentCam.Priority = 1;
             cam.Priority = 2;
             currentCam = cam;
