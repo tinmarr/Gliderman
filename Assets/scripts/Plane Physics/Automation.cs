@@ -56,7 +56,9 @@ public class Automation : MonoBehaviour
         {
             if (359 > transform.eulerAngles.z && transform.eulerAngles.z > 1)
             {
-                Roll = (transform.eulerAngles.z < 60) ? 1 : -1;
+                Vector3 angle = transform.eulerAngles;
+                if (angle.z > 180) angle.z -= 360;
+                Roll = Mathf.InverseLerp(-60, 60, angle.z);
             }
         }
     }
