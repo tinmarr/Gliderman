@@ -219,8 +219,8 @@ public class GliderController : MonoBehaviour
             if (increaseValue > 0.25f) // Trails
             {
                 jetAmount += ((increasePerSecondSpeed * increaseValue) / aircraftPhysics.thrust) * Time.deltaTime * (1 / Mathf.InverseLerp(0, terminalVelocity, rb.velocity.magnitude));
-                rollControlSensitivity = 1.5f * sensitivitySaves[0];
-                pitchControlSensitivity = 1.5f * sensitivitySaves[1];
+                rollControlSensitivity = 1.1f * sensitivitySaves[0];
+                pitchControlSensitivity = 1.1f * sensitivitySaves[1];
                 rightTrail.emitting = true;
                 leftTrail.emitting = true;
                 rightTrail.material = trailGround;
@@ -386,5 +386,10 @@ public class GliderController : MonoBehaviour
                 brake.localRotation = Quaternion.Euler(brake.localEulerAngles.x, brake.localEulerAngles.y, 0);
             }
         }
+    }
+
+    public Rigidbody GetRB()
+    {
+        return rb;
     }
 }

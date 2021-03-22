@@ -2213,9 +2213,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c42fa55e43050014b81e95b69a955448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1895329610}
-  startStrengthUp: 100000
-  startStrengthForward: 50000
+  player: {fileID: 1895329606}
+  startStrengthUp: 20000
+  startStrengthForward: 10000
+  throttling: 0.2
 --- !u!1 &1446793432
 GameObject:
   m_ObjectHideFlags: 0
@@ -3150,9 +3151,9 @@ MonoBehaviour:
   - {fileID: 1999455046}
   - {fileID: 1203758633}
   - {fileID: 266878813}
-  rollControlSensitivity: 0.075
-  pitchControlSensitivity: 0.075
-  yawControlSensitivity: 0.075
+  rollControlSensitivity: 0.15
+  pitchControlSensitivity: 0.15
+  yawControlSensitivity: 0.15
   flaps:
   - {fileID: 1856524263}
   - {fileID: 631353304}
@@ -3200,7 +3201,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  jetAmount: 1
+  jetAmount: 0
   decreasePerSecondSpeed: 200
   increasePerSecondSpeed: 100
   rightTrail: {fileID: 388203548}
@@ -3232,7 +3233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca8daf7183e8bcf488cfff80de591ae6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thrust: 1000
+  thrust: 5000
   aerodynamicSurfaces:
   - {fileID: 1641852694}
   - {fileID: 1456616437}
@@ -3288,7 +3289,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1895329605}
   serializedVersion: 2
-  m_Mass: 50
+  m_Mass: 100
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 1
