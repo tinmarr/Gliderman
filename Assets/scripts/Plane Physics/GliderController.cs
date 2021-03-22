@@ -17,6 +17,10 @@ public class GliderController : MonoBehaviour
     float yawControlSensitivity = 0.2f;
     public FlapController[] flaps;
     float[] flapAngles = { 0, 0, 0, 0}; // top to bottom then left to right
+    [Range(0, 1)]
+    public float smoothSpeed = 0.08f;
+    [Range(0, 1)]
+    public float closeSpeed = 0.2f;
 
     [Header("Display Variables")]
     [Range(-1, 1)]
@@ -280,9 +284,13 @@ public class GliderController : MonoBehaviour
 
         leftFlaps *= -300;
         rightFlaps *= -300;
-        for (int i = 0; i < flapAngles.Length; i++)
+        if (!Input.GetKey(KeyCode.LeftShift))
         {
-            flapAngles[i] = i < flapAngles.Length / 2 ? leftFlaps : rightFlaps;
+            for (int i = 0; i < flapAngles.Length; i++)
+            {
+
+                flapAngles[i] = Mathf.Lerp(flapAngles[i], i < flapAngles.Length / 2 ? leftFlaps : rightFlaps, closeSpeed);
+            }
         }
     }
 
@@ -340,8 +348,8 @@ public class GliderController : MonoBehaviour
             {
                 flapAngles[i] = (i % 2) switch
                 {
-                    0 => 90,
-                    _ => -90,
+                    0 => Mathf.Lerp(flapAngles[i], 90, smoothSpeed),
+                    _ => Mathf.Lerp(flapAngles[i], -90, smoothSpeed),
                 };
             }
         } else
