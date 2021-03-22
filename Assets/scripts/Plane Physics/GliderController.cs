@@ -219,8 +219,8 @@ public class GliderController : MonoBehaviour
             if (increaseValue > 0.25f) // Trails
             {
                 jetAmount += ((increasePerSecondSpeed * increaseValue) / aircraftPhysics.thrust) * Time.deltaTime * (1 / Mathf.InverseLerp(0, terminalVelocity, rb.velocity.magnitude));
-                rollControlSensitivity = 1.5 * sensitivitySaves[0];
-                pitchControlSensitivity = 1.5 * sensitivitySaves[1];
+                rollControlSensitivity = 1.5f * sensitivitySaves[0];
+                pitchControlSensitivity = 1.5f * sensitivitySaves[1];
                 rightTrail.emitting = true;
                 leftTrail.emitting = true;
                 rightTrail.material = trailGround;
