@@ -11,7 +11,7 @@ public class StartPad : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && Input.GetKey(KeyCode.L))
+        if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.L))
         {
             Vector3 finalForce = (player.transform.forward * startStrengthForward) + (player.transform.up * startStrengthUp);
             Vector3 currentForce = Vector3.zero;
