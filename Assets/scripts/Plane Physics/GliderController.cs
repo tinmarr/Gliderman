@@ -145,11 +145,15 @@ public class GliderController : MonoBehaviour
             jet.Play();
             rightTrail.material = trailBoost;
             leftTrail.material = trailBoost;
+            rightTrail.emitting = true;
+            leftTrail.emitting = true;
         }
         else
         {
             rightTrail.material = trailNormal;
-            rightTrail.material = trailNormal;
+            leftTrail.material = trailNormal;
+            rightTrail.emitting = false;
+            leftTrail.emitting = false;
             jet.Stop();
         }
 
