@@ -17,6 +17,10 @@ public class GliderController : MonoBehaviour
     float yawControlSensitivity = 0.2f;
     public FlapController[] flaps;
     float[] flapAngles = { 0, 0, 0, 0}; // top to bottom then left to right
+    [Range(0, 1)]
+    public float smoothSpeed = 0.08f;
+    [Range(0, 1)]
+    public float closeSpeed = 0.2f;
 
     [Header("Display Variables")]
     [Range(-1, 1)]
@@ -41,6 +45,9 @@ public class GliderController : MonoBehaviour
     [Header("Trails")]
     public TrailRenderer rightTrail;
     public TrailRenderer leftTrail;
+    public Material trailNormal;
+    public Material trailBoost;
+    public Material trailGround;
 
     [Header("Dampening Parameters")]
     // dampening
@@ -102,6 +109,19 @@ public class GliderController : MonoBehaviour
             Respawn();
         }
 
+        // Trails
+        if ((int) rb.velocity.magnitude > 55)
+        {
+            rightTrail.material = trailNormal;
+            leftTrail.material = trailNormal;
+            rightTrail.emitting = true;
+            leftTrail.emitting = true;
+        } else
+        {
+            rightTrail.emitting = false;
+            leftTrail.emitting = false;
+        }
+
         // Jet
         if (Input.GetKey(KeyCode.Space))
         {
@@ -110,8 +130,12 @@ public class GliderController : MonoBehaviour
         if (speeding)
         {
             jet.Play();
+            rightTrail.material = trailBoost;
+            leftTrail.material = trailBoost;
         } else
         {
+            rightTrail.material = trailNormal;
+            rightTrail.material = trailNormal;
             jet.Stop();
         }
 
@@ -156,12 +180,12 @@ public class GliderController : MonoBehaviour
         {
             Vector3 dir = dirs[i];
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, dir, out hit, Mathf.Infinity, 1 << 3)) // Mathf.Infinity is fine for now... might need to lessen that
+            if (Physics.Raycast(transform.position, dir, out hit, 500, 1 << 3)) 
             {
                 groundNear[i] = (hit.distance);
             } else
             {
-                groundNear[i] = Mathf.Infinity; // Also update here
+                groundNear[i] = 500;
             }
         }
 
@@ -171,15 +195,15 @@ public class GliderController : MonoBehaviour
             thrustPercent = proximityCurve.Evaluate(Mathf.InverseLerp(0, 100, Mathf.Min(groundNear)));
             if (thrustPercent > 0.25f) // Trails
             {
-                Vector3 closestDir = dirs[Array.IndexOf(groundNear, Mathf.Min(groundNear))];
-                if (closestDir == transform.right) { rightTrail.emitting = true; leftTrail.emitting = false; }
-                else if (closestDir == -transform.right) { leftTrail.emitting = true; rightTrail.emitting = false; }
-                else { rightTrail.emitting = true; leftTrail.emitting = true; }
+                rightTrail.emitting = true;
+                leftTrail.emitting = true;
+                rightTrail.material = trailGround;
+                leftTrail.material = trailGround;
             }
             else
             {
-                rightTrail.emitting = false;
-                leftTrail.emitting = false;
+                rightTrail.material = trailNormal;
+                leftTrail.material = trailNormal;
             }
         }
 
@@ -255,9 +279,13 @@ public class GliderController : MonoBehaviour
 
         leftFlaps *= -300;
         rightFlaps *= -300;
-        for (int i = 0; i < flapAngles.Length; i++)
+        if (!Input.GetKey(KeyCode.LeftShift))
         {
-            flapAngles[i] = i < flapAngles.Length / 2 ? leftFlaps : rightFlaps;
+            for (int i = 0; i < flapAngles.Length; i++)
+            {
+
+                flapAngles[i] = Mathf.Lerp(flapAngles[i], i < flapAngles.Length / 2 ? leftFlaps : rightFlaps, closeSpeed);
+            }
         }
     }
 
@@ -315,8 +343,8 @@ public class GliderController : MonoBehaviour
             {
                 flapAngles[i] = (i % 2) switch
                 {
-                    0 => 90,
-                    _ => -90,
+                    0 => Mathf.Lerp(flapAngles[i], 90, smoothSpeed),
+                    _ => Mathf.Lerp(flapAngles[i], -90, smoothSpeed),
                 };
             }
         } else

@@ -20,7 +20,7 @@ public class GetFPS : MonoBehaviour
     {
         if (m_timeCounter < m_refreshTime)
         {
-            m_timeCounter += Time.deltaTime;
+            m_timeCounter += Time.smoothDeltaTime;
             m_frameCounter++;
         }
         else

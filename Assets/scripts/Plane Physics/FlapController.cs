@@ -9,6 +9,7 @@ public class FlapController : MonoBehaviour
     private Vector3 initialRotation;
 
     float multiplier = 10;
+    public float smoothSpeed = 0.1f;
 
     /// <summary>
     /// Set Flap Angle
@@ -31,10 +32,8 @@ public class FlapController : MonoBehaviour
 
     private void Update()
     {
-        transform.localRotation = Quaternion.Euler(
-            initialRotation.x + flapAngle, 
-            initialRotation.y + flapAngle/multiplier, 
-            initialRotation.z
-           );
+        float goalx = initialRotation.x + flapAngle;
+        float goaly = initialRotation.y + flapAngle/multiplier;
+        transform.localRotation = Quaternion.Euler(goalx, goaly, initialRotation.z);
     }
 }
