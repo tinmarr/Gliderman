@@ -15,6 +15,7 @@ public class GliderController : MonoBehaviour
     float pitchControlSensitivity = 0.2f;
     [SerializeField]
     float yawControlSensitivity = 0.2f;
+    float[] sensitivitySaves = new float[3];
     public FlapController[] flaps;
     float[] flapAngles = { 0, 0, 0, 0 }; // top to bottom then left to right
     [Range(0, 1)]
@@ -42,7 +43,7 @@ public class GliderController : MonoBehaviour
     public AnimationCurve proximityCurve;
     bool speeding = false;
     bool jetEmpty = false;
-    public float jetAmount = 1f;
+    public float jetAmount = 0f;
     public float decreasePerSecondSpeed = 200;
     public float increasePerSecondSpeed = 100;
 
@@ -93,6 +94,9 @@ public class GliderController : MonoBehaviour
         automation = GetComponent<Automation>();
         rightTrail.emitting = false;
         leftTrail.emitting = false;
+        sensitivitySaves[0] = rollControlSensitivity;
+        sensitivitySaves[1] = pitchControlSensitivity;
+        sensitivitySaves[2] = yawControlSensitivity;
     }
 
     private void Update()
@@ -152,8 +156,6 @@ public class GliderController : MonoBehaviour
         {
             rightTrail.material = trailNormal;
             leftTrail.material = trailNormal;
-            rightTrail.emitting = false;
-            leftTrail.emitting = false;
             jet.Stop();
         }
 
@@ -213,10 +215,12 @@ public class GliderController : MonoBehaviour
         if (!speeding && !Input.GetKey(KeyCode.Space))
         {
             float increaseValue = proximityCurve.Evaluate(Mathf.InverseLerp(0, 100, Mathf.Min(groundNear)));
-            if (increaseValue > 0) 
-                jetAmount += ((increasePerSecondSpeed * increaseValue) / aircraftPhysics.thrust) * Time.deltaTime * (1/Mathf.InverseLerp(0, terminalVelocity, rb.velocity.magnitude));
+                
             if (increaseValue > 0.25f) // Trails
             {
+                jetAmount += ((increasePerSecondSpeed * increaseValue) / aircraftPhysics.thrust) * Time.deltaTime * (1 / Mathf.InverseLerp(0, terminalVelocity, rb.velocity.magnitude));
+                rollControlSensitivity = 2 * sensitivitySaves[0];
+                pitchControlSensitivity = 2 * sensitivitySaves[1];
                 rightTrail.emitting = true;
                 leftTrail.emitting = true;
                 rightTrail.material = trailGround;
@@ -224,6 +228,8 @@ public class GliderController : MonoBehaviour
             }
             else
             {
+                rollControlSensitivity = sensitivitySaves[0];
+                pitchControlSensitivity = sensitivitySaves[1];
                 rightTrail.material = trailNormal;
                 leftTrail.material = trailNormal;
             }
