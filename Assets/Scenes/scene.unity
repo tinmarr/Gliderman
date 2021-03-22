@@ -2947,7 +2947,7 @@ MonoBehaviour:
   Yaw: 0
   Roll: 0
   Flap: 0
-  noobSettings: 1
+  noobSettings: 0
   thrustPercent: 0
   jet: {fileID: 1966625212}
   proximityCurve:
