@@ -2943,8 +2943,8 @@ MonoBehaviour:
   - {fileID: 631353304}
   - {fileID: 406474765}
   - {fileID: 469023349}
-  smoothSpeed: 0.008
-  closeSpeed: 0.075
+  smoothSpeed: 0.075
+  closeSpeed: 0.15
   Pitch: 0
   Yaw: 0
   Roll: 0
