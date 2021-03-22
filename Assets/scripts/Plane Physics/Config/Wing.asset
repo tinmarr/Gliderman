@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Wing
   m_EditorClassIdentifier: 
   liftSlope: 7.28
-  skinFriction: 0.01
+  skinFriction: 0
   zeroLiftAoA: 0
   stallAngleHigh: 15
   stallAngleLow: -15

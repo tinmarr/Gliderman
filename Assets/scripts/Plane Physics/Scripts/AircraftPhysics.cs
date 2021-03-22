@@ -8,7 +8,7 @@ public class AircraftPhysics : MonoBehaviour
     const float PREDICTION_TIMESTEP_FRACTION = 0.5f;
 
     [SerializeField] 
-    float thrust = 0;
+    public float thrust = 0;
     [SerializeField] 
     List<AeroSurface> aerodynamicSurfaces = null;
 
