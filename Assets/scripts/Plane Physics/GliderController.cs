@@ -41,6 +41,9 @@ public class GliderController : MonoBehaviour
     [Header("Trails")]
     public TrailRenderer rightTrail;
     public TrailRenderer leftTrail;
+    public Material trailNormal;
+    public Material trailBoost;
+    public Material trailGround;
 
     [Header("Dampening Parameters")]
     // dampening
@@ -102,6 +105,20 @@ public class GliderController : MonoBehaviour
             Respawn();
         }
 
+        // Trails
+        if ((int) rb.velocity.magnitude > 70)
+        {
+            Debug.Log("Zoom");
+            rightTrail.material = trailNormal;
+            leftTrail.material = trailNormal;
+            rightTrail.emitting = true;
+            leftTrail.emitting = true;
+        } else
+        {
+            rightTrail.emitting = false;
+            leftTrail.emitting = false;
+        }
+
         // Jet
         if (Input.GetKey(KeyCode.Space))
         {
@@ -110,8 +127,14 @@ public class GliderController : MonoBehaviour
         if (speeding)
         {
             jet.Play();
+            rightTrail.material = trailBoost;
+            leftTrail.material = trailBoost;
+            rightTrail.emitting = true;
+            leftTrail.emitting = true;
         } else
         {
+            rightTrail.material = trailNormal;
+            rightTrail.material = trailNormal;
             jet.Stop();
         }
 
@@ -175,11 +198,13 @@ public class GliderController : MonoBehaviour
                 if (closestDir == transform.right) { rightTrail.emitting = true; leftTrail.emitting = false; }
                 else if (closestDir == -transform.right) { leftTrail.emitting = true; rightTrail.emitting = false; }
                 else { rightTrail.emitting = true; leftTrail.emitting = true; }
+                rightTrail.material = trailGround;
+                leftTrail.material = trailGround;
             }
             else
             {
-                rightTrail.emitting = false;
-                leftTrail.emitting = false;
+                rightTrail.material = trailNormal;
+                leftTrail.material = trailNormal;
             }
         }
 

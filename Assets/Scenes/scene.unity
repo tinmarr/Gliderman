@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 89162974}
   - component: {fileID: 89162975}
   m_Layer: 0
-  m_Name: Left
+  m_Name: LeftMain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -308,7 +308,7 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
-  m_Emitting: 1
+  m_Emitting: 0
 --- !u!1 &105729918
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,7 +761,7 @@ GameObject:
   - component: {fileID: 388203547}
   - component: {fileID: 388203548}
   m_Layer: 0
-  m_Name: Right
+  m_Name: RightMain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -887,7 +887,7 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
-  m_Emitting: 1
+  m_Emitting: 0
 --- !u!114 &406474765 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7940779538208911021, guid: 8f1cc5915d7ac4749ad2775435383af8, type: 3}
@@ -2985,6 +2985,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   rightTrail: {fileID: 388203548}
   leftTrail: {fileID: 89162975}
+  trailNormal: {fileID: 2100000, guid: e9987b420125c9448b6be79c01e0e1e0, type: 2}
+  trailBoost: {fileID: 2100000, guid: bc0475178aea41f45882e239329fd7a2, type: 2}
+  trailGround: {fileID: 2100000, guid: 86bcbb8bb8f2fc140bea26b62d99435f, type: 2}
   terminalVelocity: 200
   controlDampener: {fileID: 1863767156}
   planeInfo: {fileID: 2085553405}
