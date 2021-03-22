@@ -112,7 +112,6 @@ public class GliderController : MonoBehaviour
         // Trails
         if ((int) rb.velocity.magnitude > 55)
         {
-            Debug.Log("Zoom");
             rightTrail.material = trailNormal;
             leftTrail.material = trailNormal;
             rightTrail.emitting = true;
