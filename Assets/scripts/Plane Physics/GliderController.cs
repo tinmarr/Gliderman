@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.UI;
@@ -15,7 +14,7 @@ public class GliderController : MonoBehaviour
     float pitchControlSensitivity = 0.2f;
     [SerializeField]
     float yawControlSensitivity = 0.2f;
-    float[] sensitivitySaves = new float[3];
+    readonly float[] sensitivitySaves = new float[3];
     public FlapController[] flaps;
     float[] flapAngles = { 0, 0, 0, 0 }; // top to bottom then left to right
     [Range(0, 1)]
@@ -58,10 +57,6 @@ public class GliderController : MonoBehaviour
     // dampening
     public float terminalVelocity = 200f;
     public ControlDampener controlDampener;
-
-    [Header("UI")]
-    public Text planeInfo;
-    public GameObject ded;
 
     [Header("Camera")]
     public CinemachineVirtualCamera followCam;
@@ -112,7 +107,7 @@ public class GliderController : MonoBehaviour
         controlDampener.Dampen(ref Pitch, ref Roll, rb.velocity.magnitude, terminalVelocity);
 
         // Restart
-        if (Input.GetKey(KeyCode.Return))
+        if (Input.GetKey(hotkeys.respawn))
         {
             Respawn();
         }
@@ -132,7 +127,7 @@ public class GliderController : MonoBehaviour
         }
 
         // Jet
-        if (Input.GetKey(KeyCode.Space) && !jetEmpty)
+        if (Input.GetKey(hotkeys.useNitro) && !jetEmpty)
         {
             SetThrust(1, 0.1f);
             jetAmount -= (decreasePerSecondSpeed / aircraftPhysics.thrust) * Time.deltaTime;
@@ -164,9 +159,7 @@ public class GliderController : MonoBehaviour
 
         // Camera
         float anglex = transform.eulerAngles.x;
-        float anglez = transform.eulerAngles.z;
         if (anglex > 180) anglex -= 360;
-        if (anglez > 180) anglez -= 360;
         float abspitch = (anglex / 180);
 
         CinemachineVirtualCamera cam = followCam;
@@ -200,8 +193,7 @@ public class GliderController : MonoBehaviour
         for (int i = 0; i < dirs.Length; i++)
         {
             Vector3 dir = dirs[i];
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, dir, out hit, 500, 1 << 3))
+            if (Physics.Raycast(transform.position, dir, out RaycastHit hit, 500, 1 << 3))
             {
                 groundNear[i] = (hit.distance);
             }
@@ -212,7 +204,7 @@ public class GliderController : MonoBehaviour
         }
 
         // Boost
-        if (!speeding && !Input.GetKey(KeyCode.Space))
+        if (!speeding && !Input.GetKey(hotkeys.useNitro))
         {
             float increaseValue = proximityCurve.Evaluate(Mathf.InverseLerp(0, 100, Mathf.Min(groundNear)));
                 
@@ -243,15 +235,7 @@ public class GliderController : MonoBehaviour
         {
             thrustPercent = 0;
             rb.constraints = RigidbodyConstraints.FreezeAll;
-            ded.SetActive(true);
         }
-
-        // HUD
-        planeInfo.text = "V: " + (int)rb.velocity.magnitude + " m/s" +
-            "\nA: " + (int)transform.position.y + " m" +
-            "\nNitro: " + (int)(jetAmount * 100) + "%" +
-            "\nPitch: " + abspitch.ToString("n2") + // Calculated above for the camera
-            "\nD: " + (int)Mathf.Min(groundNear) + " m";
 
         // Flaps
         for (int i = 0; i < flaps.Length; i++)
@@ -272,7 +256,7 @@ public class GliderController : MonoBehaviour
 
     private void HandleNoob()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(hotkeys.noobModeToggle))
         {
             noobSettings = !noobSettings;
         }
@@ -308,7 +292,7 @@ public class GliderController : MonoBehaviour
 
         leftFlaps *= -300;
         rightFlaps *= -300;
-        if (!Input.GetKey(KeyCode.LeftShift))
+        if (!Input.GetKey(hotkeys.brakes))
         {
             for (int i = 0; i < flapAngles.Length; i++)
             {
@@ -350,7 +334,6 @@ public class GliderController : MonoBehaviour
     public void Respawn()
     {
         dead = false;
-        ded.SetActive(false);
         transform.position = startPos;
         transform.rotation = startRot;
         transform.localScale = startScale;
@@ -363,7 +346,7 @@ public class GliderController : MonoBehaviour
 
     public void Brake()
     {
-        if (Input.GetKey(KeyCode.LeftShift) && rb.velocity.magnitude > minVelocity)
+        if (Input.GetKey(hotkeys.brakes) && rb.velocity.magnitude > minVelocity)
         {
             foreach (Transform brake in brakes)
             {

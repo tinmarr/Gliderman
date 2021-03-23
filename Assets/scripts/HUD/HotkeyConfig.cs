@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System;
 using UnityEngine;
 
@@ -7,10 +6,6 @@ public class HotkeyConfig : ScriptableObject
 {
     [SerializeField] string duplicates = "";
     [Header("Keys")]
-    public KeyCode pitchDown = KeyCode.W;
-    public KeyCode pitchUp = KeyCode.S;
-    public KeyCode rollRight = KeyCode.D;
-    public KeyCode rollLeft = KeyCode.A;
     public KeyCode useNitro = KeyCode.Space;
     public KeyCode noobModeToggle = KeyCode.P;
     public KeyCode launchFromPlatform = KeyCode.L;
@@ -19,16 +14,13 @@ public class HotkeyConfig : ScriptableObject
     public KeyCode takeScreenshot = KeyCode.F2;
     public KeyCode debugMode = KeyCode.F3;
     public KeyCode respawn = KeyCode.Return;
+    public KeyCode brakes = KeyCode.LeftShift;
 
     private void OnValidate()
     {
         duplicates = "";
         KeyCode[] keys =
         {
-            pitchDown,
-            pitchUp,
-            rollRight,
-            rollLeft,
             useNitro,
             noobModeToggle,
             launchFromPlatform,
@@ -36,23 +28,10 @@ public class HotkeyConfig : ScriptableObject
             toggleHUD,
             takeScreenshot,
             debugMode,
+            respawn,
+            brakes,
         };
-        if (Array.FindAll<KeyCode>(keys, key => key == pitchDown).Length > 1)
-        {
-            duplicates += "Pitch Down, ";
-        }
-        if (Array.FindAll<KeyCode>(keys, key => key == pitchUp).Length > 1)
-        {
-            duplicates += "Pitch Up, ";
-        }
-        if (Array.FindAll<KeyCode>(keys, key => key == rollRight).Length > 1)
-        {
-            duplicates += "Roll Right, ";
-        }
-        if (Array.FindAll<KeyCode>(keys, key => key == rollLeft).Length > 1)
-        {
-            duplicates += "Roll Left, ";
-        }
+
         if (Array.FindAll<KeyCode>(keys, key => key == useNitro).Length > 1)
         {
             duplicates += "Use Nitro, ";
@@ -84,6 +63,10 @@ public class HotkeyConfig : ScriptableObject
         if (Array.FindAll<KeyCode>(keys, key => key == respawn).Length > 1)
         {
             duplicates += "Respawn, ";
+        }
+        if (Array.FindAll<KeyCode>(keys, key => key == brakes).Length > 1)
+        {
+            duplicates += "Brakes, ";
         }
 
         duplicates = duplicates != "" ? duplicates.Remove(duplicates.Length - 2, 1) : "";

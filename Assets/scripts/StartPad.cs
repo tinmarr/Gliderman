@@ -8,10 +8,11 @@ public class StartPad : MonoBehaviour
     public float startStrengthUp;
     public float startStrengthForward;
     public float throttling = 0.1f;
+    public HotkeyConfig hotkeys;
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.L))
+        if (other.CompareTag("Player") && Input.GetKeyDown(hotkeys.launchFromPlatform))
         {
             Vector3 finalForce = (player.transform.forward * startStrengthForward) + (player.transform.up * startStrengthUp);
             Vector3 currentForce = Vector3.zero;
