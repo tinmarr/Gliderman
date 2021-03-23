@@ -8,7 +8,7 @@ public class GetFPS : MonoBehaviour
     Text text;
     int m_frameCounter = 0;
     float m_timeCounter = 0.0f;
-    float m_lastFramerate = 0.0f;
+    float fps = 0.0f;
     public float m_refreshTime = 0.5f;
 
     void Start()
@@ -26,11 +26,11 @@ public class GetFPS : MonoBehaviour
         else
         {
             //This code will break if you set your m_refreshTime to 0, which makes no sense.
-            m_lastFramerate = (float)m_frameCounter / m_timeCounter;
+            fps = (float)m_frameCounter / m_timeCounter;
             m_frameCounter = 0;
             m_timeCounter = 0.0f;
         }
 
-        text.text = "FPS: " + (int)(m_lastFramerate);
+        text.text = "FPS: " + (int)(fps);
     }
 }

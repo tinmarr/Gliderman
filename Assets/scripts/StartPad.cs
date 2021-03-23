@@ -23,7 +23,7 @@ public class StartPad : MonoBehaviour
 
                 if (!(i + 1 < 1 / throttling))
                 {
-
+                    StartCoroutine(SetLaunched());
                 }
             }
         }

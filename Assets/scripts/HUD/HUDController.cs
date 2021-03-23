@@ -18,6 +18,11 @@ public class HUDController : MonoBehaviour
     float accel = 0;
     float prevV = 0;
     bool f3Screen = false;
+
+    int frameCounter = 0;
+    float timeCounter = 0.0f;
+    float fps = 0.0f;
+    public float refreshTime = 0.5f;
     private void Update()
     {
         deadMessage.SetActive(controller.IsDead());
@@ -33,7 +38,6 @@ public class HUDController : MonoBehaviour
         angles.x += 90;
         plane.rotation = Quaternion.Euler(angles.x, 0, angles.z);
         
-
         nitroBar.fillAmount = controller.jetAmount;
         if (controller.jetAmount < 0.2f) nitroBar.color = Color.red;
         else if (controller.jetAmount < 0.5f) nitroBar.color = Color.yellow;
@@ -42,6 +46,19 @@ public class HUDController : MonoBehaviour
         if (Input.GetKeyDown(hotkeys.debugMode))
         {
             f3Screen = !f3Screen;
+        }
+
+        if (timeCounter < refreshTime)
+        {
+            timeCounter += Time.smoothDeltaTime;
+            frameCounter++;
+        }
+        else
+        {
+            //This code will break if you set your m_refreshTime to 0, which makes no sense.
+            fps = (float)frameCounter / timeCounter;
+            frameCounter = 0;
+            timeCounter = 0.0f;
         }
     }
 

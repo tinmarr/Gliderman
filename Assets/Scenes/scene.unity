@@ -1477,7 +1477,7 @@ GameObject:
   - component: {fileID: 695828487}
   - component: {fileID: 695828489}
   m_Layer: 5
-  m_Name: FPS
+  m_Name: Debug Text Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3228,6 +3228,7 @@ MonoBehaviour:
   plane: {fileID: 1313579581}
   pitch: {fileID: 642187607}
   roll: {fileID: 1085645360}
+  refreshTime: 0.5
 --- !u!225 &1540002306
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -3981,6 +3982,7 @@ MonoBehaviour:
   - {fileID: 962908308}
   minVelocity: 30
   hotkeys: {fileID: 11400000, guid: bc044c4dd08353b4bb2fb932d54bcb5e, type: 2}
+  launched: 0
 --- !u!114 &1895329607
 MonoBehaviour:
   m_ObjectHideFlags: 0
