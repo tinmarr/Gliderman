@@ -2,9 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bigboi : MonoBehaviour
+public class Resetter : MonoBehaviour
 {
     // all stuff that need resetting
+    // most commented stuff are just there because they had errors need to look over that.
+    SpeedBoost speedBoost;
+    StartPad startPad;
+    WindArea windArea;
+    FlapController flapController;
+    ControlDampener controlDampener;
+    Automation automation;
+    GliderController gliderController;
+    private void Start()
+    {
+        speedBoost = gameObject.GetComponent<SpeedBoost>();
+        startPad = gameObject.GetComponent<StartPad>();
+        windArea = gameObject.GetComponent<WindArea>();
+        flapController = gameObject.GetComponent<FlapController>();
+        controlDampener = gameObject.GetComponent<ControlDampener>();
+        automation = gameObject.GetComponent<Automation>();
+        gliderController = gameObject.GetComponent<GliderController>();
+    }
     public class SpeedBoost : MonoBehaviour
     {
         public int time = 2;
