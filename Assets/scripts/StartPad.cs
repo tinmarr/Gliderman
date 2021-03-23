@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StartPad : MonoBehaviour
@@ -14,6 +13,7 @@ public class StartPad : MonoBehaviour
     {
         if (other.CompareTag("Player") && Input.GetKeyDown(hotkeys.launchFromPlatform))
         {
+            player.GetRB().isKinematic = false;
             Vector3 finalForce = (player.transform.forward * startStrengthForward) + (player.transform.up * startStrengthUp);
             Vector3 currentForce = Vector3.zero;
             for (int i = 0; i < 1/throttling; i++)

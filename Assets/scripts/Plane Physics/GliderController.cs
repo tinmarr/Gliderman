@@ -1,7 +1,7 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using Cinemachine;
-using UnityEngine.UI;
 
 public class GliderController : MonoBehaviour
 {
@@ -343,9 +343,11 @@ public class GliderController : MonoBehaviour
         rb.constraints = RigidbodyConstraints.None;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
+        rb.isKinematic = true;
         jetAmount = 0f;
         launched = false;
         ResetThrust();
+        StopAllCoroutines();
     }
 
     public void Brake()
