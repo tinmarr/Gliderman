@@ -76,6 +76,7 @@ public class GliderController : MonoBehaviour
     Vector3 startScale;
     Automation automation;
     public HotkeyConfig hotkeys;
+    bool launched = false;
 
     private void Start()
     {
@@ -242,6 +243,8 @@ public class GliderController : MonoBehaviour
         {
             flaps[i].SetFlap(flapAngles[i]);
         }
+
+        if (!launched) jetAmount = 0;
     }
 
     private void FixedUpdate()
@@ -340,7 +343,8 @@ public class GliderController : MonoBehaviour
         rb.constraints = RigidbodyConstraints.None;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
-        jetAmount = 1f;
+        jetAmount = 0f;
+        launched = false;
         ResetThrust();
     }
 
@@ -374,5 +378,10 @@ public class GliderController : MonoBehaviour
     public Rigidbody GetRB()
     {
         return rb;
+    }
+
+    public void SetLaunched(bool val)
+    {
+        launched = val;
     }
 }

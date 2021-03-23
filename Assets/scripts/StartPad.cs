@@ -20,15 +20,25 @@ public class StartPad : MonoBehaviour
             {
                 currentForce = Vector3.Lerp(currentForce, finalForce, throttling);
                 StartCoroutine(Launch(currentForce, throttling * i));
+
+                if (!(i + 1 < 1 / throttling))
+                {
+
+                }
             }
         }
     }
 
     public IEnumerator Launch(Vector3 thrust, float delay)
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSecondsRealtime(delay);
         player.GetRB().AddForce(thrust);
-        player.jetAmount = 0f;
+    }
+
+    public IEnumerator SetLaunched()
+    {
+        yield return new WaitForSeconds(1f);
+        player.SetLaunched(true);
     }
 
     private void OnValidate()
