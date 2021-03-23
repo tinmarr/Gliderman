@@ -79,8 +79,8 @@ public class GliderController : MonoBehaviour
     Vector3 startPos;
     Quaternion startRot;
     Vector3 startScale;
-    Automation automation; 
-
+    Automation automation;
+    public HotkeyConfig hotkeys;
 
     private void Start()
     {
