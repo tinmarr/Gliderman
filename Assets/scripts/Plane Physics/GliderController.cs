@@ -77,6 +77,8 @@ public class GliderController : MonoBehaviour
     Automation automation;
     public HotkeyConfig hotkeys;
     bool launched = false;
+    float[] groundNear = new float[1];
+    float aliveSince = 0;
 
     private void Start()
     {
@@ -190,7 +192,7 @@ public class GliderController : MonoBehaviour
 
         // Get Distance from Terrain
         Vector3[] dirs = { transform.forward, -transform.forward, transform.up, -transform.up, transform.right, -transform.right };
-        float[] groundNear = new float[dirs.Length];
+        groundNear = new float[dirs.Length];
         for (int i = 0; i < dirs.Length; i++)
         {
             Vector3 dir = dirs[i];
@@ -385,5 +387,21 @@ public class GliderController : MonoBehaviour
     public void SetLaunched(bool val)
     {
         launched = val;
+        if (launched == true) aliveSince = Time.realtimeSinceStartup;
+    }
+
+    public float GetMinDistance()
+    {
+        return Mathf.Min(groundNear);
+    }
+
+    public float GetAliveSince()
+    {
+        return aliveSince;
+    }
+    
+    public bool GetLaunched()
+    {
+        return launched;
     }
 }

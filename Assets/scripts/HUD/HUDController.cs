@@ -5,15 +5,19 @@ public class HUDController : MonoBehaviour
 {
     public GliderController controller;
     public HotkeyConfig hotkeys;
-    [Space(10)]
+    [Header("Main")]
     public GameObject deadMessage;
     public Text speedDisplay;
     public Text accelerationDisplay;
-    public GameObject debugScreen;
     public Image nitroBar;
     public RectTransform plane;
     public Text pitch;
     public Text roll;
+    public Text timer;
+    [Header("Debug")]
+    public GameObject debugScreen;
+    public float refreshTime = 0.5f;
+    public Text leftSide;
 
     float accel = 0;
     float prevV = 0;
@@ -22,9 +26,24 @@ public class HUDController : MonoBehaviour
     int frameCounter = 0;
     float timeCounter = 0.0f;
     float fps = 0.0f;
-    public float refreshTime = 0.5f;
+
+    int frozenTime = -1;
     private void Update()
     {
+        int timeToDisplay = 0;
+        if (controller.IsDead() && frozenTime == -1)
+        {
+            frozenTime = (int)(Time.realtimeSinceStartup - controller.GetAliveSince());
+        } else if (controller.IsDead())
+        {
+            timeToDisplay = frozenTime;
+        } else if (controller.GetLaunched())
+        {
+            timeToDisplay = (int)(Time.realtimeSinceStartup - controller.GetAliveSince());
+            frozenTime = -1;
+        }
+        timer.text = $"Time Alive:\n{timeToDisplay}s";
+
         deadMessage.SetActive(controller.IsDead());
         speedDisplay.text = (int) controller.GetRB().velocity.magnitude + " m/s";
         accelerationDisplay.text = (Mathf.RoundToInt(accel * 10) / 10) + " m/s/s";
@@ -55,11 +74,15 @@ public class HUDController : MonoBehaviour
         }
         else
         {
-            //This code will break if you set your m_refreshTime to 0, which makes no sense.
             fps = (float)frameCounter / timeCounter;
             frameCounter = 0;
             timeCounter = 0.0f;
         }
+
+        leftSide.text = @$" FPS: {(int)fps}
+ Position: {controller.transform.position.x} / {controller.transform.position.y} / {controller.transform.position.z}
+ Distance to Nearest: {controller.GetMinDistance()}
+";
     }
 
     private void FixedUpdate()
