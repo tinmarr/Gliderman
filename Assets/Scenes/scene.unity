@@ -4034,6 +4034,7 @@ MonoBehaviour:
   jetAmount: 0
   decreasePerSecondSpeed: 1000
   increasePerSecondSpeed: 100
+  impactOfVelocity: 5
   rightTrail: {fileID: 388203548}
   leftTrail: {fileID: 89162975}
   trailNormal: {fileID: 2100000, guid: e9987b420125c9448b6be79c01e0e1e0, type: 2}

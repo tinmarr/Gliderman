@@ -10,7 +10,7 @@ public class Automation : MonoBehaviour
     public bool autoCorrect = true;
     
     bool turnStart = false;
-    float turnAltitude = 0;
+    Vector3 turnAngles = Vector3.zero;
 
     public void NoobSettings(ref float Pitch, ref float Yaw, ref float Roll)
     {
@@ -35,12 +35,13 @@ public class Automation : MonoBehaviour
         {
             if (!turnStart)
             {
-                turnAltitude = transform.position.y;
+                turnAngles = transform.eulerAngles;
+                if (turnAngles.x > 180) turnAngles.x -= 360;
+                if (turnAngles.z > 180) turnAngles.z -= 360;
                 turnStart = true;
             }
-            TurnSmooth(ref Pitch, Roll, ref Yaw, turnAltitude);
-        }
-        else { turnStart = false; }
+            TurnSmooth(ref Pitch, ref Roll, ref Yaw, turnAngles);
+        } else { turnStart = false; }
     }
 
     private void AutoCorrecter(ref float Roll)
@@ -70,8 +71,12 @@ public class Automation : MonoBehaviour
         );
     }
 
-    public void TurnSmooth(ref float pitch, float roll, ref float yaw, float altitude)
+    public void TurnSmooth(ref float pitch, ref float roll, ref float yaw, Vector3 altitude)
     {
-        pitch = Mathf.InverseLerp(altitude - 10, altitude + 10, transform.position.y) * 2 - 1;
+        Vector3 angles = transform.eulerAngles;
+        if (angles.x > 180) angles.x -= 360;
+        if (angles.z > 180) angles.z -= 360;
+        
+        pitch = -Mathf.InverseLerp(0, 60, Mathf.Abs(angles.z)) / 2;
     }
 }

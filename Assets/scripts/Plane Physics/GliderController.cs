@@ -45,6 +45,8 @@ public class GliderController : MonoBehaviour
     public float jetAmount = 0f;
     public float decreasePerSecondSpeed = 200;
     public float increasePerSecondSpeed = 100;
+    [Tooltip("Bigger values shrink the impact of velocity (increaseMultiplier = velocity/impactOfVelocity)")]
+    public float impactOfVelocity = 5;
 
     [Header("Trails")]
     public TrailRenderer rightTrail;
@@ -213,7 +215,8 @@ public class GliderController : MonoBehaviour
                 
             if (increaseValue > 0.25f) // Trails
             {
-                jetAmount += ((increasePerSecondSpeed * increaseValue) / aircraftPhysics.thrust) * Time.deltaTime * (1 / Mathf.InverseLerp(0, terminalVelocity, rb.velocity.magnitude));
+                Debug.Log(Mathf.InverseLerp(0, 75, rb.velocity.magnitude));
+                jetAmount += ((increasePerSecondSpeed * increaseValue) / aircraftPhysics.thrust) * Time.deltaTime * (rb.velocity.magnitude/impactOfVelocity);
                 rollControlSensitivity = 1.1f * sensitivitySaves[0];
                 pitchControlSensitivity = 1.1f * sensitivitySaves[1];
                 rightTrail.emitting = true;
