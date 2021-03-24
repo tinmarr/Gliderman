@@ -88,6 +88,9 @@ public class GliderController : MonoBehaviour
 
     private void Start()
     {
+        aircraftPhysics = GetComponent<AircraftPhysics>();
+        rb = GetComponent<Rigidbody>();
+
         if (!overrideWithLocalValues)
         {
             rollControlSensitivity = balanceConfig.rollControlSensitivity;
@@ -105,8 +108,6 @@ public class GliderController : MonoBehaviour
         }
 
         dead = false;
-        aircraftPhysics = GetComponent<AircraftPhysics>();
-        rb = GetComponent<Rigidbody>();
         jet.Stop();
         startPos = transform.position;
         startRot = transform.rotation;
@@ -121,6 +122,22 @@ public class GliderController : MonoBehaviour
 
     private void Update()
     {
+        if (!overrideWithLocalValues && balanceConfig.liveUpdate)
+        {
+            rollControlSensitivity = balanceConfig.rollControlSensitivity;
+            pitchControlSensitivity = balanceConfig.pitchControlSensitivity;
+            yawControlSensitivity = balanceConfig.yawControlSensitivity;
+            proximityCurve = balanceConfig.proximityCurve;
+            decreaseTime = balanceConfig.decreaseTime;
+            increaseTime = balanceConfig.increaseTime;
+            impactOfVelocity = balanceConfig.impactOfVelocity;
+            aircraftPhysics.thrust = balanceConfig.thrust;
+            minVelocity = balanceConfig.minVelocity;
+            terminalVelocity = balanceConfig.terminalVelocity;
+            controlDampener.pitchCurve = balanceConfig.pitchCurve;
+            controlDampener.rollCurve = balanceConfig.rollCurve;
+        }
+
         Pitch = Input.GetAxis("Vertical");
         Roll = Input.GetAxis("Horizontal");
         Yaw = 0;
@@ -155,7 +172,7 @@ public class GliderController : MonoBehaviour
         if (Input.GetKey(hotkeys.useNitro) && !jetEmpty)
         {
             SetThrust(1, 0.1f);
-            jetAmount -= (decreaseTime / aircraftPhysics.thrust) * Time.deltaTime;
+            jetAmount -= (1/decreaseTime) * Time.deltaTime;
         } 
         if (jetAmount < 0.01f)
         {
@@ -235,8 +252,7 @@ public class GliderController : MonoBehaviour
                 
             if (increaseValue > 0.25f) // Trails
             {
-                Debug.Log(Mathf.InverseLerp(0, 75, rb.velocity.magnitude));
-                jetAmount += ((increaseTime * increaseValue) / aircraftPhysics.thrust) * Time.deltaTime * (rb.velocity.magnitude/impactOfVelocity);
+                jetAmount += (1/(increaseTime*50)) * Time.deltaTime * (rb.velocity.magnitude/impactOfVelocity);
                 rollControlSensitivity = 1.1f * sensitivitySaves[0];
                 pitchControlSensitivity = 1.1f * sensitivitySaves[1];
                 rightTrail.emitting = true;

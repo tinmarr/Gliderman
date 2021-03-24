@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91945e6e56e45954b81451841f5012e2, type: 3}
   m_Name: DefaultPlaneBalancer
   m_EditorClassIdentifier: 
+  liveUpdate: 1
   rollControlSensitivity: 0.1
   pitchControlSensitivity: 0.1
   yawControlSensitivity: 0.15
@@ -96,9 +97,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  decreaseTime: 200
-  increaseTime: 100
-  impactOfVelocity: 5
+  decreaseTime: 5
+  increaseTime: 5
+  impactOfVelocity: 10
   thrust: 5000
   minVelocity: 30
-  terminalVelocity: 200
+  terminalVelocity: 250
