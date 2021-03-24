@@ -33,19 +33,22 @@ public class StartPad : MonoBehaviour
     public IEnumerator Launch(Vector3 thrust, float delay)
     {
         yield return new WaitForSecondsRealtime(delay);
-        player.GetRB().AddForce(thrust);
+        if (player.GetRB().velocity.magnitude < maxSpeed)
+        {
+            Debug.Log($"{player.GetRB().velocity.magnitude} - Added Speed");
+            player.GetRB().AddForce(thrust);
+        }
+        else
+        {
+            Debug.Log($"{player.GetRB().velocity.magnitude} - Stopped Next Corountine");
+            StopCoroutine(nameof(Launch));
+        }
     }
 
     public IEnumerator SetLaunched()
     {
         yield return new WaitForSeconds(1f);
-        if (player.GetRB().velocity.magnitude < maxSpeed)
-        {
-            player.SetLaunched(true);
-        } else
-        {
-            StopCoroutine(nameof(SetLaunched));
-        }
+        player.SetLaunched(true);
     }
 
     private void OnValidate()
