@@ -55,12 +55,12 @@ public class HUDController : MonoBehaviour
         pitch.text = (int)-angles.x + "°";
         roll.text = (int)-angles.z + "°";
         angles.x += 90;
-        plane.rotation = Quaternion.Euler(angles.x, angles.z, 0);
+        plane.rotation = Quaternion.Euler(angles.x, 0, angles.z);
         
         nitroBar.fillAmount = controller.jetAmount;
-        if (controller.jetAmount < 0.2f) nitroBar.color = Color.red;
-        else if (controller.jetAmount < 0.5f) nitroBar.color = Color.yellow;
-        else if (controller.jetAmount <= 1f) nitroBar.color = Color.green;
+        if (controller.jetAmount < 0.2f) nitroBar.color = new Color32(0xe7, 0x4c, 0x3c, 0xff);
+        else if (controller.jetAmount < 0.5f) nitroBar.color = new Color32(0xf3, 0x9c, 0x12, 0xff);
+        else if (controller.jetAmount <= 1f) nitroBar.color = new Color32(0x27, 0xae, 0x60, 0xff);
         
         if (Input.GetKeyDown(hotkeys.debugMode))
         {

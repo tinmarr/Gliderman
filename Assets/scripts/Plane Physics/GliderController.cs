@@ -174,10 +174,11 @@ public class GliderController : MonoBehaviour
         {
             SetThrust(1, 0.1f);
             jetAmount -= (1/decreaseTime) * Time.deltaTime;
-        } 
+        }
         if (jetAmount < 0.01f)
         {
             jetEmpty = true;
+            jetAmount = 0;
         } else if (jetAmount > 0.2f)
         {
             jetEmpty = false;
