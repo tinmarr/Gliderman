@@ -11,6 +11,8 @@ public class HUDController : MonoBehaviour
     public Text accelerationDisplay;
     public Image nitroBar;
     public RectTransform plane;
+    public Transform plane2;
+    public Transform gliderBig;
     public Text pitch;
     public Text roll;
     public Text timer;
@@ -49,14 +51,18 @@ public class HUDController : MonoBehaviour
         accelerationDisplay.text = (Mathf.RoundToInt(accel * 10) / 10) + " m/s/s";
         debugScreen.SetActive(f3Screen);
 
-        Vector3 angles = controller.transform.eulerAngles;
+        Vector3 angles = controller.transform.localEulerAngles;
         if (angles.x > 180) angles.x -= 360;
         if (angles.z > 180) angles.z -= 360;
         pitch.text = (int)-angles.x + "°";
         roll.text = (int)-angles.z + "°";
         angles.x += 90;
-        plane.rotation = Quaternion.Euler(angles.x, 0, angles.z);
-        
+        //plane.rotation = Quaternion.Euler(angles.x, 0, angles.z);
+
+        plane2.localRotation = Quaternion.Euler(0, 180, angles.z);
+        Transform modelBit = plane2.GetComponentInChildren<Transform>();
+        modelBit.localRotation = Quaternion.Euler(angles.x, -90, 90);
+
         nitroBar.fillAmount = controller.jetAmount;
         if (controller.jetAmount < 0.2f) nitroBar.color = new Color32(0xe7, 0x4c, 0x3c, 0xff);
         else if (controller.jetAmount < 0.5f) nitroBar.color = new Color32(0xf3, 0x9c, 0x12, 0xff);
