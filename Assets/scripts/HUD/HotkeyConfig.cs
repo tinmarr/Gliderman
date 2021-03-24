@@ -9,12 +9,14 @@ public class HotkeyConfig : ScriptableObject
     public KeyCode useNitro = KeyCode.Space;
     public KeyCode noobModeToggle = KeyCode.P;
     public KeyCode launchFromPlatform = KeyCode.L;
-    public KeyCode pauseGame = KeyCode.Escape;
+    public KeyCode pauseGame = KeyCode.E;
     public KeyCode toggleHUD = KeyCode.F1;
     public KeyCode takeScreenshot = KeyCode.F2;
     public KeyCode debugMode = KeyCode.F3;
     public KeyCode respawn = KeyCode.Return;
     public KeyCode brakes = KeyCode.LeftShift;
+    public KeyCode exitGame = KeyCode.Escape;
+    public KeyCode accept = KeyCode.Return;
 
     private void OnValidate()
     {

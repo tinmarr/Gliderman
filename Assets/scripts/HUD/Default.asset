@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: Default
   m_EditorClassIdentifier: 
   duplicates: 
-  pitchDown: 119
-  pitchUp: 115
-  rollRight: 100
-  rollLeft: 97
   useNitro: 32
   noobModeToggle: 112
   launchFromPlatform: 108
-  pauseGame: 27
+  pauseGame: 101
   toggleHUD: 282
   takeScreenshot: 283
   debugMode: 284
+  respawn: 13
+  brakes: 304
+  exitGame: 27
+  accept: 13
