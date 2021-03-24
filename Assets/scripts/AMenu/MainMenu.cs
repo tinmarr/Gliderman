@@ -18,7 +18,7 @@ public class MainMenu : MonoBehaviour
     public void NewGame()
     {
         // get the seed from config
-    }
+     }
     public void Quit()
     {
         Application.Quit();
