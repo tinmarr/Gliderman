@@ -9,7 +9,6 @@ public class FlapController : MonoBehaviour
     private Vector3 initialRotation;
 
     float multiplier = 10;
-    public float smoothSpeed = 0.1f;
 
     /// <summary>
     /// Set Flap Angle

@@ -18,7 +18,7 @@ public class GliderController : MonoBehaviour
     public FlapController[] flaps;
     float[] flapAngles = { 0, 0, 0, 0 }; // top to bottom then left to right
     [Range(0, 1)]
-    public float smoothSpeed = 0.08f;
+    public float flapOpenSpeed = 0.08f;
     [Range(0, 1)]
     public float closeSpeed = 0.2f;
 
@@ -43,8 +43,8 @@ public class GliderController : MonoBehaviour
     bool speeding = false;
     bool jetEmpty = false;
     public float jetAmount = 0f;
-    public float decreasePerSecondSpeed = 200;
-    public float increasePerSecondSpeed = 100;
+    public float decreaseTime = 200;
+    public float increaseTime = 100;
     [Tooltip("Bigger values shrink the impact of velocity (increaseMultiplier = velocity/impactOfVelocity)")]
     public float impactOfVelocity = 5;
 
@@ -71,19 +71,39 @@ public class GliderController : MonoBehaviour
     public Transform[] brakes = new Transform[2];
     public float minVelocity = 30;
 
+    [Header("Balancing")]
+    public PlaneBalanceConfig balanceConfig;
+    public bool overrideWithLocalValues = false;
+
     [Header("Other")]
+    public HotkeyConfig hotkeys;
     bool dead = false;
     Vector3 startPos;
     Quaternion startRot;
     Vector3 startScale;
     Automation automation;
-    public HotkeyConfig hotkeys;
     bool launched = false;
     float[] groundNear = new float[1];
     float aliveSince = 0;
 
     private void Start()
     {
+        if (!overrideWithLocalValues)
+        {
+            rollControlSensitivity = balanceConfig.rollControlSensitivity;
+            pitchControlSensitivity = balanceConfig.pitchControlSensitivity;
+            yawControlSensitivity = balanceConfig.yawControlSensitivity;
+            proximityCurve = balanceConfig.proximityCurve;
+            decreaseTime = balanceConfig.decreaseTime;
+            increaseTime = balanceConfig.increaseTime;
+            impactOfVelocity = balanceConfig.impactOfVelocity;
+            aircraftPhysics.thrust = balanceConfig.thrust;
+            minVelocity = balanceConfig.minVelocity;
+            terminalVelocity = balanceConfig.terminalVelocity;
+            controlDampener.pitchCurve = balanceConfig.pitchCurve;
+            controlDampener.rollCurve = balanceConfig.rollCurve;
+        }
+
         dead = false;
         aircraftPhysics = GetComponent<AircraftPhysics>();
         rb = GetComponent<Rigidbody>();
@@ -135,7 +155,7 @@ public class GliderController : MonoBehaviour
         if (Input.GetKey(hotkeys.useNitro) && !jetEmpty)
         {
             SetThrust(1, 0.1f);
-            jetAmount -= (decreasePerSecondSpeed / aircraftPhysics.thrust) * Time.deltaTime;
+            jetAmount -= (decreaseTime / aircraftPhysics.thrust) * Time.deltaTime;
         } 
         if (jetAmount < 0.01f)
         {
@@ -216,7 +236,7 @@ public class GliderController : MonoBehaviour
             if (increaseValue > 0.25f) // Trails
             {
                 Debug.Log(Mathf.InverseLerp(0, 75, rb.velocity.magnitude));
-                jetAmount += ((increasePerSecondSpeed * increaseValue) / aircraftPhysics.thrust) * Time.deltaTime * (rb.velocity.magnitude/impactOfVelocity);
+                jetAmount += ((increaseTime * increaseValue) / aircraftPhysics.thrust) * Time.deltaTime * (rb.velocity.magnitude/impactOfVelocity);
                 rollControlSensitivity = 1.1f * sensitivitySaves[0];
                 pitchControlSensitivity = 1.1f * sensitivitySaves[1];
                 rightTrail.emitting = true;
@@ -368,8 +388,8 @@ public class GliderController : MonoBehaviour
             {
                 flapAngles[i] = (i % 2) switch
                 {
-                    0 => Mathf.Lerp(flapAngles[i], 90, smoothSpeed),
-                    _ => Mathf.Lerp(flapAngles[i], -90, smoothSpeed),
+                    0 => Mathf.Lerp(flapAngles[i], 90, flapOpenSpeed),
+                    _ => Mathf.Lerp(flapAngles[i], -90, flapOpenSpeed),
                 };
             }
         }

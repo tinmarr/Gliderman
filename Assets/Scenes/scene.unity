@@ -3989,7 +3989,7 @@ MonoBehaviour:
   - {fileID: 631353304}
   - {fileID: 406474765}
   - {fileID: 469023349}
-  smoothSpeed: 0.075
+  flapOpenSpeed: 0.08
   closeSpeed: 0.15
   Pitch: 0
   Yaw: 0
@@ -4032,8 +4032,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   jetAmount: 0
-  decreasePerSecondSpeed: 1000
-  increasePerSecondSpeed: 100
+  decreaseTime: 200
+  increaseTime: 100
   impactOfVelocity: 5
   rightTrail: {fileID: 388203548}
   leftTrail: {fileID: 89162975}
@@ -4050,6 +4050,8 @@ MonoBehaviour:
   - {fileID: 1501318152}
   - {fileID: 962908308}
   minVelocity: 30
+  balanceConfig: {fileID: 11400000, guid: 80b6d997670dc1844921a1bebb97f419, type: 2}
+  overrideWithLocalValues: 0
   hotkeys: {fileID: 11400000, guid: bc044c4dd08353b4bb2fb932d54bcb5e, type: 2}
 --- !u!114 &1895329607
 MonoBehaviour:
