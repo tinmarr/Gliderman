@@ -35,12 +35,10 @@ public class StartPad : MonoBehaviour
         yield return new WaitForSecondsRealtime(delay);
         if (player.GetRB().velocity.magnitude < maxSpeed)
         {
-            Debug.Log($"{player.GetRB().velocity.magnitude} - Added Speed");
             player.GetRB().AddForce(thrust);
         }
         else
         {
-            Debug.Log($"{player.GetRB().velocity.magnitude} - Stopped Next Corountine");
             StopCoroutine(nameof(Launch));
         }
     }
