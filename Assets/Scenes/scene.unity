@@ -2770,9 +2770,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1895329606}
-  startStrengthUp: 200000
-  startStrengthForward: 100000
-  throttling: 0.2
+  startStrengthUp: 100000
+  startStrengthForward: 50000
+  throttling: 0.1
+  maxSpeed: 80
   hotkeys: {fileID: 11400000, guid: bc044c4dd08353b4bb2fb932d54bcb5e, type: 2}
 --- !u!1 &1456616435
 GameObject:

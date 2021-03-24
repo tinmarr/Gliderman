@@ -7,6 +7,7 @@ public class StartPad : MonoBehaviour
     public float startStrengthUp;
     public float startStrengthForward;
     public float throttling = 0.1f;
+    public float maxSpeed = 80;
     public HotkeyConfig hotkeys;
 
     private void OnTriggerStay(Collider other)
@@ -38,7 +39,13 @@ public class StartPad : MonoBehaviour
     public IEnumerator SetLaunched()
     {
         yield return new WaitForSeconds(1f);
-        player.SetLaunched(true);
+        if (player.GetRB().velocity.magnitude < maxSpeed)
+        {
+            player.SetLaunched(true);
+        } else
+        {
+            StopCoroutine(nameof(SetLaunched));
+        }
     }
 
     private void OnValidate()

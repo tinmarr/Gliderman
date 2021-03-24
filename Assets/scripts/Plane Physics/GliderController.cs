@@ -118,6 +118,7 @@ public class GliderController : MonoBehaviour
         sensitivitySaves[0] = rollControlSensitivity;
         sensitivitySaves[1] = pitchControlSensitivity;
         sensitivitySaves[2] = yawControlSensitivity;
+        Respawn();
     }
 
     private void Update()
