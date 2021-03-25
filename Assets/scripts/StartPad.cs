@@ -10,25 +10,23 @@ public class StartPad : MonoBehaviour
     public float maxSpeed = 80;
     public HotkeyConfig hotkeys;
 
-    private void OnTriggerStay(Collider other)
+    public void LaunchPlayer()
     {
-        if (other.CompareTag("Player") && Input.GetKeyDown(hotkeys.launchFromPlatform))
+        player.GetRB().isKinematic = false;
+        Vector3 finalForce = (player.transform.forward * startStrengthForward) + (player.transform.up * startStrengthUp);
+        Vector3 currentForce = Vector3.zero;
+        for (int i = 0; i < 1 / throttling; i++)
         {
-            player.GetRB().isKinematic = false;
-            Vector3 finalForce = (player.transform.forward * startStrengthForward) + (player.transform.up * startStrengthUp);
-            Vector3 currentForce = Vector3.zero;
-            for (int i = 0; i < 1/throttling; i++)
-            {
-                currentForce = Vector3.Lerp(currentForce, finalForce, throttling);
-                StartCoroutine(Launch(currentForce, throttling * i));
+            currentForce = Vector3.Lerp(currentForce, finalForce, throttling);
+            StartCoroutine(Launch(currentForce, throttling * i));
 
-                if (!(i + 1 < 1 / throttling))
-                {
-                    StartCoroutine(SetLaunched());
-                }
+            if (!(i + 1 < 1 / throttling))
+            {
+                StartCoroutine(SetLaunched());
             }
         }
     }
+    
 
     public IEnumerator Launch(Vector3 thrust, float delay)
     {

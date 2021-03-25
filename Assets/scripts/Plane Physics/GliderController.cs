@@ -86,6 +86,11 @@ public class GliderController : MonoBehaviour
     float[] groundNear = new float[1];
     float aliveSince = 0;
 
+    [Header("Game loop do not touch")]
+    bool doNothing = false;
+    public bool activateMenuPlease = false;
+
+
     private void Start()
     {
         aircraftPhysics = GetComponent<AircraftPhysics>();
@@ -123,6 +128,7 @@ public class GliderController : MonoBehaviour
 
     private void Update()
     {
+        if (doNothing) return;
         if (!overrideWithLocalValues && balanceConfig.liveUpdate)
         {
             rollControlSensitivity = balanceConfig.rollControlSensitivity;
@@ -368,6 +374,7 @@ public class GliderController : MonoBehaviour
     public void Kill()
     {
         dead = true;
+
     }
 
 
@@ -390,6 +397,7 @@ public class GliderController : MonoBehaviour
         launched = false;
         ResetThrust();
         StopAllCoroutines();
+        activateMenuPlease = true;
     }
 
     public void Brake()
@@ -443,5 +451,9 @@ public class GliderController : MonoBehaviour
     public bool GetLaunched()
     {
         return launched;
+    }
+    public void SetNothing(bool val)
+    {
+        doNothing = val;
     }
 }
