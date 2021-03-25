@@ -9,10 +9,10 @@ public class ControlDampener : MonoBehaviour
     public AnimationCurve pitchCurve;
     public AnimationCurve rollCurve;
 
-    [Range(-1,1)]
+    [Range(-1, 1)]
     public float pitchChange;
-    [Range(-1,1)]
-    public float yawChange;
+    [Range(-1, 1)]
+    public float yawChange; 
 
     private void Start()
     {

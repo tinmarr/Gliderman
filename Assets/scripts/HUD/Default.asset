@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c25826b49039c614695a49e9773f7fd9, type: 3}
+  m_Name: Default
+  m_EditorClassIdentifier: 
+  duplicates: 
+  useNitro: 32
+  noobModeToggle: 112
+  launchFromPlatform: 108
+  pauseGame: 101
+  toggleHUD: 282
+  takeScreenshot: 283
+  debugMode: 284
+  respawn: 13
+  brakes: 304
+  exitGame: 27
+  accept: 13

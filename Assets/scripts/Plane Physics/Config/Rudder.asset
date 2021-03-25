@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rudder
   m_EditorClassIdentifier: 
   liftSlope: 6.28
-  skinFriction: 0.01
+  skinFriction: 0
   zeroLiftAoA: 0
   stallAngleHigh: 15
   stallAngleLow: -15
