@@ -1531,6 +1531,7 @@ MonoBehaviour:
   textureSettings: {fileID: 11400000, guid: 5a201a42e68e08441bdc0831102d44ba, type: 2}
   viewer: {fileID: 1895329609}
   mapMaterial: {fileID: 2100000, guid: c652a2d511ecf6d4c80f6fc0acdc72c4, type: 2}
+  player: {fileID: 1895329606}
 --- !u!1 &492955406
 GameObject:
   m_ObjectHideFlags: 0
