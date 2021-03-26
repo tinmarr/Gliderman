@@ -4122,8 +4122,6 @@ MonoBehaviour:
   accelerationDisplay: {fileID: 1630620332}
   nitroBar: {fileID: 1145494720}
   plane: {fileID: 1313579581}
-  plane2: {fileID: 0}
-  gliderBig: {fileID: 1895329609}
   pitch: {fileID: 642187607}
   roll: {fileID: 1085645360}
   timer: {fileID: 1542467087}
