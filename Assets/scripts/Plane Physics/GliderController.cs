@@ -417,6 +417,8 @@ public class GliderController : MonoBehaviour
                     _ => Mathf.Lerp(flapAngles[i], -90, flapOpenSpeed),
                 };
             }
+            rollControlSensitivity = sensitivitySaves[0] * 2f;
+            pitchControlSensitivity = sensitivitySaves[1] * 2f;
         }
         else
         {
@@ -424,6 +426,8 @@ public class GliderController : MonoBehaviour
             {
                 brake.localRotation = Quaternion.Euler(brake.localEulerAngles.x, brake.localEulerAngles.y, 0);
             }
+            rollControlSensitivity = sensitivitySaves[0];
+            pitchControlSensitivity = sensitivitySaves[1];
         }
     }
 
