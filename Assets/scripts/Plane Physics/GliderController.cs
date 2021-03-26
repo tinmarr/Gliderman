@@ -396,7 +396,6 @@ public class GliderController : MonoBehaviour
         jetAmount = 0f;
         launched = false;
         ResetThrust();
-        StopAllCoroutines();
         activateMenuPlease = true;
     }
 
