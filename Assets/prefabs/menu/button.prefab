@@ -139,8 +139,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: UnityEngine.Object, UnityEngine
+        - m_Target: {fileID: 9185026812861505501, guid: f900eb9302d90bf49beed12b8cce1e04, type: 3}
+          m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
           m_MethodName: OnHover
           m_Mode: 1
           m_Arguments:
@@ -155,8 +155,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        - m_Target: {fileID: 9185026812861505501, guid: f900eb9302d90bf49beed12b8cce1e04, type: 3}
+          m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
           m_MethodName: OnClick
           m_Mode: 1
           m_Arguments:
