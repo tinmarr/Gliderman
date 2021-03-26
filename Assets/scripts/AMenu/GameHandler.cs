@@ -118,5 +118,6 @@ public class GameHandler : MonoBehaviour
         HUD.SetActive(false);
         Pause.SetActive(false);
         Time.timeScale = 1;
+        state = State.Game;
     }
 }
