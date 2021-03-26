@@ -6042,6 +6042,7 @@ MonoBehaviour:
   balanceConfig: {fileID: 11400000, guid: 80b6d997670dc1844921a1bebb97f419, type: 2}
   overrideWithLocalValues: 0
   hotkeys: {fileID: 11400000, guid: bc044c4dd08353b4bb2fb932d54bcb5e, type: 2}
+  startTerrain: {fileID: 1799410462}
   activateMenuPlease: 0
 --- !u!114 &1895329607
 MonoBehaviour:
