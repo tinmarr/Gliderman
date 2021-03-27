@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45014918, g: 0.49135578, b: 0.5672702, a: 1}
+  m_IndirectSpecularColor: {r: 1.1080271, g: 1.1435049, b: 1.0343382, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -890,7 +890,6 @@ MonoBehaviour:
   HUD: {fileID: 1540002303}
   Menu: {fileID: 40744996}
   Pause: {fileID: 117073437}
-  fadeSystem: {fileID: 1002275568}
   glider: {fileID: 1895329606}
   launchPad: {fileID: 1397628910}
 --- !u!4 &280996006
@@ -1672,6 +1671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bc501c1c720dfc4f8f0ce63065021ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settings: {fileID: 11400000, guid: 626e59efd5b20c44a85a54f1ca758539, type: 2}
   colliderLODIndex: 0
   detailLevels:
   - lod: 0
@@ -4906,7 +4906,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 1895329606}
   hotkeys: {fileID: 11400000, guid: bc044c4dd08353b4bb2fb932d54bcb5e, type: 2}
-  deadMessage: {fileID: 1692931107}
   speedDisplay: {fileID: 2085553405}
   accelerationDisplay: {fileID: 1630620332}
   nitroBar: {fileID: 1145494720}
@@ -6371,6 +6370,7 @@ MonoBehaviour:
   overrideWithLocalValues: 0
   hotkeys: {fileID: 11400000, guid: bc044c4dd08353b4bb2fb932d54bcb5e, type: 2}
   startTerrain: {fileID: 1799410462}
+  handler: {fileID: 0}
   activateMenuPlease: 0
 --- !u!114 &1895329607
 MonoBehaviour:
