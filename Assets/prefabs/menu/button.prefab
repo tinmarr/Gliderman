@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4796760304537497202}
   - component: {fileID: 4796760304537497203}
   - component: {fileID: 8888920897036436477}
+  - component: {fileID: -4639469741364949216}
   m_Layer: 5
   m_Name: button
   m_TagString: Untagged
@@ -139,8 +140,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 9185026812861505501, guid: f900eb9302d90bf49beed12b8cce1e04, type: 3}
-          m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        - m_Target: {fileID: -4639469741364949216}
+          m_TargetAssemblyTypeName: ButtonSounds, Assembly-CSharp
           m_MethodName: OnHover
           m_Mode: 1
           m_Arguments:
@@ -155,8 +156,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 9185026812861505501, guid: f900eb9302d90bf49beed12b8cce1e04, type: 3}
-          m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        - m_Target: {fileID: -4639469741364949216}
+          m_TargetAssemblyTypeName: ButtonSounds, Assembly-CSharp
           m_MethodName: OnClick
           m_Mode: 1
           m_Arguments:
@@ -167,6 +168,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &-4639469741364949216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4796760304537497201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9129c4f360dfdcc47a52d6284a371cda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4796760305432756329
 GameObject:
   m_ObjectHideFlags: 0
