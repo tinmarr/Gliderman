@@ -287,6 +287,7 @@ public class GliderController : MonoBehaviour
         // Death
         if (dead)
         {
+            activateMenuPlease = true;
             thrustPercent = 0;
             rb.constraints = RigidbodyConstraints.FreezeAll;
         }

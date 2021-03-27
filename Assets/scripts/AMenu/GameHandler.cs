@@ -17,7 +17,7 @@ public class GameHandler : MonoBehaviour
     public GameObject HUD;
     public GameObject Menu;
     public GameObject Pause;
-    //public Fader fadeSystem;
+    public Fader fadeSystem;
 
     [Header("glider Init")]
     public GliderController glider;
@@ -51,6 +51,7 @@ public class GameHandler : MonoBehaviour
             }
             if (glider.activateMenuPlease == true)
             {
+                ActivateMenu();
                 glider.activateMenuPlease = false;
             }
         }
@@ -84,10 +85,11 @@ public class GameHandler : MonoBehaviour
     }
     public void ActivateMenu()
     {
+        HUD.SetActive(false);
         Pause.SetActive(false);
         Menu.SetActive(true);
-        //fadeSystem.turnOff();
-        //fadeSystem.Fade();
+        fadeSystem.turnOff();
+        fadeSystem.Fade();
         Time.timeScale = 1;
         state = State.Menu;
         glider.Respawn();
