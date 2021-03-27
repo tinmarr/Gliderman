@@ -56,7 +56,6 @@ public class GliderController : MonoBehaviour
     public Material trailGround;
 
     [Header("Dampening Parameters")]
-    // dampening
     public float terminalVelocity = 200f;
     public ControlDampener controlDampener;
 
@@ -77,6 +76,8 @@ public class GliderController : MonoBehaviour
 
     [Header("Other")]
     public HotkeyConfig hotkeys;
+    public GameObject startTerrain;
+    public GameHandler handler;
     bool dead = false;
     Vector3 startPos;
     Quaternion startRot;
@@ -89,7 +90,6 @@ public class GliderController : MonoBehaviour
     [Header("Game loop do not touch")]
     bool doNothing = false;
     public bool activateMenuPlease = false;
-
 
     private void Start()
     {
@@ -237,31 +237,38 @@ public class GliderController : MonoBehaviour
         automation.autoTurn = !roll;
 
         // Get Distance from Terrain
+        float maxSearchDistance = 500;
         Vector3[] dirs = { transform.forward, -transform.forward, transform.up, -transform.up, transform.right, -transform.right };
         groundNear = new float[dirs.Length];
         for (int i = 0; i < dirs.Length; i++)
         {
             Vector3 dir = dirs[i];
-            if (Physics.Raycast(transform.position, dir, out RaycastHit hit, 500, 1 << 3))
+            if (Physics.Raycast(transform.position, dir, out RaycastHit hit, maxSearchDistance, 1 << 3))
             {
                 groundNear[i] = (hit.distance);
             }
             else
             {
-                groundNear[i] = 500;
+                groundNear[i] = maxSearchDistance;
             }
         }
 
         // Boost
         if (!speeding && !Input.GetKey(hotkeys.useNitro))
         {
-            float increaseValue = proximityCurve.Evaluate(Mathf.InverseLerp(0, 100, Mathf.Min(groundNear)));
-                
+            float increaseValue = 0;
+            for (int i = 0; i < groundNear.Length; i++)
+            {
+                float toIncrease = proximityCurve.Evaluate(Mathf.InverseLerp(0, maxSearchDistance/5, groundNear[i]));
+                if (toIncrease > 0.25f)
+                {
+                    increaseValue += toIncrease;
+                }
+            }
+
             if (increaseValue > 0.25f) // Trails
             {
-                jetAmount += (1/(increaseTime*50)) * Time.deltaTime * (rb.velocity.magnitude/impactOfVelocity);
-                rollControlSensitivity = 1.1f * sensitivitySaves[0];
-                pitchControlSensitivity = 1.1f * sensitivitySaves[1];
+                jetAmount += increaseValue * (1/(increaseTime*50)) * Time.deltaTime * (rb.velocity.magnitude/impactOfVelocity);
                 rightTrail.emitting = true;
                 leftTrail.emitting = true;
                 rightTrail.material = trailGround;
@@ -269,8 +276,6 @@ public class GliderController : MonoBehaviour
             }
             else
             {
-                rollControlSensitivity = sensitivitySaves[0];
-                pitchControlSensitivity = sensitivitySaves[1];
                 rightTrail.material = trailNormal;
                 leftTrail.material = trailNormal;
             }
@@ -396,8 +401,8 @@ public class GliderController : MonoBehaviour
         jetAmount = 0f;
         launched = false;
         ResetThrust();
-        StopAllCoroutines();
         activateMenuPlease = true;
+        startTerrain.SetActive(true);
     }
 
     public void Brake()
@@ -417,6 +422,8 @@ public class GliderController : MonoBehaviour
                     _ => Mathf.Lerp(flapAngles[i], -90, flapOpenSpeed),
                 };
             }
+            rollControlSensitivity = sensitivitySaves[0] * 2f;
+            pitchControlSensitivity = sensitivitySaves[1] * 2f;
         }
         else
         {
@@ -424,6 +431,8 @@ public class GliderController : MonoBehaviour
             {
                 brake.localRotation = Quaternion.Euler(brake.localEulerAngles.x, brake.localEulerAngles.y, 0);
             }
+            rollControlSensitivity = sensitivitySaves[0];
+            pitchControlSensitivity = sensitivitySaves[1];
         }
     }
 
@@ -435,7 +444,7 @@ public class GliderController : MonoBehaviour
     public void SetLaunched(bool val)
     {
         launched = val;
-        if (launched == true) aliveSince = Time.realtimeSinceStartup;
+        if (launched == true) aliveSince = Time.time;
     }
 
     public float GetMinDistance()

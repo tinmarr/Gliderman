@@ -17,6 +17,7 @@ public class GameHandler : MonoBehaviour
     public GameObject HUD;
     public GameObject Menu;
     public GameObject Pause;
+    //public Fader fadeSystem;
 
     [Header("glider Init")]
     public GliderController glider;
@@ -28,6 +29,8 @@ public class GameHandler : MonoBehaviour
         HUD.SetActive(false);
         Menu.SetActive(true);
         Pause.SetActive(false);
+        //fadeSystem.turnOff();
+        //fadeSystem.Fade();
         state = State.Menu;
     }
 
@@ -37,15 +40,10 @@ public class GameHandler : MonoBehaviour
         if (state == State.Menu)
         {
             glider.SetNothing(true);
-            if (!Menu.activeSelf)
-            {
-                Menu.SetActive(true);
-                HUD.SetActive(false);
-                Pause.SetActive(false);
-            }
             if (Input.GetKeyDown(KeyCode.Space))
             { 
                 StartGame();
+
             }
             if (Input.GetKeyDown(hotkeys.exitGame))
             {
@@ -58,12 +56,6 @@ public class GameHandler : MonoBehaviour
         }
         else if(state == State.Game)
         {
-            if (Menu.activeSelf)
-            {
-                HUD.SetActive(true);
-                Menu.SetActive(false);
-                Pause.SetActive(false);
-            }
             if (Input.GetKeyDown(hotkeys.pauseGame))
             {
                 state = State.Pause;
@@ -73,13 +65,17 @@ public class GameHandler : MonoBehaviour
             {
                 glider.activateMenuPlease = false;
                 state = State.Menu;
+                HUD.SetActive(false);
+                ActivateMenu();
             }
         }
         else if(state == State.Pause)
         {
-            HUD.SetActive(false);
-            Menu.SetActive(false);
-            Pause.SetActive(true);
+            if (Input.GetKeyDown(hotkeys.pauseGame))
+            {
+                ResumeGame();
+                state = State.Game;
+            }
         }
         // start in the "menu" which is the normal scene looking down?
         // If in menu then wait for space to start escape to exit etc
@@ -88,6 +84,10 @@ public class GameHandler : MonoBehaviour
     }
     public void ActivateMenu()
     {
+        Pause.SetActive(false);
+        Menu.SetActive(true);
+        //fadeSystem.turnOff();
+        //fadeSystem.Fade();
         Time.timeScale = 1;
         state = State.Menu;
         glider.Respawn();
@@ -96,8 +96,6 @@ public class GameHandler : MonoBehaviour
     {
         HUD.SetActive(true);
         Menu.SetActive(false);
-        Pause.SetActive(false);
-        state = State.Menu;
         state = State.Game;
         launchPad.LaunchPlayer();
         glider.SetNothing(false);
@@ -109,14 +107,14 @@ public class GameHandler : MonoBehaviour
     }
     public void PauseGame()
     {
+        Pause.SetActive(true);
         Time.timeScale = 0;
     }
 
     public void ResumeGame()
     {
-        Menu.SetActive(true);
-        HUD.SetActive(false);
         Pause.SetActive(false);
+        HUD.SetActive(true);
         Time.timeScale = 1;
         state = State.Game;
     }

@@ -7,6 +7,7 @@ public class TerrainGenerator : MonoBehaviour {
 	const float viewerMoveThresholdForChunkUpdate = 25f;
 	const float sqrViewerMoveThresholdForChunkUpdate = viewerMoveThresholdForChunkUpdate * viewerMoveThresholdForChunkUpdate;
 
+	public SettingsConfig settings;
 
 	public int colliderLODIndex;
 	public LODInfo[] detailLevels;
@@ -27,19 +28,28 @@ public class TerrainGenerator : MonoBehaviour {
 	Dictionary<Vector2, TerrainChunk> terrainChunkDictionary = new Dictionary<Vector2, TerrainChunk>();
 	List<TerrainChunk> visibleTerrainChunks = new List<TerrainChunk>();
 
+	public GliderController player;
+
 	void Start() {
 
 		textureSettings.ApplyToMaterial (mapMaterial);
-		textureSettings.UpdateMeshHeights (mapMaterial, heightMapSettings.minHeight, heightMapSettings.maxHeight);
-
-		float maxViewDst = detailLevels [detailLevels.Length - 1].visibleDstThreshold;
+		textureSettings.UpdateMeshHeights(mapMaterial, heightMapSettings.minHeight, heightMapSettings.maxHeight);
+		
 		meshWorldSize = meshSettings.meshWorldSize;
-		chunksVisibleInViewDst = Mathf.RoundToInt(maxViewDst / meshWorldSize);
+		chunksVisibleInViewDst = Mathf.RoundToInt(settings.renderDistance / meshWorldSize);
 
 		UpdateVisibleChunks ();
 	}
 
 	void Update() {
+		chunksVisibleInViewDst = Mathf.RoundToInt(settings.renderDistance / meshWorldSize);
+		for (int i = 0; i < detailLevels.Length; i++) 
+        {
+			int denominator = detailLevels.Length - i;
+			detailLevels[i].visibleDstThreshold = settings.renderDistance / denominator;
+			detailLevels[i].lod = Mathf.Clamp(settings.mapQuality - denominator+1, 0, 4);
+        }
+
 		viewerPosition = new Vector2 (viewer.position.x, viewer.position.z);
 
 		if (viewerPosition != viewerPositionOld) {
@@ -75,7 +85,7 @@ public class TerrainGenerator : MonoBehaviour {
                         if (Mathf.Abs(viewedChunkCoord.y) < 4 && Mathf.Abs(viewedChunkCoord.x) < 4)
                         { flat = true; }
 
-                        TerrainChunk newChunk = new TerrainChunk(viewedChunkCoord, heightMapSettings, meshSettings, detailLevels, colliderLODIndex, transform, viewer, mapMaterial);
+                        TerrainChunk newChunk = new TerrainChunk(viewedChunkCoord, heightMapSettings, meshSettings, detailLevels, colliderLODIndex, transform, viewer, mapMaterial, player);
 						terrainChunkDictionary.Add (viewedChunkCoord, newChunk);
 						newChunk.onVisibilityChanged += OnTerrainChunkVisibilityChanged;
 						newChunk.Load (flat);

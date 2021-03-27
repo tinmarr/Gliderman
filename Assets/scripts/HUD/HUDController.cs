@@ -6,7 +6,6 @@ public class HUDController : MonoBehaviour
     public GliderController controller;
     public HotkeyConfig hotkeys;
     [Header("Main")]
-    public GameObject deadMessage;
     public Text speedDisplay;
     public Text accelerationDisplay;
     public Image nitroBar;
@@ -33,18 +32,17 @@ public class HUDController : MonoBehaviour
         int timeToDisplay = 0;
         if (controller.IsDead() && frozenTime == -1)
         {
-            frozenTime = (int)(Time.realtimeSinceStartup - controller.GetAliveSince());
+            frozenTime = (int)(Time.time - controller.GetAliveSince());
         } else if (controller.IsDead())
         {
             timeToDisplay = frozenTime;
         } else if (controller.GetLaunched())
         {
-            timeToDisplay = (int)(Time.realtimeSinceStartup - controller.GetAliveSince());
+            timeToDisplay = (int)(Time.time - controller.GetAliveSince());
             frozenTime = -1;
         }
         timer.text = $"Time Alive:\n{timeToDisplay}s";
 
-        deadMessage.SetActive(controller.IsDead());
         speedDisplay.text = (int) controller.GetRB().velocity.magnitude + " m/s";
         accelerationDisplay.text = (Mathf.RoundToInt(accel * 10) / 10) + " m/s/s";
         debugScreen.SetActive(f3Screen);

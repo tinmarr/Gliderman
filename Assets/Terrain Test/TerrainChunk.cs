@@ -14,6 +14,8 @@ public class TerrainChunk {
 	MeshFilter meshFilter;
 	MeshCollider meshCollider;
 
+	CollisionLogic collisionLogic;
+
 	LODInfo[] detailLevels;
 	LODMesh[] lodMeshes;
 	int colliderLODIndex;
@@ -28,7 +30,7 @@ public class TerrainChunk {
 	MeshSettings meshSettings;
 	Transform viewer;
 
-	public TerrainChunk(Vector2 coord, HeightMapSettings heightMapSettings, MeshSettings meshSettings, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Transform viewer, Material material) {
+	public TerrainChunk(Vector2 coord, HeightMapSettings heightMapSettings, MeshSettings meshSettings, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Transform viewer, Material material, GliderController player) {
 		this.coord = coord;
 		this.detailLevels = detailLevels;
 		this.colliderLODIndex = colliderLODIndex;
@@ -45,7 +47,11 @@ public class TerrainChunk {
 		meshRenderer = meshObject.AddComponent<MeshRenderer>();
 		meshFilter = meshObject.AddComponent<MeshFilter>();
 		meshCollider = meshObject.AddComponent<MeshCollider>();
+		collisionLogic = meshObject.AddComponent<CollisionLogic>();
 		meshRenderer.material = material;
+		collisionLogic.player = player;
+		meshObject.tag = "Terrain";
+		meshObject.layer = 3;
 
 		meshObject.transform.position = new Vector3(position.x,0,position.y);
 		meshObject.transform.parent = parent;
