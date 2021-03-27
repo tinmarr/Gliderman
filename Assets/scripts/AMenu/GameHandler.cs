@@ -71,7 +71,11 @@ public class GameHandler : MonoBehaviour
         }
         else if(state == State.Pause)
         {
-
+            if (Input.GetKeyDown(hotkeys.pauseGame))
+            {
+                ResumeGame();
+                state = State.Game;
+            }
         }
         // start in the "menu" which is the normal scene looking down?
         // If in menu then wait for space to start escape to exit etc

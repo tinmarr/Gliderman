@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dad46caf27192f14da4b46744c8ee4bc, type: 3}
   m_Name: Settings
   m_EditorClassIdentifier: 
-  renderDistance: 750
+  renderDistance: 500
   quality: 2
   mapQuality: 2
   noobMode: 0

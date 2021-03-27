@@ -77,6 +77,7 @@ public class GliderController : MonoBehaviour
     [Header("Other")]
     public HotkeyConfig hotkeys;
     public GameObject startTerrain;
+    public GameHandler handler;
     bool dead = false;
     Vector3 startPos;
     Quaternion startRot;
@@ -443,7 +444,7 @@ public class GliderController : MonoBehaviour
     public void SetLaunched(bool val)
     {
         launched = val;
-        if (launched == true) aliveSince = Time.realtimeSinceStartup;
+        if (launched == true) aliveSince = Time.time;
     }
 
     public float GetMinDistance()
