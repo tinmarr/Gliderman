@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb49c415c73a941729b11c3076268f15, type: 3}
-  m_Name: New Height Map Settings
+  m_Name: crownedterrain
   m_EditorClassIdentifier: 
   autoUpdate: 1
   noiseSettings:
@@ -27,8 +27,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -0.002994012
-      value: -0.04346654
+      time: 0.00060706213
+      value: 0.3196316
       inSlope: 0.5114178
       outSlope: 0.5114178
       tangentMode: 0
@@ -36,8 +36,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.29137087
-      value: 0.006695606
+      time: 0.26253176
+      value: 0.41758427
       inSlope: 0.11677842
       outSlope: 0.11677842
       tangentMode: 0
@@ -45,8 +45,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.23240519
     - serializedVersion: 3
-      time: 0.6002875
-      value: 0.21248214
+      time: 0.4777289
+      value: 0.5660283
       inSlope: 1.370928
       outSlope: 1.370928
       tangentMode: 0
@@ -54,22 +54,22 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.8759531
     - serializedVersion: 3
-      time: 0.7193248
-      value: 0.5192909
-      inSlope: -0.1357743
-      outSlope: -0.1357743
+      time: 0.7494193
+      value: 0.986021
+      inSlope: 0.07632408
+      outSlope: 0.07632408
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.59572697
+      outWeight: 1
     - serializedVersion: 3
       time: 0.99850297
       value: 0.9933111
-      inSlope: 1.012341
-      outSlope: 1.012341
+      inSlope: -0.024449078
+      outSlope: -0.024449078
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 1
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
