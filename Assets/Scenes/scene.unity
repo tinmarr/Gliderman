@@ -890,6 +890,7 @@ MonoBehaviour:
   HUD: {fileID: 1540002303}
   Menu: {fileID: 40744996}
   Pause: {fileID: 117073437}
+  fadeSystem: {fileID: 0}
   glider: {fileID: 1895329606}
   launchPad: {fileID: 1397628910}
 --- !u!4 &280996006
