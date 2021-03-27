@@ -7,6 +7,7 @@ public class TerrainGenerator : MonoBehaviour {
 	const float viewerMoveThresholdForChunkUpdate = 25f;
 	const float sqrViewerMoveThresholdForChunkUpdate = viewerMoveThresholdForChunkUpdate * viewerMoveThresholdForChunkUpdate;
 
+	public SettingsConfig settings;
 
 	public int colliderLODIndex;
 	public LODInfo[] detailLevels;
@@ -32,16 +33,23 @@ public class TerrainGenerator : MonoBehaviour {
 	void Start() {
 
 		textureSettings.ApplyToMaterial (mapMaterial);
-		textureSettings.UpdateMeshHeights (mapMaterial, heightMapSettings.minHeight, heightMapSettings.maxHeight);
-
-		float maxViewDst = detailLevels [detailLevels.Length - 1].visibleDstThreshold;
+		textureSettings.UpdateMeshHeights(mapMaterial, heightMapSettings.minHeight, heightMapSettings.maxHeight);
+		
 		meshWorldSize = meshSettings.meshWorldSize;
-		chunksVisibleInViewDst = Mathf.RoundToInt(maxViewDst / meshWorldSize);
+		chunksVisibleInViewDst = Mathf.RoundToInt(settings.renderDistance / meshWorldSize);
 
 		UpdateVisibleChunks ();
 	}
 
 	void Update() {
+		chunksVisibleInViewDst = Mathf.RoundToInt(settings.renderDistance / meshWorldSize);
+		for (int i = 0; i < detailLevels.Length; i++) 
+        {
+			int denominator = detailLevels.Length - i;
+			detailLevels[i].visibleDstThreshold = settings.renderDistance / denominator;
+			detailLevels[i].lod = Mathf.Clamp(settings.mapQuality - denominator+1, 0, 4);
+        }
+
 		viewerPosition = new Vector2 (viewer.position.x, viewer.position.z);
 
 		if (viewerPosition != viewerPositionOld) {

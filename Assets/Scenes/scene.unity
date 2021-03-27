@@ -14,12 +14,12 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 1
-  m_FogColor: {r: 1, g: 1, b: 1, a: 1}
-  m_FogMode: 2
-  m_FogDensity: 0.001
-  m_LinearFogStart: 0
-  m_LinearFogEnd: 2500
+  m_Fog: 0
+  m_FogColor: {r: 1, g: 1, b: 1, a: 0}
+  m_FogMode: 3
+  m_FogDensity: 0.003
+  m_LinearFogStart: 400
+  m_LinearFogEnd: 500
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45014918, g: 0.49135578, b: 0.5672702, a: 1}
+  m_IndirectSpecularColor: {r: 1.1080271, g: 1.1435049, b: 1.0343382, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -870,7 +870,7 @@ GameObject:
   - component: {fileID: 280996006}
   - component: {fileID: 280996005}
   m_Layer: 0
-  m_Name: State Manager
+  m_Name: Game Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1638,11 +1638,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bc501c1c720dfc4f8f0ce63065021ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settings: {fileID: 11400000, guid: 626e59efd5b20c44a85a54f1ca758539, type: 2}
   colliderLODIndex: 0
   detailLevels:
   - lod: 0
-    visibleDstThreshold: 250
+    visibleDstThreshold: 500
+  - lod: 1
+    visibleDstThreshold: 500
   - lod: 2
+    visibleDstThreshold: 500
+  - lod: 3
+    visibleDstThreshold: 500
+  - lod: 4
     visibleDstThreshold: 500
   meshSettings: {fileID: 11400000, guid: 9ae508c0af981d043bacc119b83525e5, type: 2}
   heightMapSettings: {fileID: 11400000, guid: 7251ebf724375ec4da513536aa933c4f, type: 2}
@@ -5613,7 +5620,7 @@ MonoBehaviour:
   balanceConfig: {fileID: 11400000, guid: 80b6d997670dc1844921a1bebb97f419, type: 2}
   overrideWithLocalValues: 0
   hotkeys: {fileID: 11400000, guid: bc044c4dd08353b4bb2fb932d54bcb5e, type: 2}
-  startTerrain: {fileID: 0}
+  startTerrain: {fileID: 1799410462}
   activateMenuPlease: 0
 --- !u!114 &1895329607
 MonoBehaviour:
@@ -10939,7 +10946,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1895329609}
-  offset: {x: 3261, y: 2670, z: 2500}
+  offset: {x: 1000, y: 2670, z: 1000}
 --- !u!1001 &2026518032
 PrefabInstance:
   m_ObjectHideFlags: 0
