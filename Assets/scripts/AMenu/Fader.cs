@@ -6,6 +6,7 @@ public class Fader : MonoBehaviour
 {
     public float duration;
     public bool fadedState;
+    public float gracePeriod;
     private void Start()
     {
         
@@ -24,6 +25,12 @@ public class Fader : MonoBehaviour
     }
     public IEnumerator DoFade(CanvasGroup canvas, float start, float end)
     {
+        float counterGrace = 0f;
+        while (counterGrace < gracePeriod)
+        {
+            counterGrace += Time.deltaTime;
+            yield return null;
+        }
         float counter = 0f;
 
         while (counter < duration)
