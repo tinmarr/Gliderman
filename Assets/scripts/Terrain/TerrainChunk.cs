@@ -1,12 +1,15 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class TerrainChunk {
-	
+
+	public GameObject windPrefab;
+
 	const float colliderGenerationDistanceThreshold = 5;
 	public event System.Action<TerrainChunk, bool> onVisibilityChanged;
 	public Vector2 coord;
 	 
-	GameObject meshObject;
+	public GameObject meshObject;
 	Vector2 sampleCentre;
 	Bounds bounds;
 
@@ -20,11 +23,13 @@ public class TerrainChunk {
 	LODMesh[] lodMeshes;
 	int colliderLODIndex;
 
-	HeightMap heightMap;
-	bool heightMapReceived;
+	public HeightMap heightMap;
+	bool heightMapReceived = false;
+	bool structuresGenerated = false;
 	int previousLODIndex = -1;
 	bool hasSetCollider;
 	float maxViewDst;
+	public bool flat = false;
 
 	HeightMapSettings heightMapSettings;
 	MeshSettings meshSettings;
@@ -41,7 +46,6 @@ public class TerrainChunk {
 		sampleCentre = coord * meshSettings.meshWorldSize / meshSettings.meshScale;
 		Vector2 position = coord * meshSettings.meshWorldSize ;
 		bounds = new Bounds(position,Vector2.one * meshSettings.meshWorldSize );
-
 
 		meshObject = new GameObject("Terrain Chunk");
 		meshRenderer = meshObject.AddComponent<MeshRenderer>();
@@ -67,18 +71,37 @@ public class TerrainChunk {
 		}
 
 		maxViewDst = detailLevels [detailLevels.Length - 1].visibleDstThreshold;
-
 	}
 
 	public void Load(bool flat) {
+		this.flat = flat;
 		ThreadedDataRequester.RequestData(() => HeightMapGenerator.GenerateHeightMap (meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, sampleCentre, flat), OnHeightMapReceived);
 	}
 
+	public void LoadStructures()
+    {
+		ThreadedDataRequester.RequestData(() => StructureManager.GenerateStructures(this), OnStructuresRecieved);
+    }
 
+	private void OnStructuresRecieved(object structDictObj)
+    {
+		Dictionary<string, Vector2> structureDictionary = (Dictionary<string, Vector2>)structDictObj;
+		int numOfStructs = structureDictionary.Count;
+		for (int i = 0; i < numOfStructs; i++)
+        {
+            if (structureDictionary.TryGetValue($"{i}{nameof(WindArea)}", out Vector2 coords))
+            {
+				GameObject obj = Object.Instantiate(windPrefab, new Vector3(coords.x + sampleCentre.x, -1, coords.y + sampleCentre.y), Quaternion.identity);
+				obj.transform.parent = meshObject.transform;
+			}
+        }
+    }
 
 	void OnHeightMapReceived(object heightMapObject) {
 		this.heightMap = (HeightMap)heightMapObject;
 		heightMapReceived = true;
+
+		LoadStructures();
 
 		UpdateTerrainChunk ();
 	}
@@ -117,8 +140,6 @@ public class TerrainChunk {
 						lodMesh.RequestMesh (heightMap, meshSettings);
 					}
 				}
-
-
 			}
 
 			if (wasVisible != visible) {

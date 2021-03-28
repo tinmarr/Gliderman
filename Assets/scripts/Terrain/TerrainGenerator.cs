@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class TerrainGenerator : MonoBehaviour {
+	public GameObject windAreaPrefab;
 
 	const float viewerMoveThresholdForChunkUpdate = 25f;
 	const float sqrViewerMoveThresholdForChunkUpdate = viewerMoveThresholdForChunkUpdate * viewerMoveThresholdForChunkUpdate;
@@ -31,7 +32,6 @@ public class TerrainGenerator : MonoBehaviour {
 	public GliderController player;
 
 	void Start() {
-
 		textureSettings.ApplyToMaterial (mapMaterial);
 		textureSettings.UpdateMeshHeights(mapMaterial, heightMapSettings.minHeight, heightMapSettings.maxHeight);
 		
@@ -87,6 +87,7 @@ public class TerrainGenerator : MonoBehaviour {
 
                         TerrainChunk newChunk = new TerrainChunk(viewedChunkCoord, heightMapSettings, meshSettings, detailLevels, colliderLODIndex, transform, viewer, mapMaterial, player);
 						terrainChunkDictionary.Add (viewedChunkCoord, newChunk);
+						newChunk.windPrefab = windAreaPrefab;
 						newChunk.onVisibilityChanged += OnTerrainChunkVisibilityChanged;
 						newChunk.Load (flat);
 					}
