@@ -94,8 +94,16 @@ public class GliderController : MonoBehaviour
 
     [Header("Sounds")]
     public SoundManager soundManager;
+
+    [Header("Score")]
+    public int highScore = 0;
+    public int lastScore = 0;
+    public int currentScore = 0;
+    int frozenTime = -1;
+
     private void Start()
     {
+        StartCoroutine(AddToScore());
         aircraftPhysics = GetComponent<AircraftPhysics>();
         rb = GetComponent<Rigidbody>();
 
@@ -257,9 +265,9 @@ public class GliderController : MonoBehaviour
         }
 
         // Boost
+        float increaseValue = 0;
         if (!speeding && !Input.GetKey(hotkeys.useNitro))
         {
-            float increaseValue = 0;
             for (int i = 0; i < groundNear.Length; i++)
             {
                 float toIncrease = proximityCurve.Evaluate(Mathf.InverseLerp(0, maxSearchDistance/5, groundNear[i]));
@@ -287,6 +295,12 @@ public class GliderController : MonoBehaviour
         jetAmount = Mathf.Clamp(jetAmount, 0, 1);
         thrustPercent = Mathf.Clamp(thrustPercent, 0, 1);
 
+        // Score
+        if (Time.timeScale != 0)
+        {
+            currentScore += Mathf.RoundToInt(increaseValue > 0.5f ? increaseValue : 0);
+        }
+        
         // Death
         if (dead)
         {
@@ -394,7 +408,11 @@ public class GliderController : MonoBehaviour
 
     public void Respawn()
     {
+        lastScore = currentScore;
+        if (lastScore > highScore) highScore = lastScore;
+        currentScore = 0;
         dead = false;
+        activateMenuPlease = true;
         transform.position = startPos;
         transform.rotation = startRot;
         transform.localScale = startScale;
@@ -405,7 +423,6 @@ public class GliderController : MonoBehaviour
         jetAmount = 0f;
         launched = false;
         ResetThrust();
-        activateMenuPlease = true;
         startTerrain.SetActive(true);
     }
 
@@ -468,5 +485,14 @@ public class GliderController : MonoBehaviour
     public void SetNothing(bool val)
     {
         doNothing = val;
+    }
+    public IEnumerator AddToScore()
+    {
+        yield return new WaitForSeconds(1f);
+        if (launched)
+        {
+            currentScore += 1;
+        }
+        StartCoroutine(AddToScore());
     }
 }

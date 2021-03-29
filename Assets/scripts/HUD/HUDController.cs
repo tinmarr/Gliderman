@@ -26,22 +26,9 @@ public class HUDController : MonoBehaviour
     float timeCounter = 0.0f;
     float fps = 0.0f;
 
-    int frozenTime = -1;
     private void Update()
     {
-        int timeToDisplay = 0;
-        if (controller.IsDead() && frozenTime == -1)
-        {
-            frozenTime = (int)(Time.time - controller.GetAliveSince());
-        } else if (controller.IsDead())
-        {
-            timeToDisplay = frozenTime;
-        } else if (controller.GetLaunched())
-        {
-            timeToDisplay = (int)(Time.time - controller.GetAliveSince());
-            frozenTime = -1;
-        }
-        timer.text = $"Time Alive:\n{timeToDisplay}s";
+        timer.text = $"Score: {controller.currentScore}";
 
         speedDisplay.text = (int) controller.GetRB().velocity.magnitude + " m/s";
         accelerationDisplay.text = (Mathf.RoundToInt(accel * 10) / 10) + " m/s/s";

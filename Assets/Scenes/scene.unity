@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.58017737, g: 0.76864755, b: 0.67890936, a: 1}
+  m_IndirectSpecularColor: {r: 0.58017737, g: 0.7686472, b: 0.6789086, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -307,6 +307,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50242d5ce75cfec4d90113ea194fd858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 1895329606}
+  scoreText: {fileID: 1547563418}
+  highScore: {fileID: 1374243298}
 --- !u!1 &73231224
 GameObject:
   m_ObjectHideFlags: 0
@@ -4330,7 +4333,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0
-  m_Text: 100 m
+  m_Text: 100
 --- !u!222 &1374243299
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5309,7 +5312,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0
-  m_Text: 100 m
+  m_Text: 100
 --- !u!222 &1547563419
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6673,6 +6676,9 @@ MonoBehaviour:
   handler: {fileID: 0}
   activateMenuPlease: 0
   soundManager: {fileID: 483712692}
+  highScore: 0
+  lastScore: 0
+  currentScore: 0
 --- !u!114 &1895329607
 MonoBehaviour:
   m_ObjectHideFlags: 0
