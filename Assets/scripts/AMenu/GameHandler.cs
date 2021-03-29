@@ -51,6 +51,7 @@ public class GameHandler : MonoBehaviour
             glider.SetNothing(true);
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                fadeSystem.StopFadeIn();
                 topDownCamera.Priority = 1;
                 state = State.Game;
                 StartCoroutine(StartGame());
@@ -112,7 +113,7 @@ public class GameHandler : MonoBehaviour
         yield return new WaitForSeconds(2f);
         soundManager.FadeOut("startMusic", 1);
         soundManager.FadeIn(gameMusic, 2);
-        soundManager.Play(closeMusic, 0.01f);
+        soundManager.Play(closeMusic, 0.001f);
         HUD.SetActive(true);
         Menu.SetActive(false);
         state = State.Game;

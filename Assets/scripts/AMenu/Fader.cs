@@ -23,6 +23,12 @@ public class Fader : MonoBehaviour
         GetComponent<CanvasGroup>().alpha = 0;
 
     }
+    public void StopFadeIn()
+    {
+        CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
+        StopAllCoroutines();
+        canvasGroup.alpha = 0;
+    }
     public IEnumerator DoFade(CanvasGroup canvas, float start, float end)
     {
         float counterGrace = 0f;
