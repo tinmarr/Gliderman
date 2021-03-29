@@ -68,8 +68,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -0.001629252
-      value: 0.6901568
+      time: -0.0038101156
+      value: 1.4020965
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -77,8 +77,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.14508887
-      value: 0.5690932
+      time: 0.06654425
+      value: 0.5729308
       inSlope: -0.21035782
       outSlope: -0.21035782
       tangentMode: 0
@@ -109,6 +109,6 @@ MonoBehaviour:
   decreaseTime: 3
   increaseTime: 10
   impactOfVelocity: 10
-  thrust: 5000
+  thrust: 3000
   minVelocity: 30
   terminalVelocity: 250

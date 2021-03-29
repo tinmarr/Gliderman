@@ -18,10 +18,13 @@ public class StartLoadingController : MonoBehaviour
     public IEnumerator SlowUpdate()
     {
         float renderDistance = terrainGen.detailLevels[terrainGen.detailLevels.Length - 1].visibleDstThreshold;
-        bool visible = true;
+        renderDistance *= 2;
+        bool visible = false;
         for (int i = 0; i < checkingPoints.Length; i++)
         {
-            visible |= Vector3.Distance(checkingPoints[i].position, glider.position) <= renderDistance;
+            visible = visible || Vector3.Distance(checkingPoints[i].position, glider.position) <= renderDistance;
+            Vector2 fakePoint = new Vector2(checkingPoints[i].position.x, checkingPoints[i].position.z);
+            Vector2 fakeGlider = new Vector2(glider.position.x, glider.position.z);
         }
         startTerrain.SetActive(visible);
         yield return new WaitForSeconds(0.5f);
