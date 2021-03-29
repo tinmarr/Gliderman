@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6637008322892789028}
   - component: {fileID: 6637008322892789029}
   - component: {fileID: 6637008322892789033}
-  - component: {fileID: 6637008322892789032}
+  - component: {fileID: 138923326}
   m_Layer: 0
   m_Name: WindPad
   m_TagString: Untagged
@@ -111,7 +111,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 10000, z: 1}
   m_Center: {x: 0, y: 5000, z: 0}
---- !u!114 &6637008322892789032
+--- !u!114 &138923326
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,10 +123,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5836d4794e0cd2a4ca8681326b57ad77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Strength: 25
-  timeUntilStrength: 5
-  curveSteepness: 4
-  timeInWind: 0
+  Strength: 30
+  curveSteepness:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.50045776
+      inSlope: 0.38183466
+      outSlope: 0.38183466
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.10888084
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6637008323219268048
 GameObject:
   m_ObjectHideFlags: 0

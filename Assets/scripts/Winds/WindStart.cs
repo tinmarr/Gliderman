@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+using UnityEngine;
 
-public class WindArea : MonoBehaviour
+public class WindStart : MonoBehaviour
 {
     public float Strength;
     public int timeUntilStrength = 5;
@@ -9,9 +9,9 @@ public class WindArea : MonoBehaviour
 
     void OnTriggerStay(Collider col)
     {
-        if (timeInWind < timeUntilStrength) timeInWind += Time.deltaTime;
         if (col.CompareTag("Player"))
         {
+            if (timeInWind < timeUntilStrength) timeInWind += Time.deltaTime;
             AircraftPhysics aircraft = col.GetComponentInParent<AircraftPhysics>();
             float coefficient = Mathf.Pow(timeInWind / timeUntilStrength, curveSteepness);
             Vector3 wind = Vector3.up * Strength * coefficient;
@@ -33,3 +33,4 @@ public class WindArea : MonoBehaviour
         timeInWind = 0;
     }
 }
+
