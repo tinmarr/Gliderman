@@ -432,6 +432,7 @@ public class GliderController : MonoBehaviour
         {
             foreach (Transform brake in brakes)
             {
+                brake.gameObject.SetActive(true);
                 brake.localRotation = Quaternion.Euler(brake.localEulerAngles.x, brake.localEulerAngles.y, 90);
             }
 
@@ -450,6 +451,7 @@ public class GliderController : MonoBehaviour
         {
             foreach (Transform brake in brakes)
             {
+                brake.gameObject.SetActive(false);
                 brake.localRotation = Quaternion.Euler(brake.localEulerAngles.x, brake.localEulerAngles.y, 0);
             }
             rollControlSensitivity = sensitivitySaves[0];
