@@ -8,6 +8,8 @@ public class StartLoadingController : MonoBehaviour
     public TerrainGenerator terrainGen;
     public GameObject startTerrain;
 
+    public Transform[] checkingPoints;
+
     private void Start()
     {
         StartCoroutine(SlowUpdate());
@@ -16,14 +18,13 @@ public class StartLoadingController : MonoBehaviour
     public IEnumerator SlowUpdate()
     {
         float renderDistance = terrainGen.detailLevels[terrainGen.detailLevels.Length - 1].visibleDstThreshold;
-        if (Vector3.Distance(transform.position, glider.position) > renderDistance)
+        bool visible = true;
+        for (int i = 0; i < checkingPoints.Length; i++)
         {
-            startTerrain.SetActive(false);
-        } else
-        {
-            startTerrain.SetActive(true);
+            visible |= Vector3.Distance(checkingPoints[i].position, glider.position) <= renderDistance;
         }
-        yield return new WaitForSeconds(2f);
+        startTerrain.SetActive(visible);
+        yield return new WaitForSeconds(0.5f);
         StartCoroutine(SlowUpdate());
     }
 }

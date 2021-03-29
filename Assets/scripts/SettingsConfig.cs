@@ -13,4 +13,10 @@ public class SettingsConfig : ScriptableObject
     [Range(0, 4)]
     public int mapQuality = 1;
     public bool noobMode = false;
+    public int seed = 1;
+
+    private void OnValidate()
+    {
+        seed = (int)Mathf.Clamp(seed, 1, Mathf.Infinity);
+    }
 }
