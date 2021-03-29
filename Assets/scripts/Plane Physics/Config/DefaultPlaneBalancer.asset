@@ -106,9 +106,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  decreaseTime: 3
+  decreaseTime: 4
   increaseTime: 10
   impactOfVelocity: 10
-  thrust: 3000
+  thrust: 4000
   minVelocity: 30
   terminalVelocity: 250
