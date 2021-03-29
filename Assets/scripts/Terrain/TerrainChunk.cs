@@ -4,6 +4,7 @@ using UnityEngine;
 public class TerrainChunk {
 
 	public GameObject windPrefab;
+	public GameObject speedPrefab;
 
 	const float colliderGenerationDistanceThreshold = 5;
 	public event System.Action<TerrainChunk, bool> onVisibilityChanged;
@@ -31,7 +32,7 @@ public class TerrainChunk {
 	float maxViewDst;
 	public bool flat = false;
 
-	HeightMapSettings heightMapSettings;
+	public HeightMapSettings heightMapSettings;
 	MeshSettings meshSettings;
 	Transform viewer;
 
@@ -89,9 +90,13 @@ public class TerrainChunk {
 		int numOfStructs = structureDictionary.Count;
 		for (int i = 0; i < numOfStructs; i++)
         {
-            if (structureDictionary.TryGetValue($"{i}{nameof(WindArea)}", out Vector2 coords))
+            if (structureDictionary.TryGetValue($"{i}Wind", out Vector2 coords))
             {
-				GameObject obj = Object.Instantiate(windPrefab, new Vector3(coords.x + sampleCentre.x, -1, coords.y + sampleCentre.y), Quaternion.identity);
+				GameObject obj = Object.Instantiate(windPrefab, new Vector3(sampleCentre.x + coords.x, -1, sampleCentre.y + coords.y), Quaternion.identity);
+				obj.transform.parent = meshObject.transform;
+			} else if (structureDictionary.TryGetValue($"{i}Speed", out coords))
+            {
+				GameObject obj = Object.Instantiate(speedPrefab, new Vector3(sampleCentre.x + coords.x, heightMap.maxValue + 20, sampleCentre.y + coords.y), Quaternion.identity);
 				obj.transform.parent = meshObject.transform;
 			}
         }

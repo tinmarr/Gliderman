@@ -19,7 +19,6 @@ public class WindArea : MonoBehaviour
             float coefficient = curveSteepness.Evaluate(distance / maxDistanceInside);
             Vector3 wind = Vector3.up * Strength * coefficient;
             aircraft.SetWind(wind);
-            Debug.Log($"in wind: {Time.time}");
         }
     }
 

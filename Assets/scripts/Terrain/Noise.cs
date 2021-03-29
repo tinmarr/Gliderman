@@ -96,5 +96,6 @@ public class NoiseSettings {
 		octaves = Mathf.Max (octaves, 1);
 		lacunarity = Mathf.Max (lacunarity, 1);
 		persistance = Mathf.Clamp01 (persistance);
+		seed = (int)Mathf.Clamp(seed, 1, Mathf.Infinity);
 	}
 }
