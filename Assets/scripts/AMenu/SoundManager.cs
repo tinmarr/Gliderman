@@ -84,7 +84,6 @@ public class SoundManager : MonoBehaviour
 	IEnumerator Fade(Sound sound, float seconds)
     {
 		float decrement = 0.01f / seconds * sound.volume;
-		print(decrement);
 		while(sound.source.volume > 0)
         {
 			sound.source.volume -= decrement;
@@ -101,7 +100,6 @@ public class SoundManager : MonoBehaviour
 	IEnumerator In(Sound sound, float seconds)
 	{
 		float decrement = 0.01f / seconds * sound.volume;
-		print(decrement);
 		while (sound.source.volume < sound.volume)
 		{
 			sound.source.volume += decrement;
