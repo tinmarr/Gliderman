@@ -18,7 +18,7 @@ public class StartLoadingController : MonoBehaviour
     public IEnumerator SlowUpdate()
     {
         float renderDistance = terrainGen.detailLevels[terrainGen.detailLevels.Length - 1].visibleDstThreshold;
-        renderDistance *= 2;
+        renderDistance *= 1.5f;
         bool visible = false;
         for (int i = 0; i < checkingPoints.Length; i++)
         {

@@ -893,6 +893,7 @@ MonoBehaviour:
   fadeSystem: {fileID: 1002275568}
   glider: {fileID: 1895329606}
   launchPad: {fileID: 1397628910}
+  soundManager: {fileID: 483712692}
 --- !u!4 &280996006
 Transform:
   m_ObjectHideFlags: 0
@@ -1520,6 +1521,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6082572553536342235, guid: f900eb9302d90bf49beed12b8cce1e04, type: 3}
   m_PrefabInstance: {fileID: 997999279}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &483712692 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9185026812861505501, guid: f900eb9302d90bf49beed12b8cce1e04, type: 3}
+  m_PrefabInstance: {fileID: 997999279}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483712691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c24d6465670fc0f41ba38dc36f8a5df0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &483712693
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3023,7 +3035,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9185026812861505501, guid: f900eb9302d90bf49beed12b8cce1e04, type: 3}
       propertyPath: sounds.Array.size
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9185026812861505501, guid: f900eb9302d90bf49beed12b8cce1e04, type: 3}
       propertyPath: sounds.Array.data[0].clip
@@ -3107,11 +3119,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9185026812861505501, guid: f900eb9302d90bf49beed12b8cce1e04, type: 3}
       propertyPath: sounds.Array.data[0].volume
-      value: 0.285
+      value: 0.027
       objectReference: {fileID: 0}
     - target: {fileID: 9185026812861505501, guid: f900eb9302d90bf49beed12b8cce1e04, type: 3}
       propertyPath: sounds.Array.data[1].volume
-      value: 0.285
+      value: 0.015
       objectReference: {fileID: 0}
     - target: {fileID: 9185026812861505501, guid: f900eb9302d90bf49beed12b8cce1e04, type: 3}
       propertyPath: sounds.Array.data[2].volume
@@ -6548,6 +6560,7 @@ MonoBehaviour:
   startTerrain: {fileID: 1799410462}
   handler: {fileID: 0}
   activateMenuPlease: 0
+  soundManager: {fileID: 483712692}
 --- !u!114 &1895329607
 MonoBehaviour:
   m_ObjectHideFlags: 0
