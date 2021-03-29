@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class GameHandler : MonoBehaviour
 {
     public HotkeyConfig hotkeys;
     State state;
+    public CinemachineVirtualCamera topDownCamera;
 
     [Header("display")]
     public GameObject HUD;
@@ -44,11 +46,13 @@ public class GameHandler : MonoBehaviour
     {
         if (state == State.Menu)
         {
+            topDownCamera.Priority = 3;
             glider.SetNothing(true);
             if (Input.GetKeyDown(KeyCode.Space))
-            { 
-                StartGame();
-
+            {
+                topDownCamera.Priority = 1;
+                state = State.Game;
+                StartCoroutine(StartGame());
             }
             if (Input.GetKeyDown(hotkeys.exitGame))
             {
@@ -101,8 +105,9 @@ public class GameHandler : MonoBehaviour
         state = State.Menu;
         glider.Respawn();
     }
-    void StartGame()
+    IEnumerator StartGame()
     {
+        yield return new WaitForSeconds(2f);
         soundManager.FadeOut("startMusic", 1);
         soundManager.FadeIn(gameMusic, 2);
         HUD.SetActive(true);
