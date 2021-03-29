@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6637008322892789035}
   - component: {fileID: 6637008322892789028}
   - component: {fileID: 6637008322892789029}
-  - component: {fileID: 6637008322892789033}
+  - component: {fileID: 2046531628959144614}
   - component: {fileID: 138923326}
   m_Layer: 0
   m_Name: WindPad
@@ -94,12 +94,12 @@ BoxCollider:
   m_GameObject: {fileID: 6637008322892789030}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &6637008322892789033
-BoxCollider:
+--- !u!136 &2046531628959144614
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -108,9 +108,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 10000, z: 1}
-  m_Center: {x: 0, y: 5000, z: 0}
+  m_Radius: 0.5
+  m_Height: 4000
+  m_Direction: 1
+  m_Center: {x: 0, y: 2000, z: 0}
 --- !u!114 &138923326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,8 +264,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 20
-      minScalar: 18.5
+      scalar: 14
+      minScalar: 12
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1689,8 +1690,8 @@ ParticleSystem:
     y:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
-      minScalar: 0.5
+      scalar: 0.5
+      minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:

@@ -69,12 +69,26 @@ public class SoundManager : MonoBehaviour
 		}
 		if(setVolume != 0)
         {
-			s.source.volume = setVolume * (1f + UnityEngine.Random.Range(-s.volumeVariance / 2f, s.volumeVariance / 2f));
+			s.source.volume = setVolume;
 		} else
 		s.source.volume = s.volume * (1f + UnityEngine.Random.Range(-s.volumeVariance / 2f, s.volumeVariance / 2f));
 		s.source.pitch = s.pitch * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
 
 		s.source.Play();
+	}
+	public void ChangeVol(string sound, float newVolume)
+    {
+		newVolume = Mathf.Clamp(newVolume, 0, 1);
+		Sound s = Array.Find(sounds, item => item.name == sound);
+		if (s == null)
+		{
+			Debug.LogWarning("Sound: " + name + " not found!");
+			return;
+		}
+		if (newVolume != 0)
+		{
+			s.source.volume = newVolume;
+		}
 	}
 	public void FadeOut(string sound, float seconds)
     {

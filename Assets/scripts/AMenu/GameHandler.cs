@@ -28,6 +28,7 @@ public class GameHandler : MonoBehaviour
     [Header("sounds")]
     public SoundManager soundManager;
     string gameMusic = "inGame2";
+    string closeMusic = "inGame1";
     void Start()
     {
         // god who knows
@@ -96,6 +97,7 @@ public class GameHandler : MonoBehaviour
     {
         soundManager.FadeIn("startMusic", 1);
         soundManager.FadeOut(gameMusic, 2);
+        soundManager.FadeOut(closeMusic, 1);
         HUD.SetActive(false);
         Pause.SetActive(false);
         Menu.SetActive(true);
@@ -110,6 +112,7 @@ public class GameHandler : MonoBehaviour
         yield return new WaitForSeconds(2f);
         soundManager.FadeOut("startMusic", 1);
         soundManager.FadeIn(gameMusic, 2);
+        soundManager.Play(closeMusic, 0.01f);
         HUD.SetActive(true);
         Menu.SetActive(false);
         state = State.Game;
