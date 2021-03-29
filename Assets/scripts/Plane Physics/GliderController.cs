@@ -87,10 +87,13 @@ public class GliderController : MonoBehaviour
     float[] groundNear = new float[1];
     float aliveSince = 0;
 
-    [Header("Game loop do not touch")]
+    //("Game loop do not touch")
     bool doNothing = false;
+    [HideInInspector]
     public bool activateMenuPlease = false;
 
+    [Header("Sounds")]
+    public SoundManager soundManager;
     private void Start()
     {
         aircraftPhysics = GetComponent<AircraftPhysics>();

@@ -22,6 +22,9 @@ public class GameHandler : MonoBehaviour
     [Header("glider Init")]
     public GliderController glider;
     public StartPad launchPad;
+
+    [Header("sounds")]
+    public SoundManager soundManager;
     void Start()
     {
         // god who knows
@@ -32,6 +35,7 @@ public class GameHandler : MonoBehaviour
         //fadeSystem.turnOff();
         //fadeSystem.Fade();
         state = State.Menu;
+        soundManager.Play("startMusic");
     }
 
     // Update is called once per frame
@@ -96,6 +100,8 @@ public class GameHandler : MonoBehaviour
     }
     void StartGame()
     {
+        soundManager.FadeOut("startMusic", 1);
+        soundManager.FadeIn("inGame1", 2);
         HUD.SetActive(true);
         Menu.SetActive(false);
         state = State.Game;

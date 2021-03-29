@@ -1,5 +1,6 @@
 using UnityEngine.Audio;
 using UnityEngine;
+using System.Collections;
 using System;
 
 public class SoundManager : MonoBehaviour
@@ -11,7 +12,6 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-		Play("startMusic");
     }
     public void OnHover()
     {
@@ -49,19 +49,68 @@ public class SoundManager : MonoBehaviour
 			s.source.outputAudioMixerGroup = mixerGroup;
 		}
 	}
-	
-	public void Play(string sound)
+	/// <summary>
+	/// plays a sound from the audiosource
+	/// </summary>
+	/// <param name="sound">
+	/// sounds are past as strings declared in the soundmanager instance, each sound has a "name" so check there
+	/// </param>
+	/// <param name="setVolume">
+	/// clamped between 0 and 1 you can play the sound at a certain volume
+	/// </param>
+	public void Play(string sound, float setVolume=0)
 	{
+		setVolume = Mathf.Clamp(setVolume, 0, 1);
 		Sound s = Array.Find(sounds, item => item.name == sound);
 		if (s == null)
 		{
 			Debug.LogWarning("Sound: " + name + " not found!");
 			return;
 		}
-
+		if(setVolume != 0)
+        {
+			s.source.volume = setVolume * (1f + UnityEngine.Random.Range(-s.volumeVariance / 2f, s.volumeVariance / 2f));
+		} else
 		s.source.volume = s.volume * (1f + UnityEngine.Random.Range(-s.volumeVariance / 2f, s.volumeVariance / 2f));
 		s.source.pitch = s.pitch * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
 
 		s.source.Play();
+	}
+	public void FadeOut(string sound, float seconds)
+    {
+		Sound s = Array.Find(sounds, item => item.name == sound);
+		StartCoroutine(Fade(s, seconds));
+	}
+	IEnumerator Fade(Sound sound, float seconds)
+    {
+		float decrement = 0.01f / seconds * sound.volume;
+		print(decrement);
+		while(sound.source.volume > 0)
+        {
+			sound.source.volume -= decrement;
+			yield return new WaitForSeconds(0.01f);
+        }
+		StopSound(sound.name);
+    }
+	public void FadeIn(string sound, float seconds)
+	{
+		Sound s = Array.Find(sounds, item => item.name == sound);
+		Play(sound,0.01f);
+		StartCoroutine(In(s, seconds));
+	}
+	IEnumerator In(Sound sound, float seconds)
+	{
+		float decrement = 0.01f / seconds * sound.volume;
+		print(decrement);
+		while (sound.source.volume < sound.volume)
+		{
+			sound.source.volume += decrement;
+			yield return new WaitForSeconds(0.01f);
+		}
+	}
+	public void StopSound(string sound)
+    {
+		Sound s = Array.Find(sounds, item => item.name == sound);
+		s.source.Stop();
 	}
 }
