@@ -11,7 +11,6 @@ public class SpeedBoost : MonoBehaviour
         {
             GliderController controller = other.gameObject.GetComponentInParent<GliderController>();
             controller.SetThrust(thrustPercent, time);
-            controller.jetAmount = 1f;
         }
     }
 }
