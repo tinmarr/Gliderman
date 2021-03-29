@@ -79,6 +79,11 @@ public class SoundManager : MonoBehaviour
 	public void FadeOut(string sound, float seconds)
     {
 		Sound s = Array.Find(sounds, item => item.name == sound);
+		if (s == null)
+		{
+			Debug.LogWarning("Sound: " + name + " not found!");
+			return;
+		}
 		StartCoroutine(Fade(s, seconds));
 	}
 	IEnumerator Fade(Sound sound, float seconds)
@@ -94,6 +99,11 @@ public class SoundManager : MonoBehaviour
 	public void FadeIn(string sound, float seconds)
 	{
 		Sound s = Array.Find(sounds, item => item.name == sound);
+		if (s == null)
+		{
+			Debug.LogWarning("Sound: " + name + " not found!");
+			return;
+		}
 		Play(sound,0.01f);
 		StartCoroutine(In(s, seconds));
 	}
@@ -109,6 +119,11 @@ public class SoundManager : MonoBehaviour
 	public void StopSound(string sound)
     {
 		Sound s = Array.Find(sounds, item => item.name == sound);
+		if (s == null)
+		{
+			Debug.LogWarning("Sound: " + name + " not found!");
+			return;
+		}
 		s.source.Stop();
 	}
 }

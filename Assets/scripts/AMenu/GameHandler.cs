@@ -89,6 +89,8 @@ public class GameHandler : MonoBehaviour
     }
     public void ActivateMenu()
     {
+        soundManager.FadeIn("startMusic", 1);
+        soundManager.FadeOut("inGame1", 2);
         HUD.SetActive(false);
         Pause.SetActive(false);
         Menu.SetActive(true);
