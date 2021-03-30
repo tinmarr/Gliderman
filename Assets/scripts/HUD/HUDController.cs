@@ -19,8 +19,7 @@ public class HUDController : MonoBehaviour
     public float refreshTime = 0.5f;
     public Text leftSide;
     [Header("Curves")]
-    public AnimationCurve redToYellowCurve;
-    public AnimationCurve yellowToGreenCurve;
+    public AnimationCurve nitroBarCurve;
 
     float accel = 0;
     float prevV = 0;
@@ -50,8 +49,9 @@ public class HUDController : MonoBehaviour
         Color32 redColor = new Color32(0xe7, 0x4c, 0x3c, 0xff);
         Color32 yellowColor = new Color32(0xf3, 0x9c, 0x12, 0xff);
         Color32 greenColor = new Color32(0x27, 0xae, 0x60, 0xff);
-        if (controller.jetAmount < 0.25f) nitroBar.color = Color32.Lerp(redColor, yellowColor, controller.jetAmount * 4);
-        else nitroBar.color = Color32.Lerp(yellowColor, greenColor, (controller.jetAmount-0.25f)*4/3);
+        if (controller.jetAmount < 0.2f) nitroBar.color = Color32.Lerp(redColor, yellowColor, nitroBarCurve.Evaluate(controller.jetAmount * 5));
+        else if (controller.jetAmount < 0.6f) nitroBar.color = Color32.Lerp(yellowColor, greenColor, nitroBarCurve.Evaluate((controller.jetAmount - 0.2f) * 2.5f));
+        else nitroBar.color = greenColor;
 
         if (Input.GetKeyDown(hotkeys.debugMode))
         {
