@@ -31,10 +31,10 @@ public class HUDController : MonoBehaviour
 
     private void Update()
     {
-        timer.text = $"Score: {controller.currentScore}";
+        timer.text = "";
 
         speedDisplay.text = (int) controller.GetRB().velocity.magnitude + " m/s";
-        accelerationDisplay.text = (Mathf.RoundToInt(accel * 10) / 10) + " m/s/s";
+        accelerationDisplay.text = controller.currentScore + " pts";
         debugScreen.SetActive(f3Screen);
 
         Vector3 angles = controller.transform.localEulerAngles;
