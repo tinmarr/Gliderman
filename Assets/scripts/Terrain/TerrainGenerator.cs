@@ -124,6 +124,7 @@ public class TerrainGenerator : MonoBehaviour {
         }
 		terrainChunkDictionary = new Dictionary<Vector2, TerrainChunk>();
 		visibleTerrainChunks = new List<TerrainChunk>();
+		UpdateVisibleChunks();
 	}
 }
 
