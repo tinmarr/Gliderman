@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5836d4794e0cd2a4ca8681326b57ad77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Strength: 50
+  Strength: 1
   curveSteepness:
     serializedVersion: 2
     m_Curve:
@@ -149,6 +149,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  soundManager: {fileID: 0}
 --- !u!1 &7580533626503767739
 GameObject:
   m_ObjectHideFlags: 0
