@@ -113,15 +113,21 @@ public class TerrainGenerator : MonoBehaviour {
 
 	public void ClearAllTerrain()
     {
+		StartCoroutine(ClearTerrainCoroutine());
+	}
+
+	public IEnumerator ClearTerrainCoroutine()
+    {
 		foreach (Transform child in transform)
-        {
+		{
 			Destroy(child.gameObject);
-        }
+		}
 		heightMapSettings.noiseSettings.seed = settings.seed;
 		chunksVisibleInViewDst = Mathf.RoundToInt(settings.renderDistance / meshWorldSize);
 		terrainChunkDictionary = new Dictionary<Vector2, TerrainChunk>();
 		visibleTerrainChunks = new List<TerrainChunk>();
 		UpdateVisibleChunks();
+		yield return new WaitForSeconds(0.01f);
 	}
 }
 

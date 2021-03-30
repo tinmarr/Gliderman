@@ -21,6 +21,7 @@ public class MainMenu : MonoBehaviour
     public int seedVal = 0;
     public SettingsConfig config;
     public TerrainGenerator generator;
+
     public void takeSeed()
     {
         string check = seedText.text;
@@ -30,7 +31,6 @@ public class MainMenu : MonoBehaviour
         if (isNumeric) seedVal = temp;
         else seedVal = check.GetHashCode();
         config.seed = seedVal;
-        print(config.seed);
         generator.ClearAllTerrain();
     }
     public void NewGame()

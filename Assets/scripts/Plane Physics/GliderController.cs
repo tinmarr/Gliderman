@@ -75,6 +75,10 @@ public class GliderController : MonoBehaviour
     public bool overrideWithLocalValues = false;
     public SettingsConfig settings;
 
+    [Header("Terrain Generation")]
+    public TerrainGenerator terrain;
+    public HeightMapSettings[] biomes;
+
     [Header("Other")]
     public HotkeyConfig hotkeys;
     public GameObject startTerrain;
@@ -325,6 +329,9 @@ public class GliderController : MonoBehaviour
             thrustPercent = 0;
             rb.constraints = RigidbodyConstraints.FreezeAll;
             jet.Stop();
+            HeightMapSettings nextBiome = biomes[Random.Range(0, biomes.Length - 1)];
+            terrain.heightMapSettings = nextBiome;
+            terrain.ClearAllTerrain();
         }
 
         // Flaps

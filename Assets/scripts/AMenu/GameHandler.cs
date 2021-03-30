@@ -29,6 +29,7 @@ public class GameHandler : MonoBehaviour
     public SoundManager soundManager;
     string gameMusic = "inGame2";
     string closeMusic = "inGame1";
+
     void Start()
     {
         // god who knows
