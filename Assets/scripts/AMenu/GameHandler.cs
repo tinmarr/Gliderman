@@ -42,7 +42,6 @@ public class GameHandler : MonoBehaviour
         soundManager.Play("startMusic");
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (state == State.Menu)
@@ -110,12 +109,11 @@ public class GameHandler : MonoBehaviour
     }
     IEnumerator StartGame()
     {
-        yield return new WaitForSeconds(2f);
         soundManager.FadeOut("startMusic", 1);
         soundManager.FadeIn(gameMusic, 2);
-        soundManager.Play(closeMusic, 0.001f);
         HUD.SetActive(true);
         Menu.SetActive(false);
+        yield return new WaitForSeconds(2f);
         state = State.Game;
         launchPad.LaunchPlayer();
         glider.SetNothing(false);
