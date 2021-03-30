@@ -109,9 +109,9 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 4000
+  m_Height: 2000
   m_Direction: 1
-  m_Center: {x: 0, y: 2000, z: 0}
+  m_Center: {x: 0, y: 1000, z: 0}
 --- !u!114 &138923326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,8 +265,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 14
-      minScalar: 12
+      scalar: 5
+      minScalar: 4
       maxCurve:
         serializedVersion: 2
         m_Curve:
