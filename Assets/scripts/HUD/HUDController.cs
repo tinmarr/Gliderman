@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -43,10 +44,12 @@ public class HUDController : MonoBehaviour
         plane.rotation = Quaternion.Euler(angles.x, 0, angles.z);
 
         nitroBar.fillAmount = controller.jetAmount;
-        if (controller.jetAmount < 0.2f) nitroBar.color = new Color32(0xe7, 0x4c, 0x3c, 0xff);
-        else if (controller.jetAmount < 0.5f) nitroBar.color = new Color32(0xf3, 0x9c, 0x12, 0xff);
-        else if (controller.jetAmount <= 1f) nitroBar.color = new Color32(0x27, 0xae, 0x60, 0xff);
-        
+        Color32 redColor = new Color32(0xe7, 0x4c, 0x3c, 0xff);
+        Color32 yellowColor = new Color32(0xf3, 0x9c, 0x12, 0xff);
+        Color32 greenColor = new Color32(0x27, 0xae, 0x60, 0xff);
+        if (controller.jetAmount < 0.25f) nitroBar.color = Color32.Lerp(redColor, yellowColor, controller.jetAmount * 4);
+        else nitroBar.color = Color32.Lerp(yellowColor, greenColor, (controller.jetAmount-0.25f)*4/3);
+
         if (Input.GetKeyDown(hotkeys.debugMode))
         {
             f3Screen = !f3Screen;
