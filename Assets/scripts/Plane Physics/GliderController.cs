@@ -324,6 +324,7 @@ public class GliderController : MonoBehaviour
             activateMenuPlease = true;
             thrustPercent = 0;
             rb.constraints = RigidbodyConstraints.FreezeAll;
+            jet.Stop();
         }
 
         // Flaps
