@@ -329,6 +329,8 @@ public class GliderController : MonoBehaviour
             thrustPercent = 0;
             rb.constraints = RigidbodyConstraints.FreezeAll;
             jet.Stop();
+            int seedVal = (int)Random.Range(-500, 500);
+            settings.seed = seedVal;
             HeightMapSettings nextBiome = biomes[Random.Range(0, biomes.Length - 1)];
             terrain.heightMapSettings = nextBiome;
             terrain.ClearAllTerrain();

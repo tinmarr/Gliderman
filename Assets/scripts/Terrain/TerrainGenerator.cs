@@ -113,11 +113,7 @@ public class TerrainGenerator : MonoBehaviour {
 
 	public void ClearAllTerrain()
     {
-		StartCoroutine(ClearTerrainCoroutine());
-	}
-
-	public IEnumerator ClearTerrainCoroutine()
-    {
+		Random.InitState(settings.seed);
 		foreach (Transform child in transform)
 		{
 			Destroy(child.gameObject);
@@ -127,7 +123,6 @@ public class TerrainGenerator : MonoBehaviour {
 		terrainChunkDictionary = new Dictionary<Vector2, TerrainChunk>();
 		visibleTerrainChunks = new List<TerrainChunk>();
 		UpdateVisibleChunks();
-		yield return new WaitForSeconds(0.01f);
 	}
 }
 
