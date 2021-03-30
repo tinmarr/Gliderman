@@ -95,7 +95,6 @@ public class TerrainChunk {
             if (structureDictionary.TryGetValue($"{i}Wind", out Vector2 windCoords))
             {
 				Vector2 pos = new Vector2(meshObject.transform.position.x + (windCoords.x * meshSettings.meshScale), meshObject.transform.position.z + (windCoords.y * meshSettings.meshScale));
-				Debug.Log(pos);
 				GameObject obj = Object.Instantiate(windPrefab, new Vector3(pos.x, -1,  pos.y), Quaternion.identity);
 				obj.transform.parent = meshObject.transform;
 				WindArea windArea = obj.GetComponent<WindArea>();

@@ -111,7 +111,7 @@ public class GameHandler : MonoBehaviour
     {
         soundManager.FadeOut("startMusic", 1);
         soundManager.FadeIn(gameMusic, 2);
-        soundManager.Play(closeMusic, 0.001f);
+        soundManager.FadeIn(closeMusic, 0.434f);
         HUD.SetActive(true);
         Menu.SetActive(false);
         yield return new WaitForSeconds(2f);

@@ -18,6 +18,9 @@ public class HUDController : MonoBehaviour
     public GameObject debugScreen;
     public float refreshTime = 0.5f;
     public Text leftSide;
+    [Header("Curves")]
+    public AnimationCurve redToYellowCurve;
+    public AnimationCurve yellowToGreenCurve;
 
     float accel = 0;
     float prevV = 0;

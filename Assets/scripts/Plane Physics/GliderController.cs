@@ -266,11 +266,13 @@ public class GliderController : MonoBehaviour
 
         // Boost
         float increaseValue = 0;
+        float heightValue = 0;
         if (!speeding && !Input.GetKey(hotkeys.useNitro))
         {
             for (int i = 0; i < groundNear.Length; i++)
             {
-                float toIncrease = proximityCurve.Evaluate(Mathf.InverseLerp(0, maxSearchDistance/5, groundNear[i]));
+                float toIncrease = proximityCurve.Evaluate(Mathf.InverseLerp(0, maxSearchDistance / 5, groundNear[i]));
+                heightValue = Mathf.Max(toIncrease, heightValue);
                 if (toIncrease > 0.25f)
                 {
                     increaseValue += toIncrease;
@@ -300,8 +302,23 @@ public class GliderController : MonoBehaviour
         {
             currentScore += Mathf.RoundToInt(increaseValue > 0.5f ? increaseValue : 0);
         }
-        
-        // Death
+
+
+        //if (heightValue > 0.5f)
+        //{
+        //    soundManager.FadeIn("inGame1", 1);
+        //    soundManager.FadeOut("inGame2", 1);
+        //} else
+        //{
+        //    soundManager.FadeIn("inGame2", 1);
+        //    soundManager.FadeOut("inGame1", 1);
+        //}
+
+        // For HeartBeat Maybe
+        //soundManager.ChangeVol("inGame1", heightValue);
+        //soundManager.ChangeVol("inGame2", 1 - heightValue);
+
+        // Death    
         if (dead)
         {
             activateMenuPlease = true;

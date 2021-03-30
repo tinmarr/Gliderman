@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91945e6e56e45954b81451841f5012e2, type: 3}
-  m_Name: DefaultPlaneBalancer
+  m_Name: NoobModePlaneBalancer 1
   m_EditorClassIdentifier: 
   liveUpdate: 1
   rollControlSensitivity: 0.1
