@@ -36,8 +36,8 @@ public class GameHandler : MonoBehaviour
         HUD.SetActive(false);
         Menu.SetActive(true);
         Pause.SetActive(false);
-        //fadeSystem.turnOff();
-        //fadeSystem.Fade();
+        fadeSystem.turnOff();
+        fadeSystem.Fade();
         state = State.Menu;
         soundManager.Play("startMusic");
     }
