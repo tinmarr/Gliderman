@@ -50,6 +50,7 @@ public class GameHandler : MonoBehaviour
             glider.SetNothing(true);
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                glider.activateMenuPlease = false;
                 fadeSystem.StopFadeIn();
                 topDownCamera.Priority = 1;
                 state = State.Game;
@@ -110,11 +111,12 @@ public class GameHandler : MonoBehaviour
     IEnumerator StartGame()
     {
         soundManager.FadeOut("startMusic", 1);
-        soundManager.FadeIn(gameMusic, 2);
+        yield return new WaitForSeconds(1f);
+        soundManager.Play(gameMusic, 0.5f);
         HUD.SetActive(true);
         Menu.SetActive(false);
-        yield return new WaitForSeconds(2f);
         state = State.Game;
+        yield return new WaitForSeconds(1f);
         launchPad.LaunchPlayer();
         glider.SetNothing(false);
     }

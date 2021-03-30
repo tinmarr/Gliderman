@@ -169,7 +169,7 @@ public class GliderController : MonoBehaviour
         // Restart
         if (Input.GetKey(hotkeys.respawn))
         {
-            Respawn();
+            dead=true;
         }
 
         // Trails
@@ -303,7 +303,6 @@ public class GliderController : MonoBehaviour
             currentScore += Mathf.RoundToInt(increaseValue > 0.5f ? increaseValue : 0);
         }
 
-
         //if (heightValue > 0.5f)
         //{
         //    soundManager.FadeIn("inGame1", 1);
@@ -430,7 +429,6 @@ public class GliderController : MonoBehaviour
         if (lastScore > highScore) highScore = lastScore;
         currentScore = 0;
         dead = false;
-        activateMenuPlease = true;
         transform.position = startPos;
         transform.rotation = startRot;
         transform.localScale = startScale;

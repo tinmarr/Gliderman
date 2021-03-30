@@ -58,7 +58,7 @@ public class SoundManager : MonoBehaviour
 	/// <param name="setVolume">
 	/// clamped between 0 and 1 you can play the sound at a certain volume
 	/// </param>
-	public void Play(string sound, float setVolume=0)
+	public void Play(string sound, float setVolume = 0)
 	{
 		setVolume = Mathf.Clamp(setVolume, 0, 1);
 		Sound s = Array.Find(sounds, item => item.name == sound);
@@ -67,13 +67,15 @@ public class SoundManager : MonoBehaviour
 			Debug.LogWarning("Sound: " + name + " not found!");
 			return;
 		}
-		if(setVolume != 0)
-        {
+		if (setVolume != 0)
+		{
 			s.source.volume = setVolume;
-		} else
-		s.source.volume = s.volume * (1f + UnityEngine.Random.Range(-s.volumeVariance / 2f, s.volumeVariance / 2f));
-		s.source.pitch = s.pitch * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
-
+		}
+		else
+		{
+			s.source.volume = s.volume * (1f + UnityEngine.Random.Range(-s.volumeVariance / 2f, s.volumeVariance / 2f));
+			s.source.pitch = s.pitch * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
+		}
 		s.source.Play();
 	}
 	public void ChangeVol(string sound, float newVolume)
@@ -90,6 +92,17 @@ public class SoundManager : MonoBehaviour
 			s.source.volume = newVolume;
 		}
 	}
+	public float GetVol(string sound)
+    {
+		Sound s = Array.Find(sounds, item => item.name == sound);
+		if (s == null)
+        {
+			Debug.LogWarning($"Sound: {name} not found!");
+			return 0f;
+        }
+		return s.source.volume;
+
+    }
 	public void FadeOut(string sound, float seconds)
     {
 		Sound s = Array.Find(sounds, item => item.name == sound);
