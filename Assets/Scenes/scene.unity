@@ -6522,6 +6522,7 @@ MonoBehaviour:
   - {fileID: 266878813}
   - {fileID: 1501318153}
   - {fileID: 962908309}
+  rb: {fileID: 0}
   wind: {x: 0, y: 0, z: 0}
 --- !u!114 &1895329608
 MonoBehaviour:

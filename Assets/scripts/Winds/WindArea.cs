@@ -19,7 +19,8 @@ public class WindArea : MonoBehaviour
             float maxDistanceInside = transform.localScale.x/2;    
             float coefficient = curveSteepness.Evaluate(distance / maxDistanceInside);
             Vector3 wind = Vector3.up * Strength * coefficient;
-            aircraft.SetWind(wind);
+            //aircraft.SetWind(wind);
+            aircraft.rb.AddForce(wind * 500f);
         }
     }
 
