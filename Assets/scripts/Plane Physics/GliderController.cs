@@ -73,6 +73,7 @@ public class GliderController : MonoBehaviour
     [Header("Balancing")]
     public PlaneBalanceConfig balanceConfig;
     public bool overrideWithLocalValues = false;
+    public SettingsConfig settings;
 
     [Header("Other")]
     public HotkeyConfig hotkeys;
@@ -347,10 +348,7 @@ public class GliderController : MonoBehaviour
 
     private void HandleNoob()
     {
-        if (Input.GetKeyDown(hotkeys.noobModeToggle))
-        {
-            noobSettings = !noobSettings;
-        }
+        noobSettings = settings.noobMode;
     }
 
     public void SetControlSurfacesAngles(float pitch, float roll, float yaw, float flap)

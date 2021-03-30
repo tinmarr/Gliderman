@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Settings
   m_EditorClassIdentifier: 
   renderDistance: 500
-  quality: 2
   mapQuality: 2
   noobMode: 0
   seed: 6666
