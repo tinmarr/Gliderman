@@ -81,6 +81,10 @@ public class GameHandler : MonoBehaviour
                 HUD.SetActive(false);
                 ActivateMenu();
             }
+            if (Input.GetKeyDown(hotkeys.toggleHUD))
+            {
+                HUD.SetActive(!HUD.activeSelf);
+            }
         }
         else if(state == State.Pause)
         {
