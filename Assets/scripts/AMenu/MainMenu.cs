@@ -8,14 +8,31 @@ public enum MenuState
     Main,
     Settings,
     Credits,
-    Zen
+    Zen,
+    Help,
+    Seed
 }
 public class MainMenu : MonoBehaviour
 {
     public GliderController controller;
     public Text scoreText;
     public Text highScore;
-
+    public Text seedText;
+    public int seedVal = 0;
+    public SettingsConfig config;
+    public TerrainGenerator generator;
+    public void takeSeed()
+    {
+        string check = seedText.text;
+        check.Substring(0, Mathf.Min(check.Length, 10));
+        int temp = 0;
+        bool isNumeric = int.TryParse(check, out temp);
+        if (isNumeric) seedVal = temp;
+        else seedVal = check.GetHashCode();
+        config.seed = seedVal;
+        print(config.seed);
+        generator.ClearAllTerrain();
+    }
     public void NewGame()
     {
         // get the seed from config
@@ -31,12 +48,17 @@ public class MainMenu : MonoBehaviour
     public GameObject credits;
     public GameObject zen;
     public MenuState state;
+    public GameObject help;
+    public GameObject seed;
+    public GameObject fadeIn;
     void Start()
     {
         settings.SetActive(false);
         main.SetActive(true);
         credits.SetActive(false);
         zen.SetActive(false);
+        help.SetActive(false);
+        seed.SetActive(false);
         state = MenuState.Main;
     }
     void Update()
@@ -48,10 +70,12 @@ public class MainMenu : MonoBehaviour
     {
         settings.SetActive(false);
         main.SetActive(true);
-        CanvasGroup temp = main.GetComponent<CanvasGroup>();
+        CanvasGroup temp = fadeIn.GetComponent<CanvasGroup>();
         if (temp != null) temp.alpha = 1;
         credits.SetActive(false);
         zen.SetActive(false);
+        help.SetActive(false);
+        seed.SetActive(false);
     }
     public void Settings()
     {
@@ -73,5 +97,15 @@ public class MainMenu : MonoBehaviour
         main.SetActive(false);
         credits.SetActive(false);
         zen.SetActive(true);
+    }
+    public void Help()
+    {
+        main.SetActive(false);
+        help.SetActive(true);
+    }
+    public void Seed()
+    {
+        main.SetActive(false);
+        seed.SetActive(true);
     }
 }
