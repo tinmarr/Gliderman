@@ -51,6 +51,7 @@ public class MainMenu : MonoBehaviour
     public GameObject help;
     public GameObject seed;
     public GameObject fadeIn;
+    public GameObject keyboard;
     void Start()
     {
         settings.SetActive(false);
@@ -59,6 +60,7 @@ public class MainMenu : MonoBehaviour
         zen.SetActive(false);
         help.SetActive(false);
         seed.SetActive(false);
+        keyboard.SetActive(false);
         state = MenuState.Main;
     }
     void Update()
@@ -76,6 +78,11 @@ public class MainMenu : MonoBehaviour
         zen.SetActive(false);
         help.SetActive(false);
         seed.SetActive(false);
+    }
+    public void Keyboard()
+    {
+        help.SetActive(false);
+        keyboard.SetActive(true);
     }
     public void Settings()
     {
@@ -101,6 +108,7 @@ public class MainMenu : MonoBehaviour
     public void Help()
     {
         main.SetActive(false);
+        keyboard.SetActive(false);
         help.SetActive(true);
     }
     public void Seed()
