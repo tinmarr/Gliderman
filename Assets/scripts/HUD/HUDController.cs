@@ -41,7 +41,7 @@ public class HUDController : MonoBehaviour
         if (angles.x > 180) angles.x -= 360;
         if (angles.z > 180) angles.z -= 360;
         pitch.text = (int)-angles.x + "°";
-        roll.text = (int)-angles.z + "°";
+        roll.text = (int) angles.z + "°";
         angles.x += 90;
         plane.rotation = Quaternion.Euler(angles.x, 0, angles.z);
 
