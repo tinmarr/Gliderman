@@ -15,6 +15,6 @@ public class SettingsConfig : ScriptableObject
 
     private void OnValidate()
     {
-        seed = (int)Mathf.Clamp(seed, 1, Mathf.Infinity);
+        seed = seed == 0 ? 48 : seed;
     }
 }
