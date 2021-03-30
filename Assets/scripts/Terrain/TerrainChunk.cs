@@ -100,7 +100,6 @@ public class TerrainChunk {
 			} else if (structureDictionary.TryGetValue($"{i}Speed", out Vector2 boostCoords))
             {
 				Vector2 pos = new Vector2(meshObject.transform.position.x + (boostCoords.x * meshSettings.meshScale), meshObject.transform.position.z + (boostCoords.y * meshSettings.meshScale));
-				Debug.Log(pos);
 				GameObject obj = Object.Instantiate(speedPrefab, new Vector3(pos.x, heightMap.maxValue + 20, pos.y), Quaternion.Euler(0, (float)rand.Next(), 0));
 				obj.transform.parent = meshObject.transform;
 			}
