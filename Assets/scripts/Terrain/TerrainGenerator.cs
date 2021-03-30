@@ -47,6 +47,10 @@ public class TerrainGenerator : MonoBehaviour {
 	}
 
 	void Update() {
+		if (Input.GetKeyDown(KeyCode.H))
+		{
+			ClearAllTerrain();
+		}
 		chunksVisibleInViewDst = Mathf.RoundToInt(settings.renderDistance / meshWorldSize);
 		for (int i = 0; i < detailLevels.Length; i++) 
         {
@@ -110,6 +114,16 @@ public class TerrainGenerator : MonoBehaviour {
 		} else {
 			visibleTerrainChunks.Remove (chunk);
 		}
+	}
+
+	public void ClearAllTerrain()
+    {
+		foreach (Transform child in transform)
+        {
+			Destroy(child.gameObject);
+        }
+		terrainChunkDictionary = new Dictionary<Vector2, TerrainChunk>();
+		visibleTerrainChunks = new List<TerrainChunk>();
 	}
 }
 
