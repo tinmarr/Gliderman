@@ -47,11 +47,6 @@ public class TerrainGenerator : MonoBehaviour {
 	}
 
 	void Update() {
-		if (Input.GetKeyDown(KeyCode.H))
-		{
-			ClearAllTerrain();
-		}
-		chunksVisibleInViewDst = Mathf.RoundToInt(settings.renderDistance / meshWorldSize);
 		for (int i = 0; i < detailLevels.Length; i++) 
         {
 			int denominator = detailLevels.Length - i;
@@ -122,6 +117,8 @@ public class TerrainGenerator : MonoBehaviour {
         {
 			Destroy(child.gameObject);
         }
+		heightMapSettings.noiseSettings.seed = settings.seed;
+		chunksVisibleInViewDst = Mathf.RoundToInt(settings.renderDistance / meshWorldSize);
 		terrainChunkDictionary = new Dictionary<Vector2, TerrainChunk>();
 		visibleTerrainChunks = new List<TerrainChunk>();
 		UpdateVisibleChunks();
