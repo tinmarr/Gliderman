@@ -19,6 +19,7 @@ public class GameHandler : MonoBehaviour
     public GameObject HUD;
     public GameObject Menu;
     public GameObject Pause;
+    public GameObject Reef;
     public Fader fadeSystem;
 
     [Header("glider Init")]
@@ -35,8 +36,21 @@ public class GameHandler : MonoBehaviour
         // god who knows
         // possibly do entry credits starting animation
         HUD.SetActive(false);
-        Menu.SetActive(true);
+        Menu.SetActive(false);
         Pause.SetActive(false);
+        Reef.SetActive(true);
+        StartCoroutine(Starting());
+    }
+    IEnumerator Starting()
+    {
+        float time = 0;
+        while (time < 3)
+        {
+            yield return new WaitForSeconds(0.3f);
+            time += .3f;
+        }
+        Reef.SetActive(false);
+        Menu.SetActive(true);
         fadeSystem.turnOff();
         fadeSystem.Fade();
         state = State.Menu;
