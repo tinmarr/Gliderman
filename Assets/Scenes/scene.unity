@@ -6004,7 +6004,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1001238130
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6085,9 +6085,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab614ae3687ffe7418213bd03ff13f7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 1
+  duration: 0.5
   fadedState: 0
-  gracePeriod: 2
+  gracePeriod: 1
 --- !u!225 &1002275569
 CanvasGroup:
   m_ObjectHideFlags: 0
