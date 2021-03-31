@@ -141,10 +141,17 @@ public class GliderController : MonoBehaviour
         sensitivitySaves[2] = yawControlSensitivity;
         Respawn();
     }
-
+    void CheckHeight()
+    {
+        if (transform.position.y < -1)
+        {
+            dead = true;
+        }
+    }
     private void Update()
     {
         if (doNothing) return;
+        CheckHeight();
         if (!overrideWithLocalValues && balanceConfig.liveUpdate)
         {
             rollControlSensitivity = balanceConfig.rollControlSensitivity;
