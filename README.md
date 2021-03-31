@@ -7,4 +7,5 @@ A game where you fly randomly generated terrain. You will encounter wind columns
 - [Tomer Sedan](https://github.com/Sordamente)
 
 # Links to Play
-Links Coming Soon!
+
+Download Links: [https://github.com/tinmarr/GliderGame/releases/tag/1.0](https://github.com/tinmarr/GliderGame/releases/tag/1.0)
