@@ -32,6 +32,7 @@ public class TerrainChunk {
 	float maxViewDst;
 	public bool flat = false;
 
+	public SoundManager soundManager;
 	public HeightMapSettings heightMapSettings;
 	MeshSettings meshSettings;
 	Transform viewer;
@@ -86,17 +87,22 @@ public class TerrainChunk {
 
 	private void OnStructuresRecieved(object structDictObj)
     {
+		System.Random rand = new System.Random(heightMapSettings.noiseSettings.seed);
 		Dictionary<string, Vector2> structureDictionary = (Dictionary<string, Vector2>)structDictObj;
 		int numOfStructs = structureDictionary.Count;
 		for (int i = 0; i < numOfStructs; i++)
         {
-            if (structureDictionary.TryGetValue($"{i}Wind", out Vector2 coords))
+            if (structureDictionary.TryGetValue($"{i}Wind", out Vector2 windCoords))
             {
-				GameObject obj = Object.Instantiate(windPrefab, new Vector3(sampleCentre.x + coords.x, -1, sampleCentre.y + coords.y), Quaternion.identity);
+				Vector2 pos = new Vector2(meshObject.transform.position.x + (windCoords.x * meshSettings.meshScale), meshObject.transform.position.z + (windCoords.y * meshSettings.meshScale));
+				GameObject obj = Object.Instantiate(windPrefab, new Vector3(pos.x, -1,  pos.y), Quaternion.identity);
 				obj.transform.parent = meshObject.transform;
-			} else if (structureDictionary.TryGetValue($"{i}Speed", out coords))
+				WindArea windArea = obj.GetComponent<WindArea>();
+				windArea.soundManager = soundManager;
+			} else if (structureDictionary.TryGetValue($"{i}Speed", out Vector2 boostCoords))
             {
-				GameObject obj = Object.Instantiate(speedPrefab, new Vector3(sampleCentre.x + coords.x, heightMap.maxValue + 20, sampleCentre.y + coords.y), Quaternion.identity);
+				Vector2 pos = new Vector2(meshObject.transform.position.x + (boostCoords.x * meshSettings.meshScale), meshObject.transform.position.z + (boostCoords.y * meshSettings.meshScale));
+				GameObject obj = Object.Instantiate(speedPrefab, new Vector3(pos.x, heightMap.maxValue + 20, pos.y), Quaternion.Euler(0, (float)rand.Next(), 0));
 				obj.transform.parent = meshObject.transform;
 			}
         }

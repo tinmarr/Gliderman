@@ -27,12 +27,15 @@ public class TerrainGenerator : MonoBehaviour {
 	float meshWorldSize;
 	int chunksVisibleInViewDst;
 
+	public SoundManager soundManager;
+
 	Dictionary<Vector2, TerrainChunk> terrainChunkDictionary = new Dictionary<Vector2, TerrainChunk>();
 	List<TerrainChunk> visibleTerrainChunks = new List<TerrainChunk>();
 
 	public GliderController player;
 
 	void Start() {
+		
 		heightMapSettings.noiseSettings.seed = settings.seed;
 		textureSettings.ApplyToMaterial (mapMaterial);
 		textureSettings.UpdateMeshHeights(mapMaterial, heightMapSettings.minHeight, heightMapSettings.maxHeight);
@@ -44,7 +47,6 @@ public class TerrainGenerator : MonoBehaviour {
 	}
 
 	void Update() {
-		chunksVisibleInViewDst = Mathf.RoundToInt(settings.renderDistance / meshWorldSize);
 		for (int i = 0; i < detailLevels.Length; i++) 
         {
 			int denominator = detailLevels.Length - i;
@@ -91,6 +93,7 @@ public class TerrainGenerator : MonoBehaviour {
 						terrainChunkDictionary.Add (viewedChunkCoord, newChunk);
 						newChunk.windPrefab = windAreaPrefab;
 						newChunk.speedPrefab = speedAreaPrefab;
+						newChunk.soundManager = soundManager;
 						newChunk.onVisibilityChanged += OnTerrainChunkVisibilityChanged;
 						newChunk.Load (flat);
 					}
@@ -106,6 +109,20 @@ public class TerrainGenerator : MonoBehaviour {
 		} else {
 			visibleTerrainChunks.Remove (chunk);
 		}
+	}
+
+	public void ClearAllTerrain()
+    {
+		Random.InitState(settings.seed);
+		foreach (Transform child in transform)
+		{
+			Destroy(child.gameObject);
+		}
+		heightMapSettings.noiseSettings.seed = settings.seed;
+		chunksVisibleInViewDst = Mathf.RoundToInt(settings.renderDistance / meshWorldSize);
+		terrainChunkDictionary = new Dictionary<Vector2, TerrainChunk>();
+		visibleTerrainChunks = new List<TerrainChunk>();
+		UpdateVisibleChunks();
 	}
 }
 

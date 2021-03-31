@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class StructureManager
 {
-    static float windSpawnChance = 1e-1f;
+    static float windSpawnChance = 5e-2f;
     static float speedSpawnChance = 5e-2f;
 
     static System.Random randomNumberGenerator = null;

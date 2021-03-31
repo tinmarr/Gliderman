@@ -68,8 +68,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -0.001629252
-      value: 0.6901568
+      time: -0.0038101156
+      value: 1.4020965
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -77,23 +77,14 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.14508887
-      value: 0.5690932
-      inSlope: -0.21035782
-      outSlope: -0.21035782
-      tangentMode: 0
-      weightedMode: 3
-      inWeight: 0.3333315
-      outWeight: 0.1217223
-    - serializedVersion: 3
-      time: 0.9570866
-      value: 0.25294334
-      inSlope: -0.1926557
-      outSlope: -0.7840621
+      time: 0.36142588
+      value: 0.5066869
+      inSlope: -0.20529976
+      outSlope: -2.0649023
       tangentMode: 1
-      weightedMode: 3
-      inWeight: 0.8377036
-      outWeight: 0.09410534
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1.031679
       value: -0.024469612
@@ -106,9 +97,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  decreaseTime: 3
-  increaseTime: 10
-  impactOfVelocity: 10
-  thrust: 5000
+  decreaseTime: 4
+  increaseTime: 6
+  impactOfVelocity: 4
+  thrust: 1800
   minVelocity: 30
   terminalVelocity: 250

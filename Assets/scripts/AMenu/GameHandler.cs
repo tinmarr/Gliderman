@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class GameHandler : MonoBehaviour
 {
     public HotkeyConfig hotkeys;
     State state;
+    public CinemachineVirtualCamera topDownCamera;
 
     [Header("display")]
     public GameObject HUD;
@@ -22,6 +24,12 @@ public class GameHandler : MonoBehaviour
     [Header("glider Init")]
     public GliderController glider;
     public StartPad launchPad;
+
+    [Header("sounds")]
+    public SoundManager soundManager;
+    string gameMusic = "inGame2";
+    string closeMusic = "inGame1";
+
     void Start()
     {
         // god who knows
@@ -29,21 +37,25 @@ public class GameHandler : MonoBehaviour
         HUD.SetActive(false);
         Menu.SetActive(true);
         Pause.SetActive(false);
-        //fadeSystem.turnOff();
-        //fadeSystem.Fade();
+        fadeSystem.turnOff();
+        fadeSystem.Fade();
         state = State.Menu;
+        soundManager.Play("startMusic");
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (state == State.Menu)
         {
+            topDownCamera.Priority = 3;
             glider.SetNothing(true);
             if (Input.GetKeyDown(KeyCode.Space))
-            { 
-                StartGame();
-
+            {
+                glider.activateMenuPlease = false;
+                fadeSystem.StopFadeIn();
+                topDownCamera.Priority = 1;
+                state = State.Game;
+                StartCoroutine(StartGame());
             }
             if (Input.GetKeyDown(hotkeys.exitGame))
             {
@@ -69,6 +81,10 @@ public class GameHandler : MonoBehaviour
                 HUD.SetActive(false);
                 ActivateMenu();
             }
+            if (Input.GetKeyDown(hotkeys.toggleHUD))
+            {
+                HUD.SetActive(!HUD.activeSelf);
+            }
         }
         else if(state == State.Pause)
         {
@@ -85,6 +101,9 @@ public class GameHandler : MonoBehaviour
     }
     public void ActivateMenu()
     {
+        soundManager.FadeIn("startMusic", 1);
+        soundManager.FadeOut(gameMusic, 2);
+        soundManager.FadeOut(closeMusic, 1);
         HUD.SetActive(false);
         Pause.SetActive(false);
         Menu.SetActive(true);
@@ -94,11 +113,15 @@ public class GameHandler : MonoBehaviour
         state = State.Menu;
         glider.Respawn();
     }
-    void StartGame()
+    IEnumerator StartGame()
     {
+        soundManager.FadeOut("startMusic", 1);
+        yield return new WaitForSeconds(1f);
+        soundManager.Play(gameMusic, 0.5f);
         HUD.SetActive(true);
         Menu.SetActive(false);
         state = State.Game;
+        yield return new WaitForSeconds(1f);
         launchPad.LaunchPlayer();
         glider.SetNothing(false);
     }

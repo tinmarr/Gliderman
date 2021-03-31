@@ -12,7 +12,7 @@ public class AircraftPhysics : MonoBehaviour
     [SerializeField] 
     List<AeroSurface> aerodynamicSurfaces = null;
 
-    Rigidbody rb;
+    public Rigidbody rb;
     GliderController controller;
     float thrustPercent;
     public Vector3 wind = Vector3.zero;

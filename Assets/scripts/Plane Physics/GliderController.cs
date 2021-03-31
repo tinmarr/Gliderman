@@ -73,6 +73,11 @@ public class GliderController : MonoBehaviour
     [Header("Balancing")]
     public PlaneBalanceConfig balanceConfig;
     public bool overrideWithLocalValues = false;
+    public SettingsConfig settings;
+
+    [Header("Terrain Generation")]
+    public TerrainGenerator terrain;
+    public HeightMapSettings[] biomes;
 
     [Header("Other")]
     public HotkeyConfig hotkeys;
@@ -87,12 +92,23 @@ public class GliderController : MonoBehaviour
     float[] groundNear = new float[1];
     float aliveSince = 0;
 
-    [Header("Game loop do not touch")]
+    //("Game loop do not touch")
     bool doNothing = false;
+    [HideInInspector]
     public bool activateMenuPlease = false;
+
+    [Header("Sounds")]
+    public SoundManager soundManager;
+
+    [Header("Score")]
+    public int highScore = 0;
+    public int lastScore = 0;
+    public int currentScore = 0;
+    int frozenTime = -1;
 
     private void Start()
     {
+        StartCoroutine(AddToScore());
         aircraftPhysics = GetComponent<AircraftPhysics>();
         rb = GetComponent<Rigidbody>();
 
@@ -158,7 +174,7 @@ public class GliderController : MonoBehaviour
         // Restart
         if (Input.GetKey(hotkeys.respawn))
         {
-            Respawn();
+            dead=true;
         }
 
         // Trails
@@ -254,12 +270,14 @@ public class GliderController : MonoBehaviour
         }
 
         // Boost
+        float increaseValue = 0;
+        float heightValue = 0;
         if (!speeding && !Input.GetKey(hotkeys.useNitro))
         {
-            float increaseValue = 0;
             for (int i = 0; i < groundNear.Length; i++)
             {
-                float toIncrease = proximityCurve.Evaluate(Mathf.InverseLerp(0, maxSearchDistance/5, groundNear[i]));
+                float toIncrease = proximityCurve.Evaluate(Mathf.InverseLerp(0, maxSearchDistance / 5, groundNear[i]));
+                heightValue = Mathf.Max(toIncrease, heightValue);
                 if (toIncrease > 0.25f)
                 {
                     increaseValue += toIncrease;
@@ -284,12 +302,38 @@ public class GliderController : MonoBehaviour
         jetAmount = Mathf.Clamp(jetAmount, 0, 1);
         thrustPercent = Mathf.Clamp(thrustPercent, 0, 1);
 
-        // Death
+        // Score
+        if (Time.timeScale != 0)
+        {
+            currentScore += Mathf.RoundToInt(increaseValue > 0.5f ? increaseValue : 0);
+        }
+
+        //if (heightValue > 0.5f)
+        //{
+        //    soundManager.FadeIn("inGame1", 1);
+        //    soundManager.FadeOut("inGame2", 1);
+        //} else
+        //{
+        //    soundManager.FadeIn("inGame2", 1);
+        //    soundManager.FadeOut("inGame1", 1);
+        //}
+
+        // For HeartBeat Maybe
+        //soundManager.ChangeVol("inGame1", heightValue);
+        //soundManager.ChangeVol("inGame2", 1 - heightValue);
+
+        // Death    
         if (dead)
         {
             activateMenuPlease = true;
             thrustPercent = 0;
             rb.constraints = RigidbodyConstraints.FreezeAll;
+            jet.Stop();
+            int seedVal = (int)Random.Range(-500, 500);
+            settings.seed = seedVal;
+            HeightMapSettings nextBiome = biomes[Random.Range(0, biomes.Length - 1)];
+            terrain.heightMapSettings = nextBiome;
+            terrain.ClearAllTerrain();
         }
 
         // Flaps
@@ -313,10 +357,7 @@ public class GliderController : MonoBehaviour
 
     private void HandleNoob()
     {
-        if (Input.GetKeyDown(hotkeys.noobModeToggle))
-        {
-            noobSettings = !noobSettings;
-        }
+        noobSettings = settings.noobMode;
     }
 
     public void SetControlSurfacesAngles(float pitch, float roll, float yaw, float flap)
@@ -391,6 +432,9 @@ public class GliderController : MonoBehaviour
 
     public void Respawn()
     {
+        lastScore = currentScore;
+        if (lastScore > highScore) highScore = lastScore;
+        currentScore = 0;
         dead = false;
         transform.position = startPos;
         transform.rotation = startRot;
@@ -402,7 +446,6 @@ public class GliderController : MonoBehaviour
         jetAmount = 0f;
         launched = false;
         ResetThrust();
-        activateMenuPlease = true;
         startTerrain.SetActive(true);
     }
 
@@ -412,6 +455,7 @@ public class GliderController : MonoBehaviour
         {
             foreach (Transform brake in brakes)
             {
+                brake.gameObject.SetActive(true);
                 brake.localRotation = Quaternion.Euler(brake.localEulerAngles.x, brake.localEulerAngles.y, 90);
             }
 
@@ -430,6 +474,7 @@ public class GliderController : MonoBehaviour
         {
             foreach (Transform brake in brakes)
             {
+                brake.gameObject.SetActive(false);
                 brake.localRotation = Quaternion.Euler(brake.localEulerAngles.x, brake.localEulerAngles.y, 0);
             }
             rollControlSensitivity = sensitivitySaves[0];
@@ -465,5 +510,14 @@ public class GliderController : MonoBehaviour
     public void SetNothing(bool val)
     {
         doNothing = val;
+    }
+    public IEnumerator AddToScore()
+    {
+        yield return new WaitForSeconds(1f);
+        if (launched)
+        {
+            currentScore += 1;
+        }
+        StartCoroutine(AddToScore());
     }
 }

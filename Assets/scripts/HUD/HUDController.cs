@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +18,8 @@ public class HUDController : MonoBehaviour
     public GameObject debugScreen;
     public float refreshTime = 0.5f;
     public Text leftSide;
+    [Header("Curves")]
+    public AnimationCurve nitroBarCurve;
 
     float accel = 0;
     float prevV = 0;
@@ -26,40 +29,30 @@ public class HUDController : MonoBehaviour
     float timeCounter = 0.0f;
     float fps = 0.0f;
 
-    int frozenTime = -1;
     private void Update()
     {
-        int timeToDisplay = 0;
-        if (controller.IsDead() && frozenTime == -1)
-        {
-            frozenTime = (int)(Time.time - controller.GetAliveSince());
-        } else if (controller.IsDead())
-        {
-            timeToDisplay = frozenTime;
-        } else if (controller.GetLaunched())
-        {
-            timeToDisplay = (int)(Time.time - controller.GetAliveSince());
-            frozenTime = -1;
-        }
-        timer.text = $"Time Alive:\n{timeToDisplay}s";
+        timer.text = "";
 
         speedDisplay.text = (int) controller.GetRB().velocity.magnitude + " m/s";
-        accelerationDisplay.text = (Mathf.RoundToInt(accel * 10) / 10) + " m/s/s";
+        accelerationDisplay.text = controller.currentScore + " pts";
         debugScreen.SetActive(f3Screen);
 
         Vector3 angles = controller.transform.localEulerAngles;
         if (angles.x > 180) angles.x -= 360;
         if (angles.z > 180) angles.z -= 360;
         pitch.text = (int)-angles.x + "°";
-        roll.text = (int)-angles.z + "°";
+        roll.text = (int) angles.z + "°";
         angles.x += 90;
         plane.rotation = Quaternion.Euler(angles.x, 0, angles.z);
 
         nitroBar.fillAmount = controller.jetAmount;
-        if (controller.jetAmount < 0.2f) nitroBar.color = new Color32(0xe7, 0x4c, 0x3c, 0xff);
-        else if (controller.jetAmount < 0.5f) nitroBar.color = new Color32(0xf3, 0x9c, 0x12, 0xff);
-        else if (controller.jetAmount <= 1f) nitroBar.color = new Color32(0x27, 0xae, 0x60, 0xff);
-        
+        Color32 redColor = new Color32(0xe7, 0x4c, 0x3c, 0xff);
+        Color32 yellowColor = new Color32(0xf3, 0x9c, 0x12, 0xff);
+        Color32 greenColor = new Color32(0x27, 0xae, 0x60, 0xff);
+        if (controller.jetAmount < 0.2f) nitroBar.color = Color32.Lerp(redColor, yellowColor, nitroBarCurve.Evaluate(controller.jetAmount * 5));
+        else if (controller.jetAmount < 0.6f) nitroBar.color = Color32.Lerp(yellowColor, greenColor, nitroBarCurve.Evaluate((controller.jetAmount - 0.2f) * 2.5f));
+        else nitroBar.color = greenColor;
+
         if (Input.GetKeyDown(hotkeys.debugMode))
         {
             f3Screen = !f3Screen;

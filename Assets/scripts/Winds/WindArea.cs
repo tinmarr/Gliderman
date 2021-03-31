@@ -4,6 +4,7 @@ public class WindArea : MonoBehaviour
 {
     public float Strength;
     public AnimationCurve curveSteepness;
+    public SoundManager soundManager;
 
     void OnTriggerStay(Collider col)
     {
@@ -18,7 +19,15 @@ public class WindArea : MonoBehaviour
             float maxDistanceInside = transform.localScale.x/2;    
             float coefficient = curveSteepness.Evaluate(distance / maxDistanceInside);
             Vector3 wind = Vector3.up * Strength * coefficient;
-            aircraft.SetWind(wind);
+            aircraft.rb.MovePosition(aircraft.transform.position + wind);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            soundManager.Play("startMusic", 0.1f);
         }
     }
 
@@ -26,6 +35,7 @@ public class WindArea : MonoBehaviour
     {
         if (col.CompareTag("Player"))
         {
+            soundManager.StopSound("startMusic");
             AircraftPhysics aircraft = col.GetComponentInParent<AircraftPhysics>();
             aircraft.SetWind(Vector3.zero);
         }
