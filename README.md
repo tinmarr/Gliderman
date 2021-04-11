@@ -8,4 +8,4 @@ A game where you fly randomly generated terrain. You will encounter wind columns
 
 # Links to Play
 
-Download Links: [https://github.com/tinmarr/GliderGame/releases/tag/1.0](https://github.com/mrElnekave/GliderGame/releases/tag/1.0)
+Download Links: [https://github.com/mrElnekave/GliderGame/releases/tag/1.0](https://github.com/mrElnekave/GliderGame/releases/tag/1.0)
