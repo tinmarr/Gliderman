@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public enum State
 {
@@ -11,7 +12,6 @@ public enum State
 }
 public class GameHandler : MonoBehaviour
 {
-    public HotkeyConfig hotkeys;
     State state;
     public CinemachineVirtualCamera topDownCamera;
 
@@ -33,6 +33,8 @@ public class GameHandler : MonoBehaviour
 
     void Start()
     {
+        glider.input.actions["Continue"].performed += _ => Begin();
+        glider.input.actions["Quit"].performed += _ => Quit();
         // god who knows
         // possibly do entry credits starting animation
         HUD.SetActive(false);
@@ -54,6 +56,7 @@ public class GameHandler : MonoBehaviour
         fadeSystem.turnOff();
         fadeSystem.Fade();
         state = State.Menu;
+        glider.input.SwitchCurrentActionMap("Menu");
         soundManager.Play("startMusic");
     }
 
@@ -63,18 +66,7 @@ public class GameHandler : MonoBehaviour
         {
             topDownCamera.Priority = 3;
             glider.SetNothing(true);
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                glider.activateMenuPlease = false;
-                fadeSystem.StopFadeIn();
-                topDownCamera.Priority = 1;
-                state = State.Game;
-                StartCoroutine(StartGame());
-            }
-            if (Input.GetKeyDown(hotkeys.exitGame))
-            {
-                Quit();
-            }
+
             if (glider.activateMenuPlease == true)
             {
                 ActivateMenu();
@@ -83,11 +75,6 @@ public class GameHandler : MonoBehaviour
         }
         else if(state == State.Game)
         {
-            if (Input.GetKeyDown(hotkeys.pauseGame))
-            {
-                state = State.Pause;
-                PauseGame();
-            }
             if(glider.activateMenuPlease == true)
             {
                 glider.activateMenuPlease = false;
@@ -95,24 +82,30 @@ public class GameHandler : MonoBehaviour
                 HUD.SetActive(false);
                 ActivateMenu();
             }
-            if (Input.GetKeyDown(hotkeys.toggleHUD))
-            {
-                HUD.SetActive(!HUD.activeSelf);
-            }
-        }
-        else if(state == State.Pause)
-        {
-            if (Input.GetKeyDown(hotkeys.pauseGame))
-            {
-                ResumeGame();
-                state = State.Game;
-            }
         }
         // start in the "menu" which is the normal scene looking down?
         // If in menu then wait for space to start escape to exit etc
         // If in game listen for esc pause
         // other stuffs?
     }
+
+    public void ToggleHud()
+    {
+        HUD.SetActive(!HUD.activeSelf);
+    }
+
+    public void Begin()
+    {
+        glider.activateMenuPlease = false;
+        fadeSystem.StopFadeIn();
+        topDownCamera.Priority = 1;
+        state = State.Game;
+
+        glider.input.SwitchCurrentActionMap("Game");
+
+        StartCoroutine(StartGame());
+    }
+
     public void ActivateMenu()
     {
         soundManager.FadeIn("startMusic", 1);
@@ -126,6 +119,7 @@ public class GameHandler : MonoBehaviour
         Time.timeScale = 1;
         state = State.Menu;
         glider.Respawn();
+        glider.input.SwitchCurrentActionMap("Menu");
     }
     IEnumerator StartGame()
     {
@@ -144,17 +138,20 @@ public class GameHandler : MonoBehaviour
         // possibly saving
         Application.Quit();
     }
-    public void PauseGame()
-    {
-        Pause.SetActive(true);
-        Time.timeScale = 0;
-    }
 
-    public void ResumeGame()
+    public void ToggleRunState()
     {
-        Pause.SetActive(false);
-        HUD.SetActive(true);
-        Time.timeScale = 1;
-        state = State.Game;
+        if (state == State.Game)
+        {
+            state = State.Pause;
+            Pause.SetActive(true);
+            Time.timeScale = 0;
+        } else if (state == State.Pause)
+        {
+            Pause.SetActive(false);
+            HUD.SetActive(true);
+            Time.timeScale = 1;
+            state = State.Game;
+        }
     }
 }

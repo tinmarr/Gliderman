@@ -8,7 +8,6 @@ public class StartPad : MonoBehaviour
     public float startStrengthForward;
     public float throttling = 0.1f;
     public float maxSpeed = 80;
-    public HotkeyConfig hotkeys;
 
     public void LaunchPlayer()
     {

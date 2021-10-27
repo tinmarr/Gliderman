@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.InputSystem;
 
 public class GliderController : MonoBehaviour
 {
@@ -42,7 +43,7 @@ public class GliderController : MonoBehaviour
     public AnimationCurve proximityCurve;
     bool speeding = false;
     bool jetEmpty = false;
-    public float jetAmount = 0f;
+    public float fuelAmount = 0f;
     public float decreaseTime = 200;
     public float increaseTime = 100;
     [Tooltip("Bigger values shrink the impact of velocity (increaseMultiplier = velocity/impactOfVelocity)")]
@@ -80,7 +81,6 @@ public class GliderController : MonoBehaviour
     public HeightMapSettings[] biomes;
 
     [Header("Other")]
-    public HotkeyConfig hotkeys;
     public GameObject startTerrain;
     public GameHandler handler;
     bool dead = false;
@@ -91,6 +91,10 @@ public class GliderController : MonoBehaviour
     bool launched = false;
     float[] groundNear = new float[1];
     float aliveSince = 0;
+
+    [Header("PlayerInputThings")]
+    [HideInInspector]
+    public PlayerInput input;
 
     //("Game loop do not touch")
     bool doNothing = false;
@@ -106,12 +110,21 @@ public class GliderController : MonoBehaviour
     public int currentScore = 0;
     int frozenTime = -1;
 
+    private void Awake()
+    {
+        input = GetComponent<PlayerInput>();
+        aircraftPhysics = GetComponent<AircraftPhysics>();
+        rb = GetComponent<Rigidbody>();
+        automation = GetComponent<Automation>();
+
+        input.actions["Pause"].performed += _ => handler.ToggleRunState();
+        input.actions["Respawn"].performed += _ => { dead = true; };
+    }
+
     private void Start()
     {
         StartCoroutine(AddToScore());
-        aircraftPhysics = GetComponent<AircraftPhysics>();
-        rb = GetComponent<Rigidbody>();
-
+        
         if (!overrideWithLocalValues)
         {
             rollControlSensitivity = balanceConfig.rollControlSensitivity;
@@ -133,7 +146,7 @@ public class GliderController : MonoBehaviour
         startPos = transform.position;
         startRot = transform.rotation;
         startScale = transform.localScale;
-        automation = GetComponent<Automation>();
+        
         rightTrail.emitting = false;
         leftTrail.emitting = false;
         sensitivitySaves[0] = rollControlSensitivity;
@@ -148,8 +161,28 @@ public class GliderController : MonoBehaviour
             dead = true;
         }
     }
+
+    public void SetAttitude()
+    {
+        Vector2 value = input.actions["Attitude"].ReadValue<Vector2>();
+
+        Roll = value.x;
+        Pitch = value.y;
+
+        // Automation
+        HandleNoob();
+        if (noobSettings) automation.NoobSettings(ref Pitch, ref Yaw, ref Roll);
+
+        controlDampener.Dampen(ref Pitch, ref Roll, rb.velocity.magnitude, terminalVelocity);
+    }
+
     private void Update()
     {
+
+        SetAttitude();
+        SetJet();
+        Brake();
+
         if (doNothing) return;
         CheckHeight();
         if (!overrideWithLocalValues && balanceConfig.liveUpdate)
@@ -168,22 +201,6 @@ public class GliderController : MonoBehaviour
             controlDampener.rollCurve = balanceConfig.rollCurve;
         }
 
-        Pitch = Input.GetAxis("Vertical");
-        Roll = Input.GetAxis("Horizontal");
-        Yaw = 0;
-
-        // Automation
-        HandleNoob();
-        if (noobSettings) automation.NoobSettings(ref Pitch, ref Yaw, ref Roll);
-
-        controlDampener.Dampen(ref Pitch, ref Roll, rb.velocity.magnitude, terminalVelocity);
-
-        // Restart
-        if (Input.GetKey(hotkeys.respawn))
-        {
-            dead=true;
-        }
-
         // Trails
         if ((int)rb.velocity.magnitude > 55)
         {
@@ -199,15 +216,10 @@ public class GliderController : MonoBehaviour
         }
 
         // Jet
-        if (Input.GetKey(hotkeys.useNitro) && !jetEmpty)
-        {
-            SetThrust(1, 0.1f);
-            jetAmount -= (1/decreaseTime) * Time.deltaTime;
-        }
-        if (jetAmount <= 0)
+        if (fuelAmount <= 0)
         {
             jetEmpty = true;
-        } else if (jetAmount > 0.2f)
+        } else if (fuelAmount > 0.2f)
         {
             jetEmpty = false;
         }
@@ -225,9 +237,6 @@ public class GliderController : MonoBehaviour
             leftTrail.material = trailNormal;
             jet.Stop();
         }
-
-        // Brakes
-        Brake();
 
         // Camera
         float anglex = transform.eulerAngles.x;
@@ -276,10 +285,10 @@ public class GliderController : MonoBehaviour
             }
         }
 
-        // Boost
+        // Gain Boost
         float increaseValue = 0;
         float heightValue = 0;
-        if (!speeding && !Input.GetKey(hotkeys.useNitro))
+        if (!speeding)
         {
             for (int i = 0; i < groundNear.Length; i++)
             {
@@ -293,7 +302,7 @@ public class GliderController : MonoBehaviour
 
             if (increaseValue > 0.25f) // Trails
             {
-                jetAmount += increaseValue * (1/(increaseTime*50)) * Time.deltaTime * (rb.velocity.magnitude/impactOfVelocity);
+                fuelAmount += increaseValue * (1/(increaseTime*50)) * Time.deltaTime * (rb.velocity.magnitude/impactOfVelocity);
                 rightTrail.emitting = true;
                 leftTrail.emitting = true;
                 rightTrail.material = trailGround;
@@ -306,7 +315,7 @@ public class GliderController : MonoBehaviour
             }
         }
 
-        jetAmount = Mathf.Clamp(jetAmount, 0, 1);
+        fuelAmount = Mathf.Clamp(fuelAmount, 0, 1);
         thrustPercent = Mathf.Clamp(thrustPercent, 0, 1);
 
         // Score
@@ -349,7 +358,18 @@ public class GliderController : MonoBehaviour
             flaps[i].SetFlap(flapAngles[i]);
         }
 
-        if (!launched) jetAmount = 0;
+        if (!launched) fuelAmount = 0;
+    }
+
+    public void SetJet()
+    {
+        float boostAmount = input.actions["Boost"].ReadValue<float>();
+        if (!jetEmpty && boostAmount > 0)
+        {
+            SetThrust(boostAmount, 0.1f);
+            fuelAmount -= (1 / decreaseTime) * Time.deltaTime * boostAmount;
+            speeding = true;
+        }
     }
 
     private void FixedUpdate()
@@ -397,7 +417,7 @@ public class GliderController : MonoBehaviour
 
         leftFlaps *= -300;
         rightFlaps *= -300;
-        if (!Input.GetKey(hotkeys.brakes))
+        if (!brakes[0].gameObject.activeSelf)
         {
             for (int i = 0; i < flapAngles.Length; i++)
             {
@@ -450,7 +470,7 @@ public class GliderController : MonoBehaviour
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.isKinematic = true;
-        jetAmount = 0f;
+        fuelAmount = 0f;
         launched = false;
         ResetThrust();
         startTerrain.SetActive(true);
@@ -458,20 +478,21 @@ public class GliderController : MonoBehaviour
 
     public void Brake()
     {
-        if (Input.GetKey(hotkeys.brakes) && rb.velocity.magnitude > minVelocity)
+        float degree = 90 * input.actions["Brake"].ReadValue<float>();
+        if (rb.velocity.magnitude > minVelocity)
         {
             foreach (Transform brake in brakes)
             {
                 brake.gameObject.SetActive(true);
-                brake.localRotation = Quaternion.Euler(brake.localEulerAngles.x, brake.localEulerAngles.y, 90);
+                brake.localRotation = Quaternion.Euler(brake.localEulerAngles.x, brake.localEulerAngles.y, degree);
             }
 
             for (int i = 0; i < flapAngles.Length; i++)
             {
                 flapAngles[i] = (i % 2) switch
                 {
-                    0 => Mathf.Lerp(flapAngles[i], 90, flapOpenSpeed),
-                    _ => Mathf.Lerp(flapAngles[i], -90, flapOpenSpeed),
+                    0 => Mathf.Lerp(flapAngles[i], degree, flapOpenSpeed),
+                    _ => Mathf.Lerp(flapAngles[i], -degree, flapOpenSpeed),
                 };
             }
             rollControlSensitivity = sensitivitySaves[0] * 2f;

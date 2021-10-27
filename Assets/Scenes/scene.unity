@@ -2549,7 +2549,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972b101f010d7fb44b7c4e5726f2bea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hotkeys: {fileID: 11400000, guid: bc044c4dd08353b4bb2fb932d54bcb5e, type: 2}
   topDownCamera: {fileID: 257064674}
   HUD: {fileID: 1540002303}
   Menu: {fileID: 40744996}
@@ -8457,7 +8456,6 @@ MonoBehaviour:
   startStrengthForward: 50000
   throttling: 0.1
   maxSpeed: 40
-  hotkeys: {fileID: 11400000, guid: bc044c4dd08353b4bb2fb932d54bcb5e, type: 2}
 --- !u!1 &1407583054
 GameObject:
   m_ObjectHideFlags: 0
@@ -9922,7 +9920,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 1895329606}
-  hotkeys: {fileID: 11400000, guid: bc044c4dd08353b4bb2fb932d54bcb5e, type: 2}
   speedDisplay: {fileID: 2085553405}
   accelerationDisplay: {fileID: 1630620332}
   nitroBar: {fileID: 1145494720}
@@ -11183,16 +11180,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 1756774262}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_PointAction: {fileID: 1054132383583890850, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MoveAction: {fileID: 3710738434707379630, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_SubmitAction: {fileID: 2064916234097673511, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_CancelAction: {fileID: -1967631576421560919, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_LeftClickAction: {fileID: 8056856818456041789, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MiddleClickAction: {fileID: 3279352641294131588, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_RightClickAction: {fileID: 3837173908680883260, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_ScrollWheelAction: {fileID: 4502412055082496612, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDevicePositionAction: {fileID: 4754684134866288074, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 1025543830046995696, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
 --- !u!114 &1756774264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12265,7 +12271,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  pitchChange: 0
+  pitchChange: -0
   yawChange: 0
 --- !u!224 &1864770018 stripped
 RectTransform:
@@ -12513,6 +12519,7 @@ GameObject:
   - component: {fileID: 1895329606}
   - component: {fileID: 1895329607}
   - component: {fileID: 1895329608}
+  - component: {fileID: 1895329611}
   m_Layer: 0
   m_Name: gliderman
   m_TagString: Player
@@ -12590,7 +12597,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  jetAmount: 0
+  fuelAmount: 0
   decreaseTime: 200
   increaseTime: 100
   impactOfVelocity: 5
@@ -12621,9 +12628,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: da8a69d49176e0049a4c1c76740fca8a, type: 2}
   - {fileID: 11400000, guid: cdc6b54e148882942b54030aa20560fd, type: 2}
   - {fileID: 11400000, guid: 3ddedb91c6f42fe4485f91c9899b5bc4, type: 2}
-  hotkeys: {fileID: 11400000, guid: bc044c4dd08353b4bb2fb932d54bcb5e, type: 2}
   startTerrain: {fileID: 1799410462}
   handler: {fileID: 280996005}
+  input: {fileID: 0}
   activateMenuPlease: 0
   soundManager: {fileID: 483712692}
   highScore: 0
@@ -12706,6 +12713,68 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1895329611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1895329605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: fdeae46f8f2a65e419a3f3a433b14516, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: db419bc8-ebbc-4932-bb48-df6969dc1f09
+    m_ActionName: Menu/Continue[/DualShock4GamepadHID/buttonSouth,/XInputControllerWindows/buttonSouth,/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cd7a807a-39b2-4d96-96c2-18e90529bb2c
+    m_ActionName: Menu/Quit[/DualShock4GamepadHID/start,/XInputControllerWindows/start,/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c691f109-77d1-4004-b0f9-e79340f2beb0
+    m_ActionName: Game/Pause[/Keyboard/escape,/DualShock4GamepadHID/start,/XInputControllerWindows/start]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e6e22f10-24de-462f-be5e-eaa3ecb142cb
+    m_ActionName: Game/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 993c4f8c-85d6-498e-a762-acbcc709767d
+    m_ActionName: Game/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 37861b6d-5e9c-452a-8fd7-974921dab2bb
+    m_ActionName: Game/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fe9e2092-89f8-465c-9308-811991c1d70f
+    m_ActionName: Game/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f95657e8-e5ae-4869-b78f-c69cfa690676
+    m_ActionName: Game/Debug
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: 2c0e0fbb-a146-432e-bdc4-b13a4c4d9748
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &1922839785
 GameObject:
   m_ObjectHideFlags: 0

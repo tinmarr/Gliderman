@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class HUDController : MonoBehaviour
 {
     public GliderController controller;
-    public HotkeyConfig hotkeys;
     [Header("Main")]
     public Text speedDisplay;
     public Text accelerationDisplay;
@@ -29,6 +28,11 @@ public class HUDController : MonoBehaviour
     float timeCounter = 0.0f;
     float fps = 0.0f;
 
+    private void Awake()
+    {
+        controller.input.actions["Debug"].performed += _ => { f3Screen = !f3Screen; };
+    }
+
     private void Update()
     {
         timer.text = "";
@@ -45,18 +49,13 @@ public class HUDController : MonoBehaviour
         angles.x += 90;
         plane.rotation = Quaternion.Euler(angles.x, 0, angles.z);
 
-        nitroBar.fillAmount = controller.jetAmount;
+        nitroBar.fillAmount = controller.fuelAmount;
         Color32 redColor = new Color32(0xe7, 0x4c, 0x3c, 0xff);
         Color32 yellowColor = new Color32(0xf3, 0x9c, 0x12, 0xff);
         Color32 greenColor = new Color32(0x27, 0xae, 0x60, 0xff);
-        if (controller.jetAmount < 0.2f) nitroBar.color = Color32.Lerp(redColor, yellowColor, nitroBarCurve.Evaluate(controller.jetAmount * 5));
-        else if (controller.jetAmount < 0.6f) nitroBar.color = Color32.Lerp(yellowColor, greenColor, nitroBarCurve.Evaluate((controller.jetAmount - 0.2f) * 2.5f));
+        if (controller.fuelAmount < 0.2f) nitroBar.color = Color32.Lerp(redColor, yellowColor, nitroBarCurve.Evaluate(controller.fuelAmount * 5));
+        else if (controller.fuelAmount < 0.6f) nitroBar.color = Color32.Lerp(yellowColor, greenColor, nitroBarCurve.Evaluate((controller.fuelAmount - 0.2f) * 2.5f));
         else nitroBar.color = greenColor;
-
-        if (Input.GetKeyDown(hotkeys.debugMode))
-        {
-            f3Screen = !f3Screen;
-        }
 
         if (timeCounter < refreshTime)
         {
