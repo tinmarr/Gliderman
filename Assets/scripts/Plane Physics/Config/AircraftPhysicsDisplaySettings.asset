@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: AircraftPhysicsDisplaySettings
   m_EditorClassIdentifier: 
   scaleForcesByWeight: 1
-  lengthScale: 1
+  lengthScale: 2
   widthScale: 1
   showCenterOfMass: 1
   comColor: {r: 1, g: 0.445, b: 0, a: 1}
   showAerodynamicCenter: 1
   adcColor: {r: 0.373, g: 0.682, b: 1, a: 1}
-  displayAngleOfAttack: 5
+  displayAngleOfAttack: 0
   displayAirspeed: 50
   displayAirDensity: 1.2
   showSurfaces: 1

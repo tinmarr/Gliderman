@@ -75,6 +75,7 @@ public class GliderController : MonoBehaviour
     public PlaneBalanceConfig balanceConfig;
     public bool overrideWithLocalValues = false;
     public SettingsConfig settings;
+    public bool fuelHack = false;
 
     [Header("Terrain Generation")]
     public TerrainGenerator terrain;
@@ -168,6 +169,8 @@ public class GliderController : MonoBehaviour
 
         Roll = value.x;
         Pitch = value.y;
+        Yaw = input.actions["Yaw"].ReadValue<float>();
+
 
         // Automation
         HandleNoob();
@@ -178,7 +181,6 @@ public class GliderController : MonoBehaviour
 
     private void Update()
     {
-
         SetAttitude();
         SetJet();
         Brake();
@@ -216,6 +218,7 @@ public class GliderController : MonoBehaviour
         }
 
         // Jet
+        if (fuelHack) fuelAmount = 2;
         if (fuelAmount <= 0)
         {
             jetEmpty = true;
@@ -451,6 +454,11 @@ public class GliderController : MonoBehaviour
 
     }
 
+    public void Revive()
+    {
+        dead = false;
+    }
+
 
     public bool IsDead()
     {
@@ -462,7 +470,6 @@ public class GliderController : MonoBehaviour
         lastScore = currentScore;
         if (lastScore > highScore) highScore = lastScore;
         currentScore = 0;
-        dead = false;
         transform.position = startPos;
         transform.rotation = startRot;
         transform.localScale = startScale;
@@ -478,35 +485,27 @@ public class GliderController : MonoBehaviour
 
     public void Brake()
     {
-        float degree = 90 * input.actions["Brake"].ReadValue<float>();
-        if (rb.velocity.magnitude > minVelocity)
+        float amount = Mathf.Clamp(input.actions["Brake"].ReadValue<float>(), (float)0.001, 1);
+        foreach (Transform brake in brakes)
         {
-            foreach (Transform brake in brakes)
-            {
-                brake.gameObject.SetActive(true);
-                brake.localRotation = Quaternion.Euler(brake.localEulerAngles.x, brake.localEulerAngles.y, degree);
-            }
+            brake.gameObject.SetActive(true);
+            AeroSurface aeroSurface = brake.GetComponent<AeroSurface>();
+            aeroSurface.config.chord = amount;
+        }
 
-            for (int i = 0; i < flapAngles.Length; i++)
+        for (int i = 0; i < flapAngles.Length; i++)
+        {
+            flapAngles[i] = (i % 2) switch
             {
-                flapAngles[i] = (i % 2) switch
-                {
-                    0 => Mathf.Lerp(flapAngles[i], degree, flapOpenSpeed),
-                    _ => Mathf.Lerp(flapAngles[i], -degree, flapOpenSpeed),
-                };
-            }
+                0 => Mathf.Lerp(flapAngles[i], 90 * amount, flapOpenSpeed),
+                _ => Mathf.Lerp(flapAngles[i], -90 * amount, flapOpenSpeed),
+            };
+        }
+        
+        if (amount > 0.001)
+        {
             rollControlSensitivity = sensitivitySaves[0] * 2f;
             pitchControlSensitivity = sensitivitySaves[1] * 2f;
-        }
-        else
-        {
-            foreach (Transform brake in brakes)
-            {
-                brake.gameObject.SetActive(false);
-                brake.localRotation = Quaternion.Euler(brake.localEulerAngles.x, brake.localEulerAngles.y, 0);
-            }
-            rollControlSensitivity = sensitivitySaves[0];
-            pitchControlSensitivity = sensitivitySaves[1];
         }
     }
 

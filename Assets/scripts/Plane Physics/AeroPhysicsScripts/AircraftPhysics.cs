@@ -49,18 +49,19 @@ public class AircraftPhysics : MonoBehaviour
         currentForceAndTorque = (forceAndTorqueThisFrame + forceAndTorquePrediction) * 0.5f;
         if (!controller.IsDead())
         {
+            if (float.IsNaN(currentForceAndTorque.p.x)) currentForceAndTorque.p = Vector3.zero;
+            if (float.IsNaN(currentForceAndTorque.q.x)) currentForceAndTorque.q = Vector3.zero;
             rb.AddForce(currentForceAndTorque.p);
             rb.AddTorque(currentForceAndTorque.q);
 
             rb.AddForce(transform.forward * thrust * thrustPercent);
-            //rb.AddForce(wind);
         }
     }
 
     private BiVector3 CalculateAerodynamicForces(Vector3 velocity, Vector3 angularVelocity, Vector3 wind, float airDensity, Vector3 centerOfMass)
     {
         BiVector3 forceAndTorque = new BiVector3();
-        foreach (var surface in aerodynamicSurfaces)
+        foreach (AeroSurface surface in aerodynamicSurfaces)
         {
             Vector3 relativePosition = surface.transform.position - centerOfMass;
             forceAndTorque += surface.CalculateForces(-velocity + wind

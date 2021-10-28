@@ -5,7 +5,7 @@ public enum ControlInputType { Pitch, Yaw, Roll, Flap }
 
 public class AeroSurface : MonoBehaviour
 {
-    [SerializeField] AeroSurfaceConfig config = null;
+    public AeroSurfaceConfig config = null;
     public bool IsControlSurface;
     public ControlInputType InputType;
     public float InputMultiplyer = 1;
@@ -55,7 +55,7 @@ public class AeroSurface : MonoBehaviour
         float area = config.chord * config.span;
         float dynamicPressure = 0.5f * airDensity * airVelocity.sqrMagnitude;
         float angleOfAttack = Mathf.Atan2(airVelocity.y, -airVelocity.x);
-        
+
         Vector3 aerodynamicCoefficients = CalculateCoefficients(angleOfAttack,
                                                                 correctedLiftSlope,
                                                                 zeroLiftAoA,
