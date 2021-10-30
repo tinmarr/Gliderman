@@ -183,7 +183,8 @@ public class GliderController : MonoBehaviour
     {
         SetAttitude();
         SetJet();
-        Brake();
+
+        if (input.actions["Brake"].ReadValue<float>() != 0) Brake();
 
         if (doNothing) return;
         CheckHeight();
@@ -420,7 +421,8 @@ public class GliderController : MonoBehaviour
 
         leftFlaps *= -300;
         rightFlaps *= -300;
-        if (!brakes[0].gameObject.activeSelf)
+        // Close the flaps when breaking isn't happening
+        if (input.actions["Brake"].ReadValue<float>() == 0)
         {
             for (int i = 0; i < flapAngles.Length; i++)
             {
@@ -501,7 +503,7 @@ public class GliderController : MonoBehaviour
                 _ => Mathf.Lerp(flapAngles[i], -90 * amount, flapOpenSpeed),
             };
         }
-        
+
         if (amount > 0.001)
         {
             rollControlSensitivity = sensitivitySaves[0] * 2f;

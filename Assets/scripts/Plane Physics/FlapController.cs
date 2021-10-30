@@ -8,18 +8,15 @@ public class FlapController : MonoBehaviour
     public Side side;
     private Vector3 initialRotation;
 
-    float multiplier = 10;
+    private float multiplier = 10;
 
-    /// <summary>
-    /// Set Flap Angle
-    /// </summary>
-    /// <param name="flapAngle">Number between -70 and 70</param>
+
     public void SetFlap(float flapAngle)
     {
-        this.flapAngle = Mathf.Clamp(flapAngle, -70, 70);
+        this.flapAngle = flapAngle;
     }
 
-    private void Start()
+    public void Start()
     {
         initialRotation = transform.localRotation.eulerAngles;
 
@@ -29,7 +26,7 @@ public class FlapController : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void Update()
     {
         float goalx = initialRotation.x + flapAngle;
         float goaly = initialRotation.y + flapAngle/multiplier;
