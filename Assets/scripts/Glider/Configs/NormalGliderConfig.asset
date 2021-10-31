@@ -9,33 +9,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91945e6e56e45954b81451841f5012e2, type: 3}
-  m_Name: NoobModePlaneBalancer 1
+  m_Script: {fileID: 11500000, guid: b5630ac7ba71b0b48bb0349f7cee25f7, type: 3}
+  m_Name: NormalGliderConfig
   m_EditorClassIdentifier: 
-  liveUpdate: 1
+  fuelHack: 0
   rollControlSensitivity: 0.1
-  pitchControlSensitivity: 0.1
-  yawControlSensitivity: 0.15
+  pitchControlSensitivity: 0.15
+  yawControlSensitivity: 0.2
   pitchCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.006456409
-      value: 1.9043188
-      inSlope: -0.27181327
-      outSlope: -0.27181327
-      tangentMode: 0
+      time: 0
+      value: 1
+      inSlope: -0.9
+      outSlope: -0.9
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.13872482
+      outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1.0223463
-      value: 0.50336474
-      inSlope: -0.006907807
-      outSlope: -0.006907807
-      tangentMode: 0
+      time: 1
+      value: 0.1
+      inSlope: -0.9
+      outSlope: -0.9
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0.20833334
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -45,25 +45,27 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1.0158364
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      value: 1
+      inSlope: -0.9
+      outSlope: -0.9
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.99997556
-      value: 0.5076755
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      time: 1
+      value: 0.1
+      inSlope: -0.9
+      outSlope: -0.9
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  flapOpenSpeed: 0.08
+  closeSpeed: 0.2
   proximityCurve:
     serializedVersion: 2
     m_Curve:
@@ -100,6 +102,4 @@ MonoBehaviour:
   decreaseTime: 4
   increaseTime: 6
   impactOfVelocity: 4
-  thrust: 1000
-  minVelocity: 30
-  terminalVelocity: 250
+  terminalVelocity: 200

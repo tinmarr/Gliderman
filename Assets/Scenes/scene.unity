@@ -7887,7 +7887,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1263059937}
   m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0.2, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 811178531}
@@ -12469,7 +12469,6 @@ GameObject:
   - component: {fileID: 1895329610}
   - component: {fileID: 1895329606}
   - component: {fileID: 1895329607}
-  - component: {fileID: 1895329608}
   - component: {fileID: 1895329611}
   m_Layer: 0
   m_Name: gliderman
@@ -12490,6 +12489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f757b66b6a514bd4ba564317f0917af2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  config: {fileID: 11400000, guid: 80b6d997670dc1844921a1bebb97f419, type: 2}
   controlSurfaces:
   - {fileID: 1456616437}
   - {fileID: 1974166011}
@@ -12497,78 +12497,28 @@ MonoBehaviour:
   - {fileID: 82316686}
   - {fileID: 602759268}
   - {fileID: 1234476135}
-  rollControlSensitivity: 0.1
-  pitchControlSensitivity: 0.1
-  yawControlSensitivity: 0.15
   flaps:
   - {fileID: 1856524263}
   - {fileID: 631353304}
   - {fileID: 406474765}
   - {fileID: 469023349}
-  flapOpenSpeed: 0.08
-  closeSpeed: 0.15
   Pitch: 0
   Yaw: 0
   Roll: 0
   Flap: 0
-  noobSettings: 0
-  thrustPercent: 0
   jet: {fileID: 1966625212}
-  proximityCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -0.001629252
-      value: 0.6901568
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.14508887
-      value: 0.5690932
-      inSlope: -0.21035782
-      outSlope: -0.21035782
-      tangentMode: 0
-      weightedMode: 3
-      inWeight: 0.3333315
-      outWeight: 0.1217223
-    - serializedVersion: 3
-      time: 0.99224764
-      value: -0.016010195
-      inSlope: -0.1926557
-      outSlope: -0.7840621
-      tangentMode: 1
-      weightedMode: 3
-      inWeight: 0.8377036
-      outWeight: 0.09410534
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  fuelAmount: 0
-  decreaseTime: 200
-  increaseTime: 100
-  impactOfVelocity: 5
   rightTrail: {fileID: 388203548}
   leftTrail: {fileID: 89162975}
   trailNormal: {fileID: 2100000, guid: e9987b420125c9448b6be79c01e0e1e0, type: 2}
   trailBoost: {fileID: 2100000, guid: bc0475178aea41f45882e239329fd7a2, type: 2}
   trailGround: {fileID: 2100000, guid: 86bcbb8bb8f2fc140bea26b62d99435f, type: 2}
-  terminalVelocity: 200
   controlDampener: {fileID: 1863767156}
   followCam: {fileID: 359681310}
   followCamRoll: {fileID: 1922839786}
   shakeCam: {fileID: 222106961}
   shakeCamRoll: {fileID: 722643928}
-  brakes:
-  - {fileID: 1263059938}
-  minVelocity: 30
-  balanceConfig: {fileID: 11400000, guid: 80b6d997670dc1844921a1bebb97f419, type: 2}
-  overrideWithLocalValues: 0
+  brake: {fileID: 1263059939}
   settings: {fileID: 11400000, guid: 626e59efd5b20c44a85a54f1ca758539, type: 2}
-  fuelHack: 0
   terrain: {fileID: 489604879}
   biomes:
   - {fileID: 11400000, guid: 3e24de49acc471a4daf1c8539c514862, type: 2}
@@ -12610,21 +12560,6 @@ MonoBehaviour:
   - {fileID: 1263059939}
   rb: {fileID: 1895329610}
   wind: {x: 0, y: 0, z: 0}
---- !u!114 &1895329608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1895329605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13e5bf60d7a8fd94e8439859355fdc92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  angleClamp: 1
-  autoTurn: 1
-  autoCorrect: 1
 --- !u!4 &1895329609
 Transform:
   m_ObjectHideFlags: 0
