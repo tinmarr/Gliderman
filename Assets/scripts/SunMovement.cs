@@ -5,10 +5,12 @@ using UnityEngine;
 public class SunMovement : MonoBehaviour
 {
     public Transform player;
-    public Vector3 offset = Vector3.zero;
+    public float xOffset;
+    public float zOffset;
+
 
     private void Update()
     {
-        transform.position = player.position + offset;
+        transform.position = new Vector3(player.position.x + xOffset, transform.position.y, player.position.z + zOffset);
     }
 }

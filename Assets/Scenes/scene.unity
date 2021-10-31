@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 1}
   m_FogMode: 2
   m_FogDensity: 0.002
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.35922855, g: 0.70487446, b: 0.568141, a: 1}
+  m_IndirectSpecularColor: {r: 0.29917568, g: 0.560048, b: 0.4241747, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2430,7 +2430,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 257064672}
   m_LocalRotation: {x: 0.57812864, y: 0.24155484, z: 0.40714535, w: 0.6645685}
-  m_LocalPosition: {x: -1728.58, y: -599.2, z: -2028.3}
+  m_LocalPosition: {x: 269.3, y: 102, z: -29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 508912522}
@@ -3756,7 +3756,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 592947496}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2000, y: 700, z: 2000}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1458320649}
@@ -8799,7 +8799,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 10000
-  field of view: 58.715508
+  field of view: 64.001236
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -8824,13 +8824,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1458320646}
-  m_LocalRotation: {x: -0.1098713, y: 0.3799677, z: 0.04551018, w: 0.9173232}
-  m_LocalPosition: {x: -2.1500244, y: -349.66, z: -2.1500244}
+  m_LocalRotation: {x: 0, y: 0.6211477, z: 0, w: 0.78369355}
+  m_LocalPosition: {x: 264.21, y: 100, z: -26.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 592947497}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -13.66, y: 45, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 76.8, z: 0}
 --- !u!114 &1458320650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9029,13 +9029,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1487668703}
-  m_LocalRotation: {x: 0.116483904, y: -0.8506287, z: 0.4666708, w: 0.21232215}
+  m_LocalRotation: {x: 0.1150751, y: -0.8811196, z: 0.27781588, w: 0.36497167}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2010340304}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 57.5, y: -151.97, z: 0}
+  m_LocalEulerAnglesHint: {x: 35, y: -135, z: 0}
 --- !u!108 &1487668705
 Light:
   m_ObjectHideFlags: 0
@@ -9048,13 +9048,13 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.91
+  m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -9090,7 +9090,7 @@ Light:
   m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 2
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -12723,7 +12723,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1922839785}
   m_LocalRotation: {x: 0.12553403, y: 0.61312693, z: -0.09949698, w: 0.7735742}
-  m_LocalPosition: {x: -1728.1215, y: -601.891, z: -2028.1702}
+  m_LocalPosition: {x: 271.87854, y: 98.109, z: -28.170105}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1079451767}
@@ -17926,9 +17926,9 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2010340300}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -17975,8 +17975,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2010340300}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3361, y: 3036, z: 5466}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalPosition: {x: 5000, y: 400, z: 5000}
+  m_LocalScale: {x: 1000, y: 1000, z: 1000}
   m_Children:
   - {fileID: 1487668704}
   m_Father: {fileID: 0}
@@ -17995,7 +17995,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1895329609}
-  offset: {x: 3261, y: 2670, z: 2500}
+  xOffset: 5000
+  zOffset: 5000
 --- !u!1 &2012375853
 GameObject:
   m_ObjectHideFlags: 0
