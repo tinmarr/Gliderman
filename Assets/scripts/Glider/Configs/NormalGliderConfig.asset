@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fuelHack: 0
   rollControlSensitivity: 0.1
-  pitchControlSensitivity: 0.15
+  pitchControlSensitivity: 0.1
   yawControlSensitivity: 0.2
   pitchCurve:
     serializedVersion: 2

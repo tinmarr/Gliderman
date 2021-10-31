@@ -3522,12 +3522,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BindingMode: 2
   m_FollowOffset: {x: 0, y: 2, z: -6}
-  m_XDamping: 0.2
-  m_YDamping: 0
-  m_ZDamping: 0.2
+  m_XDamping: 0.4
+  m_YDamping: 0.4
+  m_ZDamping: 0.4
   m_AngularDampingMode: 0
   m_PitchDamping: 2.5
-  m_YawDamping: 0
+  m_YawDamping: 2.5
   m_RollDamping: 0
   m_AngularDamping: 0
 --- !u!114 &483712692 stripped
