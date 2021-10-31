@@ -56,6 +56,7 @@ public class GliderController : MonoBehaviour
 
     [Header("Brakes")]
     public AeroSurface brake;
+    bool braking;
 
     [Header("Balancing")]
     public SettingsConfig settings; // TODO this should not be here
@@ -282,7 +283,7 @@ public class GliderController : MonoBehaviour
             terrain.ClearAllTerrain();
         }
 
-        // Flaps
+        // Update Visual Flaps
         for (int i = 0; i < flaps.Length; i++)
         {
             flaps[i].SetFlap(flapAngles[i]);
@@ -328,8 +329,8 @@ public class GliderController : MonoBehaviour
                     break;
                 case ControlInputType.Roll:
                     surface.SetFlapAngle(roll * config.rollControlSensitivity * surface.InputMultiplyer);
-                    if (surface.InputMultiplyer > 0) { leftFlaps += roll * config.rollControlSensitivity * surface.InputMultiplyer * 2; }
-                    else if (surface.InputMultiplyer < 0) { rightFlaps += roll * config.rollControlSensitivity * surface.InputMultiplyer * 2; }
+                    if (surface.InputMultiplyer < 0) { leftFlaps += roll * config.rollControlSensitivity * surface.InputMultiplyer * 2; }
+                    else if (surface.InputMultiplyer > 0) { rightFlaps += roll * config.rollControlSensitivity * surface.InputMultiplyer * 2; }
                     break;
                 case ControlInputType.Yaw:
                     surface.SetFlapAngle(yaw * config.yawControlSensitivity * surface.InputMultiplyer);
@@ -342,8 +343,8 @@ public class GliderController : MonoBehaviour
 
         leftFlaps *= -300;
         rightFlaps *= -300;
-        // Close the flaps when breaking isn't happening
-        if (input.actions["Brake"].ReadValue<float>() == 0)
+
+        if (!braking)
         {
             for (int i = 0; i < flapAngles.Length; i++)
             {
@@ -409,10 +410,10 @@ public class GliderController : MonoBehaviour
         float amount = Mathf.Clamp(input.actions["Brake"].ReadValue<float>(), (float)0.001, 1);
         
         brake.config.chord = amount;
+        braking = amount >= 0.002;
 
-        if (amount >= 0.002)
+        if (braking)
         {
-            Debug.Log(amount);
             for (int i = 0; i < flapAngles.Length; i++)
             {
                 flapAngles[i] = (i % 2) switch
