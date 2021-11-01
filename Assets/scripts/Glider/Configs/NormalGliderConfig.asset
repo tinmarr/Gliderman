@@ -66,6 +66,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   flapOpenSpeed: 0.08
   closeSpeed: 0.2
+  thrust: 1800
   proximityCurve:
     serializedVersion: 2
     m_Curve:

@@ -11,7 +11,6 @@ public class WindArea : MonoBehaviour
         if (col.CompareTag("Player"))
         {
             AircraftPhysics aircraft = col.GetComponentInParent<AircraftPhysics>();
-            GliderController controller = col.GetComponentInParent<GliderController>();
             Vector3 fakeTransform = transform.position;
             fakeTransform.y = 0;
             Vector3 fakeGlider = col.transform.position;
@@ -20,7 +19,7 @@ public class WindArea : MonoBehaviour
             float maxDistanceInside = transform.localScale.x/2;    
             float coefficient = curveSteepness.Evaluate(distance / maxDistanceInside);
             Vector3 wind = Vector3.up * Strength * coefficient;
-            controller.GetRB().MovePosition(aircraft.transform.position + wind);
+            aircraft.SetWind(wind);
         }
     }
 

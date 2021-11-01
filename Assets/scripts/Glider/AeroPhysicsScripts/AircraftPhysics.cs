@@ -24,6 +24,7 @@ public class AircraftPhysics : MonoBehaviour
     public void SetWind(Vector3 wind)
     {
         this.wind = wind;
+        Debug.Log(this.wind);
     }
 
     private void Awake()
