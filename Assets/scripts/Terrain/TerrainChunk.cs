@@ -71,12 +71,13 @@ public class TerrainChunk {
 			}
 		}
 
+
 		maxViewDst = detailLevels [detailLevels.Length - 1].visibleDstThreshold;
 	}
 
 	public void Load(bool flat) {
 		this.flat = flat;
-		ThreadedDataRequester.RequestData(() => HeightMapGenerator.GenerateHeightMap (meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, sampleCentre, flat), OnHeightMapReceived);
+		ThreadedDataRequester.RequestData(() => HeightMapGenerator.BetterHeightMap(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, sampleCentre, flat), OnHeightMapReceived);
 	}
 
 	public void LoadStructures()

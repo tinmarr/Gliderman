@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.29917568, g: 0.560048, b: 0.4241747, a: 1}
+  m_IndirectSpecularColor: {r: 0.29917553, g: 0.5600471, b: 0.4241733, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2511,7 +2511,8 @@ MonoBehaviour:
   launchPad: {fileID: 1397628910}
   soundManager: {fileID: 483712692}
   terrain: {fileID: 489604879}
-  biomes: []
+  biomes:
+  - {fileID: 11400000, guid: 2218ebb1db34242a080cc7d5b6bce318, type: 2}
   settings: {fileID: 11400000, guid: 626e59efd5b20c44a85a54f1ca758539, type: 2}
   startTerrain: {fileID: 1799410462}
 --- !u!4 &280996006
@@ -3563,7 +3564,7 @@ MonoBehaviour:
   - lod: 2
     visibleDstThreshold: 500
   meshSettings: {fileID: 11400000, guid: 9ae508c0af981d043bacc119b83525e5, type: 2}
-  heightMapSettings: {fileID: 11400000, guid: 7251ebf724375ec4da513536aa933c4f, type: 2}
+  heightMapSettings: {fileID: 11400000, guid: 696d9bc022357485699ab0a3bd545359, type: 2}
   textureSettings: {fileID: 11400000, guid: 5a201a42e68e08441bdc0831102d44ba, type: 2}
   viewer: {fileID: 1895329609}
   mapMaterial: {fileID: 2100000, guid: c652a2d511ecf6d4c80f6fc0acdc72c4, type: 2}
