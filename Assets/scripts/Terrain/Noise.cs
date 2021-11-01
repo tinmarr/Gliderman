@@ -33,17 +33,17 @@ public static class Noise {
 		{
 			for (int x = 0; x < mapWidth; x++)
 			{
-				float noiseHeight = 0;
+				float height = 1;
 
 				for (int i = 0; i < settings.octaves; i++)
 				{
-					float dx = Mathf.Pow(settings.lacunarity, i) * (x - (mapWidth / 2f) + sampleCenter.x),
-						dy = Mathf.Pow(settings.lacunarity, i) * (y - (mapHeight / 2f) - sampleCenter.y);
+					float dx = Mathf.Pow(settings.lacunarity, i) * (x + sampleCenter.x) / settings.scale,
+						dy = Mathf.Pow(settings.lacunarity, i) * (y - sampleCenter.y) / settings.scale;
 
-					noiseHeight += (2 * noise.Evaluate(dx / settings.scale, dy / settings.scale) - 1) * Mathf.Pow(settings.persistance, i);
+                    height += noise.Evaluate(dx, dy) * Mathf.Pow(settings.persistance, i);
 				}
 
-				noiseMap[x, y] = Mathf.Clamp((noiseHeight + 1) / (maxHeight / 0.9f), 0, int.MaxValue);
+                noiseMap[x, y] = height / (2 * maxHeight);
 			}
 		}
 
