@@ -61,13 +61,13 @@ public class GameHandler : MonoBehaviour
     public void Begin()
     {
         topDownCamera.Priority = 1;
-        state = State.Game;
 
+        state = State.Game;
         glider.input.SwitchCurrentActionMap("Game");
 
         HUD.SetActive(true);
         Menu.SetActive(false);
-        state = State.Game;
+
         launchPad.LaunchPlayer();
         glider.SetNothing(false);
     }
