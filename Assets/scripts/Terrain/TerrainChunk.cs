@@ -112,7 +112,7 @@ public class TerrainChunk {
 		this.heightMap = (HeightMap)heightMapObject;
 		heightMapReceived = true;
 
-		LoadStructures();
+		//LoadStructures();
 
 		UpdateTerrainChunk ();
 	}
