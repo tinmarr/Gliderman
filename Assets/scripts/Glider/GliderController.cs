@@ -308,8 +308,8 @@ public class GliderController : MonoBehaviour
                     break;
                 case ControlInputType.Roll:
                     surface.SetFlapAngle(roll * config.rollControlSensitivity * surface.InputMultiplyer);
-                    if (surface.InputMultiplyer < 0) { leftFlaps += roll * config.rollControlSensitivity * surface.InputMultiplyer * 2; }
-                    else if (surface.InputMultiplyer > 0) { rightFlaps += roll * config.rollControlSensitivity * surface.InputMultiplyer * 2; }
+                    if (surface.InputMultiplyer > 0) { leftFlaps += roll * config.rollControlSensitivity * surface.InputMultiplyer * 2; }
+                    else if (surface.InputMultiplyer < 0) { rightFlaps += roll * config.rollControlSensitivity * surface.InputMultiplyer * 2; }
                     break;
                 case ControlInputType.Yaw:
                     surface.SetFlapAngle(yaw * config.yawControlSensitivity * surface.InputMultiplyer);
