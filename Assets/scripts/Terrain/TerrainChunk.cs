@@ -26,7 +26,6 @@ public class TerrainChunk {
 
 	public HeightMap heightMap;
 	bool heightMapReceived = false;
-	bool structuresGenerated = false;
 	int previousLODIndex = -1;
 	bool hasSetCollider;
 	float maxViewDst;

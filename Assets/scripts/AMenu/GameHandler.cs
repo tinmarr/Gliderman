@@ -15,7 +15,7 @@ public class GameHandler : MonoBehaviour
     State state;
     public CinemachineVirtualCamera topDownCamera;
 
-    [Header("display")]
+    [Header("Menu Items")]
     public GameObject HUD;
     public GameObject Menu;
     public GameObject Pause;
@@ -31,12 +31,20 @@ public class GameHandler : MonoBehaviour
     string gameMusic = "inGame2";
     string closeMusic = "inGame1";
 
+    [Header("Terrain Generation")]
+    public TerrainGenerator terrain; 
+    public HeightMapSettings[] biomes;
+    public SettingsConfig settings;
+
+    [Header("Other")]
+    public GameObject startTerrain;
+
     void Start()
     {
         glider.input.actions["Continue"].performed += _ => Begin();
         glider.input.actions["Quit"].performed += _ => Quit();
-        // god who knows
-        // possibly do entry credits starting animation
+        glider.input.actions["Pause"].performed += _ => ToggleRunState();
+
         HUD.SetActive(false);
         Menu.SetActive(false);
         Pause.SetActive(false);
@@ -62,31 +70,10 @@ public class GameHandler : MonoBehaviour
 
     void Update()
     {
-        if (state == State.Menu)
+        if (glider.IsDead())
         {
-            topDownCamera.Priority = 3;
-            glider.SetNothing(true);
-
-            if (glider.activateMenuPlease == true)
-            {
-                ActivateMenu();
-                glider.activateMenuPlease = false;
-            }
+            ActivateMenu();
         }
-        else if(state == State.Game)
-        {
-            if(glider.activateMenuPlease == true)
-            {
-                glider.activateMenuPlease = false;
-                state = State.Menu;
-                HUD.SetActive(false);
-                ActivateMenu();
-            }
-        }
-        // start in the "menu" which is the normal scene looking down?
-        // If in menu then wait for space to start escape to exit etc
-        // If in game listen for esc pause
-        // other stuffs?
     }
 
     public void ToggleHud()
@@ -96,7 +83,6 @@ public class GameHandler : MonoBehaviour
 
     public void Begin()
     {
-        glider.activateMenuPlease = false;
         fadeSystem.StopFadeIn();
         topDownCamera.Priority = 1;
         state = State.Game;
@@ -119,7 +105,10 @@ public class GameHandler : MonoBehaviour
         Time.timeScale = 1;
         state = State.Menu;
         glider.Respawn();
+        startTerrain.SetActive(true);
         glider.input.SwitchCurrentActionMap("Menu");
+        topDownCamera.Priority = 3;
+        glider.SetNothing(true);
     }
     IEnumerator StartGame()
     {
@@ -153,5 +142,14 @@ public class GameHandler : MonoBehaviour
             Time.timeScale = 1;
             state = State.Game;
         }
+    }
+
+    public void ResetLevel()
+    {
+        int seedVal = (int)Random.Range(-500, 500);
+        settings.seed = seedVal;
+        HeightMapSettings nextBiome = biomes[Random.Range(0, biomes.Length - 1)];
+        terrain.heightMapSettings = nextBiome;
+        terrain.ClearAllTerrain();
     }
 }

@@ -17,7 +17,6 @@ public class SettingsManager : MonoBehaviour
         renderDistance.value = settings.renderDistance;
         renderDistanceText.text = $"{settings.renderDistance}";
         mapQuality.value = settings.mapQuality;
-        reefMode.isOn = settings.noobMode;
     }
 
     public void UpdateMapQuality(float value)
@@ -29,10 +28,5 @@ public class SettingsManager : MonoBehaviour
     {
         settings.renderDistance = value;
         renderDistanceText.text = $"{value}";
-    }
-
-    public void ToggleReefMode(bool value)
-    {
-        settings.noobMode = value;
     }
 }

@@ -58,16 +58,6 @@ public class GliderController : MonoBehaviour
     public AeroSurface brake;
     bool braking;
 
-    [Header("Balancing")]
-    public SettingsConfig settings; // TODO this should not be here
-
-    [Header("Terrain Generation")]
-    public TerrainGenerator terrain; // TODO this should not be here
-    public HeightMapSettings[] biomes; // TODO this should not be here
-
-    [Header("Other")]
-    public GameObject startTerrain; // TODO this should not be here
-    public GameHandler handler; // TODO this should not be here
     bool dead = false;
     Vector3 startPos;
     Quaternion startRot;
@@ -76,14 +66,11 @@ public class GliderController : MonoBehaviour
     float[] groundNear = new float[1];
     float aliveSince = 0;
 
-    [Header("PlayerInputThings")]
     [HideInInspector]
     public PlayerInput input;
 
     //("Game loop do not touch")
     bool doNothing = false;
-    [HideInInspector]
-    public bool activateMenuPlease = false; // TODO Use dead check instead
 
     [Header("Sounds")]
     public SoundManager soundManager; // Make a seperate sound manager
@@ -92,7 +79,6 @@ public class GliderController : MonoBehaviour
     public int highScore = 0;
     public int lastScore = 0;
     public int currentScore = 0;
-    int frozenTime = -1;
 
     private void Awake()
     {
@@ -100,7 +86,6 @@ public class GliderController : MonoBehaviour
         aircraftPhysics = GetComponent<AircraftPhysics>();
         rb = GetComponent<Rigidbody>();
 
-        input.actions["Pause"].performed += _ => handler.ToggleRunState();
         input.actions["Respawn"].performed += _ => { dead = true; };
     }
 
@@ -272,15 +257,9 @@ public class GliderController : MonoBehaviour
         // Death    
         if (dead)
         {
-            activateMenuPlease = true;
             thrustPercent = 0;
             rb.constraints = RigidbodyConstraints.FreezeAll;
             jet.Stop();
-            int seedVal = (int)Random.Range(-500, 500);
-            settings.seed = seedVal;
-            HeightMapSettings nextBiome = biomes[Random.Range(0, biomes.Length - 1)];
-            terrain.heightMapSettings = nextBiome;
-            terrain.ClearAllTerrain();
         }
 
         // Update Visual Flaps
@@ -402,7 +381,6 @@ public class GliderController : MonoBehaviour
         fuelAmount = 0f;
         launched = false;
         ResetThrust();
-        startTerrain.SetActive(true);
     }
 
     public void Brake()

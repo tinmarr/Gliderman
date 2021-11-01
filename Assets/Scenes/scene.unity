@@ -2510,6 +2510,10 @@ MonoBehaviour:
   glider: {fileID: 1895329606}
   launchPad: {fileID: 1397628910}
   soundManager: {fileID: 483712692}
+  terrain: {fileID: 489604879}
+  biomes: []
+  settings: {fileID: 11400000, guid: 626e59efd5b20c44a85a54f1ca758539, type: 2}
+  startTerrain: {fileID: 1799410462}
 --- !u!4 &280996006
 Transform:
   m_ObjectHideFlags: 0
@@ -12518,20 +12522,7 @@ MonoBehaviour:
   shakeCam: {fileID: 222106961}
   shakeCamRoll: {fileID: 722643928}
   brake: {fileID: 1263059939}
-  settings: {fileID: 11400000, guid: 626e59efd5b20c44a85a54f1ca758539, type: 2}
-  terrain: {fileID: 489604879}
-  biomes:
-  - {fileID: 11400000, guid: 3e24de49acc471a4daf1c8539c514862, type: 2}
-  - {fileID: 11400000, guid: fb38b3c93cf962147a69cfbd1377410d, type: 2}
-  - {fileID: 11400000, guid: 7251ebf724375ec4da513536aa933c4f, type: 2}
-  - {fileID: 11400000, guid: c780e33974166b74db557275601d912d, type: 2}
-  - {fileID: 11400000, guid: da8a69d49176e0049a4c1c76740fca8a, type: 2}
-  - {fileID: 11400000, guid: cdc6b54e148882942b54030aa20560fd, type: 2}
-  - {fileID: 11400000, guid: 3ddedb91c6f42fe4485f91c9899b5bc4, type: 2}
-  startTerrain: {fileID: 1799410462}
-  handler: {fileID: 280996005}
   input: {fileID: 0}
-  activateMenuPlease: 0
   soundManager: {fileID: 483712692}
   highScore: 0
   lastScore: 0
