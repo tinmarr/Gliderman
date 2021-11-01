@@ -77,7 +77,7 @@ public class TerrainChunk {
 
 	public void Load(bool flat) {
 		this.flat = flat;
-		ThreadedDataRequester.RequestData(() => HeightMapGenerator.BetterHeightMap(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, sampleCentre, flat), OnHeightMapReceived);
+		ThreadedDataRequester.RequestData(() => HeightMapGenerator.Generate(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, sampleCentre, flat), OnHeightMapReceived);
 	}
 
 	public void LoadStructures()

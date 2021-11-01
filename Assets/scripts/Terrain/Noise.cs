@@ -10,7 +10,24 @@ public static class Noise {
         OpenSimplexNoise noise = new OpenSimplexNoise(settings.seed);
 		float[,] noiseMap = new float[mapWidth, mapHeight];
 
-		float maxHeight = (Mathf.Pow(settings.persistance, settings.octaves) - 1) / (settings.persistance - 1);
+        /*
+         * Height Multiplier is the maximum height of the terrain
+         * Height Curve is a map from the generated noise to a new noiseMap
+         * 
+         * Scale is how zoomed in we are into simplex noise
+         * Octaves is how many layers of noise we compound
+         * 
+         * Persistance is how much each successive layer of noise affects the noise map
+         *  - values closer to 0 mean exponentially less effect, whereas values closer to 1 mean almost identical effect
+         * Lacunarity is how zoomed in each successive layer of noise is into simplex noise
+         *  - values closer to 0 mean exponentially zooming in
+         *  - values at 1 mean no zoom change
+         *  - values above 1 mean exponentially zooming out
+         * 
+         * Seed is the seed value for the simplex noise so as to make results replicable across instances
+         */
+
+        float maxHeight = (Mathf.Pow(settings.persistance, settings.octaves) - 1) / (settings.persistance - 1);
 
 		for (int y = 0; y < mapHeight; y++)
 		{
@@ -50,10 +67,10 @@ public class NoiseSettings {
 	public Vector2 offset;
 
 	public void ValidateValues() {
-		scale = Mathf.Max (scale, 0.01f);
-		octaves = Mathf.Max (octaves, 1);
-		lacunarity = Mathf.Max (lacunarity, 1);
-		persistance = Mathf.Clamp01 (persistance);
+		scale = Mathf.Max(scale, 0.001f);
+		octaves = Mathf.Max(octaves, 1);
+		lacunarity = Mathf.Max(lacunarity, 0);
+		persistance = Mathf.Clamp01(persistance);
 		seed = (int)Mathf.Clamp(seed, 1, Mathf.Infinity);
 	}
 }
