@@ -14,5 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderDistance: 500
   mapQuality: 2
-  noobMode: 0
-  seed: 6666
+  seed: 1

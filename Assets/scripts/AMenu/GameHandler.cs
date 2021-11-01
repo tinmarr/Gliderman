@@ -51,6 +51,7 @@ public class GameHandler : MonoBehaviour
         Reef.SetActive(true);
         StartCoroutine(Starting());
     }
+
     IEnumerator Starting()
     {
         float time = 0;
@@ -104,12 +105,13 @@ public class GameHandler : MonoBehaviour
         fadeSystem.Fade();
         Time.timeScale = 1;
         state = State.Menu;
+        ResetLevel();
         glider.Respawn();
         startTerrain.SetActive(true);
         glider.input.SwitchCurrentActionMap("Menu");
-        topDownCamera.Priority = 3;
         glider.SetNothing(true);
     }
+
     IEnumerator StartGame()
     {
         soundManager.FadeOut("startMusic", 1);
@@ -122,6 +124,7 @@ public class GameHandler : MonoBehaviour
         launchPad.LaunchPlayer();
         glider.SetNothing(false);
     }
+
     public void Quit()
     {
         // possibly saving
@@ -146,10 +149,11 @@ public class GameHandler : MonoBehaviour
 
     public void ResetLevel()
     {
-        int seedVal = (int)Random.Range(-500, 500);
+        int seedVal = Random.Range(-10000, 10000);
         settings.seed = seedVal;
         HeightMapSettings nextBiome = biomes[Random.Range(0, biomes.Length - 1)];
         terrain.heightMapSettings = nextBiome;
         terrain.ClearAllTerrain();
+        topDownCamera.Priority = 3;
     }
 }
