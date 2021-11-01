@@ -31,7 +31,6 @@ public class TerrainChunk {
 	float maxViewDst;
 	public bool flat = false;
 
-	public SoundManager soundManager;
 	public HeightMapSettings heightMapSettings;
 	MeshSettings meshSettings;
 	Transform viewer;
@@ -98,7 +97,6 @@ public class TerrainChunk {
 				GameObject obj = Object.Instantiate(windPrefab, new Vector3(pos.x, -1,  pos.y), Quaternion.identity);
 				obj.transform.parent = meshObject.transform;
 				WindArea windArea = obj.GetComponent<WindArea>();
-				windArea.soundManager = soundManager;
 			} else if (structureDictionary.TryGetValue($"{i}Speed", out Vector2 boostCoords))
             {
 				Vector2 pos = new Vector2(meshObject.transform.position.x + (boostCoords.x * meshSettings.meshScale), meshObject.transform.position.z + (boostCoords.y * meshSettings.meshScale));

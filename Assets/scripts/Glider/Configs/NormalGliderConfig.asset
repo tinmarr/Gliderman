@@ -103,4 +103,5 @@ MonoBehaviour:
   decreaseTime: 4
   increaseTime: 6
   impactOfVelocity: 4
-  terminalVelocity: 150
+  terminalVelocity: 350
+  physicsSubsteps: 2

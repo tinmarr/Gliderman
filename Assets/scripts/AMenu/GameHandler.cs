@@ -19,17 +19,10 @@ public class GameHandler : MonoBehaviour
     public GameObject HUD;
     public GameObject Menu;
     public GameObject Pause;
-    public GameObject Reef;
-    public Fader fadeSystem;
 
     [Header("glider Init")]
     public GliderController glider;
     public StartPad launchPad;
-
-    [Header("sounds")]
-    public SoundManager soundManager;
-    string gameMusic = "inGame2";
-    string closeMusic = "inGame1";
 
     [Header("Terrain Generation")]
     public TerrainGenerator terrain; 
@@ -46,27 +39,10 @@ public class GameHandler : MonoBehaviour
         glider.input.actions["Pause"].performed += _ => ToggleRunState();
 
         HUD.SetActive(false);
-        Menu.SetActive(false);
-        Pause.SetActive(false);
-        Reef.SetActive(true);
-        StartCoroutine(Starting());
-    }
-
-    IEnumerator Starting()
-    {
-        float time = 0;
-        while (time < 3)
-        {
-            yield return new WaitForSeconds(0.3f);
-            time += .3f;
-        }
-        Reef.SetActive(false);
         Menu.SetActive(true);
-        fadeSystem.turnOff();
-        fadeSystem.Fade();
+        Pause.SetActive(false);
         state = State.Menu;
         glider.input.SwitchCurrentActionMap("Menu");
-        soundManager.Play("startMusic");
     }
 
     void Update()
@@ -84,25 +60,23 @@ public class GameHandler : MonoBehaviour
 
     public void Begin()
     {
-        fadeSystem.StopFadeIn();
         topDownCamera.Priority = 1;
         state = State.Game;
 
         glider.input.SwitchCurrentActionMap("Game");
 
-        StartCoroutine(StartGame());
+        HUD.SetActive(true);
+        Menu.SetActive(false);
+        state = State.Game;
+        launchPad.LaunchPlayer();
+        glider.SetNothing(false);
     }
 
     public void ActivateMenu()
     {
-        soundManager.FadeIn("startMusic", 1);
-        soundManager.FadeOut(gameMusic, 2);
-        soundManager.FadeOut(closeMusic, 1);
         HUD.SetActive(false);
         Pause.SetActive(false);
         Menu.SetActive(true);
-        fadeSystem.turnOff();
-        fadeSystem.Fade();
         Time.timeScale = 1;
         state = State.Menu;
         ResetLevel();
@@ -110,19 +84,6 @@ public class GameHandler : MonoBehaviour
         startTerrain.SetActive(true);
         glider.input.SwitchCurrentActionMap("Menu");
         glider.SetNothing(true);
-    }
-
-    IEnumerator StartGame()
-    {
-        soundManager.FadeOut("startMusic", 1);
-        yield return new WaitForSeconds(1f);
-        soundManager.Play(gameMusic, 0.5f);
-        HUD.SetActive(true);
-        Menu.SetActive(false);
-        state = State.Game;
-        yield return new WaitForSeconds(1f);
-        launchPad.LaunchPlayer();
-        glider.SetNothing(false);
     }
 
     public void Quit()

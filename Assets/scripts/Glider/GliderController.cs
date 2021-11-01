@@ -72,9 +72,6 @@ public class GliderController : MonoBehaviour
     //("Game loop do not touch")
     bool doNothing = false;
 
-    [Header("Sounds")]
-    public SoundManager soundManager; // Make a seperate sound manager
-
     [Header("Score")]
     public int highScore = 0;
     public int lastScore = 0;
@@ -127,12 +124,13 @@ public class GliderController : MonoBehaviour
 
     private void Update()
     {
+        if (doNothing) return;
+
         SetAttitude();
         SetJet();
 
         Brake();
 
-        if (doNothing) return;
         CheckHeight();
 
         // Trails
@@ -269,6 +267,8 @@ public class GliderController : MonoBehaviour
         }
 
         if (!launched) fuelAmount = 0;
+
+        rb.velocity = Vector3.ClampMagnitude(rb.velocity, config.terminalVelocity);
     }
 
     public void SetJet()

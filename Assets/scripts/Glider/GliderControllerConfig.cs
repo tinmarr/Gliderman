@@ -37,5 +37,4 @@ public class GliderControllerConfig : ScriptableObject
 
     [Header("Physics")]
     public float terminalVelocity = 200f;
-    public int physicsSubsteps = 2;
 }

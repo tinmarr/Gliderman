@@ -4,7 +4,6 @@ public class WindArea : MonoBehaviour
 {
     public float Strength;
     public AnimationCurve curveSteepness;
-    public SoundManager soundManager;
 
     void OnTriggerStay(Collider col)
     {
@@ -23,19 +22,10 @@ public class WindArea : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            soundManager.Play("startMusic", 0.1f);
-        }
-    }
-
     private void OnTriggerExit(Collider col)
     {
         if (col.CompareTag("Player"))
-        {
-            soundManager.StopSound("startMusic");
+        {   
             AircraftPhysics aircraft = col.GetComponentInParent<AircraftPhysics>();
             aircraft.SetWind(Vector3.zero);
         }

@@ -27,8 +27,6 @@ public class TerrainGenerator : MonoBehaviour {
 	float meshWorldSize;
 	int chunksVisibleInViewDst;
 
-	public SoundManager soundManager;
-
 	Dictionary<Vector2, TerrainChunk> terrainChunkDictionary = new Dictionary<Vector2, TerrainChunk>();
 	List<TerrainChunk> visibleTerrainChunks = new List<TerrainChunk>();
 
@@ -93,7 +91,6 @@ public class TerrainGenerator : MonoBehaviour {
 						terrainChunkDictionary.Add (viewedChunkCoord, newChunk);
 						newChunk.windPrefab = windAreaPrefab;
 						newChunk.speedPrefab = speedAreaPrefab;
-						newChunk.soundManager = soundManager;
 						newChunk.onVisibilityChanged += OnTerrainChunkVisibilityChanged;
 						newChunk.Load (flat);
 					}
