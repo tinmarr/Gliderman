@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Glider : MonoBehaviour
 {
-    Rigidbody rigidbody;
+    Rigidbody rb;
     public float gravity = 9.8f;
     public float terminalVelocity = 40;
     public int jetPower = 900;
@@ -20,13 +20,13 @@ public class Glider : MonoBehaviour
     float yaw ;
     private void Start()
     {
-        rigidbody = gameObject.GetComponent<Rigidbody>();
+        rb = gameObject.GetComponent<Rigidbody>();
         particle.Stop();
     }
     // Update is called once per frame
     void Update()
     {
-        energy = transform.position.y + rigidbody.velocity.magnitude;
+        energy = transform.position.y + rb.velocity.magnitude;
         //if (Input.GetButtonDown("Fire1"))
         //{
         //    Debug.Log("here");
@@ -71,7 +71,7 @@ public class Glider : MonoBehaviour
     private void AdjustRotations()
     {
         //stall prevention <-- find out
-        if ((transform.forward + rigidbody.velocity.normalized).magnitude < 1.4) tilt += .3f;
+        if ((transform.forward + rb.velocity.normalized).magnitude < 1.4) tilt += .3f;
 
         //rotate yourself around the anchor point of your side down and up
         if (tilt != 0)
@@ -111,36 +111,36 @@ public class Glider : MonoBehaviour
     private void Gravity() 
     {
         //GRAVITY
-        rigidbody.velocity -= gravity * Vector3.up * Time.deltaTime;
+        rb.velocity -= gravity * Vector3.up * Time.deltaTime;
     }
     void DragAndOthers() 
     {
 
         // Vertical (to the glider) velocity truns into horizontal velocity
         // getting just the up velocity relevant to our transform
-        Vector3 vertvel = rigidbody.velocity - Vector3.ProjectOnPlane(transform.up, rigidbody.velocity);
-        rigidbody.velocity -= vertvel * Time.deltaTime; // take out the velocity that was pushing us "up"
-        rigidbody.velocity += vertvel.magnitude * transform.forward * Time.deltaTime / 5; // and add it going forward
+        Vector3 vertvel = rb.velocity - Vector3.ProjectOnPlane(transform.up, rb.velocity);
+        rb.velocity -= vertvel * Time.deltaTime; // take out the velocity that was pushing us "up"
+        rb.velocity += vertvel.magnitude * transform.forward * Time.deltaTime / 5; // and add it going forward
 
 
         // Drag
         // get our forward velocity relative to glider
-        Vector3 forwardDrag = rigidbody.velocity - Vector3.ProjectOnPlane(transform.forward, rigidbody.velocity);
+        Vector3 forwardDrag = rb.velocity - Vector3.ProjectOnPlane(transform.forward, rb.velocity);
         //add drag in opposite direction from forward drag
-        rigidbody.AddForce(-forwardDrag * forwardDrag.magnitude * Time.deltaTime / 1000);
+        rb.AddForce(-forwardDrag * forwardDrag.magnitude * Time.deltaTime / 1000);
 
-        Vector3 sideDrag = rigidbody.velocity - Vector3.ProjectOnPlane(transform.right, rigidbody.velocity);
+        Vector3 sideDrag = rb.velocity - Vector3.ProjectOnPlane(transform.right, rb.velocity);
         // much more aggressive side drag as gliders move very badly sideways
-        rigidbody.AddForce(-sideDrag * sideDrag.magnitude * Time.deltaTime);
-        rigidbody.velocity += transform.forward * sideDrag.magnitude * Time.deltaTime / 10;
+        rb.AddForce(-sideDrag * sideDrag.magnitude * Time.deltaTime);
+        rb.velocity += transform.forward * sideDrag.magnitude * Time.deltaTime / 10;
     }
     void TerminalVelocity() 
     {
-        Vector3.ClampMagnitude(rigidbody.velocity, terminalVelocity);
+        Vector3.ClampMagnitude(rb.velocity, terminalVelocity);
     }
     private void OnDrawGizmos()
     {
-        if (rigidbody) Debug.DrawLine(transform.position, transform.position + rigidbody.velocity, Color.green);
+        if (rb) Debug.DrawLine(transform.position, transform.position + rb.velocity, Color.green);
         Debug.DrawLine(transform.position, transform.position + Vector3.up * 2, Color.red);
     }
 
@@ -154,7 +154,7 @@ public class Glider : MonoBehaviour
         particle.Play();
         for (float jet = 1f; jet >= 0; jet -= 0.1f) //possible implementation of jet time
         {
-            rigidbody.AddForce(transform.forward * jetPower);
+            rb.AddForce(transform.forward * jetPower);
             yield return new WaitForSeconds(.1f);
         }
         particle.Stop();
