@@ -12,7 +12,6 @@ public class StartPad : MonoBehaviour
     public void LaunchPlayer()
     {
         player.GetRB().isKinematic = false;
-        player.Revive();
         Vector3 finalForce = (player.transform.forward * startStrengthForward) + (player.transform.up * startStrengthUp);
         Vector3 currentForce = Vector3.zero;
         for (int i = 0; i < 1 / throttling; i++)

@@ -77,10 +77,14 @@ public class GameHandler : MonoBehaviour
         HUD.SetActive(false);
         Pause.SetActive(false);
         Menu.SetActive(true);
+
         Time.timeScale = 1;
         state = State.Menu;
+
         ResetLevel();
+
         glider.Respawn();
+
         startTerrain.SetActive(true);
         glider.input.SwitchCurrentActionMap("Menu");
         glider.SetNothing(true);
@@ -112,7 +116,7 @@ public class GameHandler : MonoBehaviour
     {
         int seedVal = Random.Range(-10000, 10000);
         settings.seed = seedVal;
-        HeightMapSettings nextBiome = biomes[Random.Range(0, biomes.Length - 1)];
+        HeightMapSettings nextBiome = biomes.Length == 0 ? terrain.heightMapSettings : biomes[Random.Range(0, biomes.Length - 1)];
         terrain.heightMapSettings = nextBiome;
         terrain.ClearAllTerrain();
         topDownCamera.Priority = 3;

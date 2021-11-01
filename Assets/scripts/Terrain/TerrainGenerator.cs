@@ -111,15 +111,17 @@ public class TerrainGenerator : MonoBehaviour {
 	public void ClearAllTerrain()
     {
 		Random.InitState(settings.seed);
-		foreach (Transform child in transform)
+		int childs = transform.childCount;
+
+		for (int i = childs - 1; i >= 0; i--)
 		{
-			Destroy(child.gameObject);
+			DestroyImmediate(transform.GetChild(i).gameObject);
 		}
+
 		heightMapSettings.noiseSettings.seed = settings.seed;
 		chunksVisibleInViewDst = Mathf.RoundToInt(settings.renderDistance / meshWorldSize);
 		terrainChunkDictionary = new Dictionary<Vector2, TerrainChunk>();
 		visibleTerrainChunks = new List<TerrainChunk>();
-		UpdateVisibleChunks();
 	}
 }
 

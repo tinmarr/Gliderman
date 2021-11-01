@@ -355,12 +355,6 @@ public class GliderController : MonoBehaviour
 
     }
 
-    public void Revive()
-    {
-        dead = false;
-    }
-
-
     public bool IsDead()
     {
         return dead;
@@ -380,6 +374,7 @@ public class GliderController : MonoBehaviour
         rb.isKinematic = true;
         fuelAmount = 0f;
         launched = false;
+        dead = false;
         ResetThrust();
     }
 
