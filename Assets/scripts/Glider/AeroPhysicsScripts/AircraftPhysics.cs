@@ -6,16 +6,14 @@ using UnityEngine;
 public class AircraftPhysics : MonoBehaviour
 {
     const float PREDICTION_TIMESTEP_FRACTION = 0.5f;
-
-    [SerializeField] 
-    public float thrust = 0;
+    
     [SerializeField] 
     List<AeroSurface> aerodynamicSurfaces = null;
 
-    public Rigidbody rb;
+    Rigidbody rb;
     GliderController controller;
     float thrustPercent;
-    public Vector3 wind = Vector3.zero;
+    Vector3 wind = Vector3.zero;
     BiVector3 currentForceAndTorque;
 
     public void SetThrustPercent(float percent)
@@ -40,7 +38,7 @@ public class AircraftPhysics : MonoBehaviour
             CalculateAerodynamicForces(rb.velocity, rb.angularVelocity, wind, 1.2f, rb.worldCenterOfMass);
 
         Vector3 velocityPrediction = PredictVelocity(forceAndTorqueThisFrame.p
-            + transform.forward * thrust * thrustPercent + Physics.gravity * rb.mass);
+            + transform.forward * controller.config.thrust * thrustPercent + Physics.gravity * rb.mass);
         Vector3 angularVelocityPrediction = PredictAngularVelocity(forceAndTorqueThisFrame.q);
 
         BiVector3 forceAndTorquePrediction = 
@@ -54,7 +52,7 @@ public class AircraftPhysics : MonoBehaviour
             rb.AddForce(currentForceAndTorque.p);
             rb.AddTorque(currentForceAndTorque.q);
 
-            rb.AddForce(transform.forward * thrust * thrustPercent);
+            rb.AddForce(transform.forward * controller.config.thrust * thrustPercent);
         }
     }
 

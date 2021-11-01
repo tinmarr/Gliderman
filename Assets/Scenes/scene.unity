@@ -12539,7 +12539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca8daf7183e8bcf488cfff80de591ae6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thrust: 5000
+  thrust: 1800
   aerodynamicSurfaces:
   - {fileID: 1456616437}
   - {fileID: 1974166011}

@@ -28,6 +28,7 @@ public class GliderControllerConfig : ScriptableObject
     public float closeSpeed = 0.2f;
 
     [Header("Jet Parameters")]
+    public float thrust = 1800;
     public AnimationCurve proximityCurve;
     public float decreaseTime = 200;
     public float increaseTime = 100;
