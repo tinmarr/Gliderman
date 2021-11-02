@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mesh Mat
+  m_Name: Terrain
   m_Shader: {fileID: -6465566751694194690, guid: daa2ff27e74acb140b1db5488e8418bd, type: 3}
   m_ShaderKeywords: _EMISSION _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A _SPECULAR_SETUP
   m_LightmapFlags: 4
@@ -170,8 +170,8 @@ Material:
     - Vector1_0bf674742d2c4c749d9ac662b5fda071: 9.16
     - Vector1_1: 106.9
     - Vector1_679fda60ca894b858bab0eb11fa1b44d: 9.4
-    - Vector1_6931e2e3b6084e7784e23e8dbd0a6679: -1.56
-    - Vector1_eee253eece5b434694728c93f2538b45: -500
+    - Vector1_6931e2e3b6084e7784e23e8dbd0a6679: -2
+    - Vector1_eee253eece5b434694728c93f2538b45: -400
     - _AlphaClip: 0
     - _Blend: 0
     - _BlendOp: 0
