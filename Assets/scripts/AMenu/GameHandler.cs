@@ -38,7 +38,12 @@ public class GameHandler : MonoBehaviour
         glider.input.actions["Quit"].performed += _ => Quit();
         glider.input.actions["Pause"].performed += _ => ToggleRunState();
 
-        ActivateMenu();
+        HUD.SetActive(false);
+        Menu.SetActive(true);
+        Pause.SetActive(false);
+        state = State.Menu;
+        glider.input.SwitchCurrentActionMap("Menu");
+        ResetLevel();
     }
 
     void Update()

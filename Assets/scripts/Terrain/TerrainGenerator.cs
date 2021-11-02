@@ -67,35 +67,26 @@ public class TerrainGenerator : MonoBehaviour {
 	}
 		
 	void UpdateVisibleChunks() {
-		HashSet<Vector2> alreadyUpdatedChunkCoords = new HashSet<Vector2> ();
-		for (int i = visibleTerrainChunks.Count-1; i >= 0; i--) {
-			alreadyUpdatedChunkCoords.Add (visibleTerrainChunks [i].coord);
-			visibleTerrainChunks [i].UpdateTerrainChunk ();
-		}
-		
 		int currentChunkCoordX = Mathf.RoundToInt (viewerPosition.x / meshWorldSize);
 		int currentChunkCoordY = Mathf.RoundToInt (viewerPosition.y / meshWorldSize);
 
 		for (int yOffset = -chunksVisibleInViewDst; yOffset <= chunksVisibleInViewDst; yOffset++) {
 			for (int xOffset = -chunksVisibleInViewDst; xOffset <= chunksVisibleInViewDst; xOffset++) {
 				Vector2 viewedChunkCoord = new Vector2(currentChunkCoordX + xOffset, currentChunkCoordY + yOffset);
-				if (!alreadyUpdatedChunkCoords.Contains(viewedChunkCoord)) {
-					if (terrainChunkDictionary.ContainsKey (viewedChunkCoord)) {
-						terrainChunkDictionary[viewedChunkCoord].UpdateTerrainChunk ();
-					} else {
-						bool flat = false;
-                        if (Mathf.Abs(viewedChunkCoord.y) < 4 && Mathf.Abs(viewedChunkCoord.x) < 4)
-                        { flat = true; }
+				if (terrainChunkDictionary.ContainsKey(viewedChunkCoord)) {
+					terrainChunkDictionary[viewedChunkCoord].UpdateTerrainChunk ();
+				} else {
+					bool flat = false;
+                    if (Mathf.Abs(viewedChunkCoord.y) < 4 && Mathf.Abs(viewedChunkCoord.x) < 4)
+                    { flat = true; }
 
-                        TerrainChunk newChunk = new TerrainChunk(viewedChunkCoord, heightMapSettings, meshSettings, detailLevels, colliderLODIndex, transform, viewer, mapMaterial, player);
-						terrainChunkDictionary.Add (viewedChunkCoord, newChunk);
-						newChunk.windPrefab = windAreaPrefab;
-						newChunk.speedPrefab = speedAreaPrefab;
-						newChunk.onVisibilityChanged += OnTerrainChunkVisibilityChanged;
-						newChunk.Load (flat);
-					}
+                    TerrainChunk newChunk = new TerrainChunk(viewedChunkCoord, heightMapSettings, meshSettings, detailLevels, colliderLODIndex, transform, viewer, mapMaterial, player);
+					terrainChunkDictionary.Add (viewedChunkCoord, newChunk);
+					newChunk.windPrefab = windAreaPrefab;
+					newChunk.speedPrefab = speedAreaPrefab;
+					newChunk.onVisibilityChanged += OnTerrainChunkVisibilityChanged;
+					newChunk.Load (flat);
 				}
-
 			}
 		}
 	}
@@ -123,8 +114,10 @@ public class TerrainGenerator : MonoBehaviour {
 		chunksVisibleInViewDst = Mathf.RoundToInt(settings.renderDistance / meshWorldSize);
 		terrainChunkDictionary = new Dictionary<Vector2, TerrainChunk>();
 		visibleTerrainChunks = new List<TerrainChunk>();
+		UpdateVisibleChunks();
 	}
 }
+
 
 [System.Serializable]
 public struct LODInfo {
