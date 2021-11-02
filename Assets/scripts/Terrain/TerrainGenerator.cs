@@ -35,8 +35,8 @@ public class TerrainGenerator : MonoBehaviour {
 	void Start() {
 		
 		heightMapSettings.noiseSettings.seed = settings.seed;
-		textureSettings.ApplyToMaterial (mapMaterial);
-		textureSettings.UpdateMeshHeights(mapMaterial, heightMapSettings.minHeight, heightMapSettings.maxHeight);
+		textureSettings.ApplyToMaterial(mapMaterial);
+        textureSettings.UpdateMeshHeights(mapMaterial, heightMapSettings.minHeight, heightMapSettings.maxHeight);
 		
 		meshWorldSize = meshSettings.meshWorldSize;
 		chunksVisibleInViewDst = Mathf.RoundToInt(settings.renderDistance / meshWorldSize);

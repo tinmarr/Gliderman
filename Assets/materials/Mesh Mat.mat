@@ -21,20 +21,35 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Mesh Mat
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: daa2ff27e74acb140b1db5488e8418bd, type: 3}
   m_ShaderKeywords: _EMISSION _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A _SPECULAR_SETUP
-  m_LightmapFlags: 2
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2DArray_ad27572501d341ccb4a2a8b22ce03483:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_0f75691c6f6a4fd6b563f28d4ed0fe93:
+        m_Texture: {fileID: 2800000, guid: db243d2611d444037835ecd4af49e9b9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_1bb5d23ec867457091c41c0f0718644c:
+        m_Texture: {fileID: 2800000, guid: 22da49d227e55449d9ab0dbc09fe7f46, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_e4c1f747e78d49459ed3de972f5a4059:
+        m_Texture: {fileID: 2800000, guid: e36d15b65ccd248c19a846616a6767f9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 5e1acf362611957488060eee4178b3f3, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -62,7 +77,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 5e1acf362611957488060eee4178b3f3, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mask0:
@@ -134,7 +149,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - testTexture:
-        m_Texture: {fileID: 2800000, guid: e36d15b65ccd248c19a846616a6767f9, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4d29d513ad3914f329ec976bbc4c5519, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -150,23 +165,39 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_01689e044e7e4ce78e15db4abb78c971: 10
+    - Vector1_0bf674742d2c4c749d9ac662b5fda071: 35.36
+    - Vector1_1: 200
     - _AlphaClip: 0
     - _Blend: 0
+    - _BlendOp: 0
     - _BumpScale: 1
+    - _CameraFadingEnabled: 0
+    - _CameraFarFadeDistance: 2
+    - _CameraNearFadeDistance: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
+    - _ColorMode: 0
     - _Cull: 2
     - _Cutoff: 0.617
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
+    - _DistortionBlend: 0.5
+    - _DistortionEnabled: 0
+    - _DistortionStrength: 1
+    - _DistortionStrengthScaled: 0.1
     - _DstBlend: 0
     - _EnableHeightBlend: 0
     - _EnableInstancedPerPixelNormal: 1
     - _EnvironmentReflections: 1
+    - _FlipbookBlending: 0
+    - _FlipbookMode: 0
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
     - _HeightTransition: 0
+    - _Level2: 100
+    - _Level3: 200
     - _Metallic: 0
     - _Metallic0: 0
     - _Metallic1: 0
@@ -176,26 +207,40 @@ Material:
     - _NumLayersCount: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _PeakLevel: 300
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _SampleGI: 0
+    - _Slope: 0
     - _Smoothness: 0
     - _Smoothness0: 0.5
     - _Smoothness1: 0.5
     - _Smoothness2: 0.5
     - _Smoothness3: 0.5
     - _SmoothnessTextureChannel: 1
+    - _SoftParticlesEnabled: 0
+    - _SoftParticlesFarFadeDistance: 1
+    - _SoftParticlesNearFadeDistance: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
     - _UVSec: 0
+    - _WaterLevel: 0
     - _WorkflowMode: 0
     - _ZWrite: 1
     - testScale: 10.56
     - testTextureScale: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
+    - _CameraFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0, g: 0.03137255, b: 0, a: 1}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Level1Color: {r: 0.65, g: 0.86, b: 0.63, a: 1}
+    - _Level2Color: {r: 0.69, g: 0.63, b: 0.30999997, a: 1}
+    - _Level3Color: {r: 0.75, g: 0.53, b: 0, a: 1}
+    - _PeakColor: {r: 0.8, g: 0.9, b: 0.9, a: 1}
+    - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    - _WaterColor: {r: 0.36999997, g: 0.78, b: 0.92, a: 1}
   m_BuildTextureStacks: []
