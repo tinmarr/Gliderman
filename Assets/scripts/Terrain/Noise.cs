@@ -6,8 +6,14 @@ public static class Noise {
 
 	public enum NormalizeMode {Local, Global};
 
+    public static OpenSimplexNoise noise;
+
+    public static void newSeed(int seed)
+    {
+        Noise.noise = new OpenSimplexNoise(seed);
+    }
+
 	public static float[,] GenerateNoiseMap(int mapWidth, int mapHeight, NoiseSettings settings, Vector2 sampleCenter) {
-        OpenSimplexNoise noise = new OpenSimplexNoise(settings.seed);
 		float[,] noiseMap = new float[mapWidth, mapHeight];
 
         /*
@@ -40,7 +46,7 @@ public static class Noise {
 					float dx = Mathf.Pow(settings.lacunarity, i) * (x + sampleCenter.x) / settings.scale,
 						dy = Mathf.Pow(settings.lacunarity, i) * (y - sampleCenter.y) / settings.scale;
 
-                    height += noise.Evaluate(dx, dy) * Mathf.Pow(settings.persistance, i);
+                    height += Noise.noise.Evaluate(dx, dy) * Mathf.Pow(settings.persistance, i);
 				}
 
                 noiseMap[x, y] = height / (2 * maxHeight);
