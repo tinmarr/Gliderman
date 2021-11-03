@@ -10,7 +10,7 @@ public class CollisionLogic : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            player.Kill();
+            player.dead = true;
         }
     }
 }

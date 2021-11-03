@@ -20,9 +20,8 @@ public class GameHandler : MonoBehaviour
     public GameObject Menu;
     public GameObject Pause;
 
-    [Header("glider Init")]
+    [Header("Glider")]
     public GliderController glider;
-    public StartPad launchPad;
 
     [Header("Terrain Generation")]
     public TerrainGenerator terrain; 
@@ -40,16 +39,16 @@ public class GameHandler : MonoBehaviour
         HUD.SetActive(false);
         Menu.SetActive(true);
         Pause.SetActive(false);
-        state = State.Menu;
-        glider.input.SwitchCurrentActionMap("Menu");
 
-        launchPad.transform.position += new Vector3(0, terrain.GetChunk(Vector2.zero).heightMap.maxValue, 0);
-        glider.transform.position += new Vector3(0, terrain.GetChunk(Vector2.zero).heightMap.maxValue, 0);
+        state = State.Menu;
+
+        glider.input.SwitchCurrentActionMap("Menu");
+        glider.EnableAutoFly();
     }
 
     void Update()
     {
-        if (glider.IsDead())
+        if (glider.dead)
         {
             ActivateMenu();
         }
@@ -66,12 +65,12 @@ public class GameHandler : MonoBehaviour
 
         state = State.Game;
         glider.input.SwitchCurrentActionMap("Game");
-
+        
         HUD.SetActive(true);
         Menu.SetActive(false);
 
-        launchPad.LaunchPlayer();
-        glider.SetNothing(false);
+        glider.DisableAutoFly();
+        StartCoroutine(glider.AddToScore());
     }
 
     public void ActivateMenu()
@@ -88,7 +87,7 @@ public class GameHandler : MonoBehaviour
         glider.Respawn();
 
         glider.input.SwitchCurrentActionMap("Menu");
-        glider.SetNothing(true);
+        glider.EnableAutoFly();
     }
 
     public void Quit()

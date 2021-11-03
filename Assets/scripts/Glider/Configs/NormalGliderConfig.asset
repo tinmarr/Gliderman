@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5630ac7ba71b0b48bb0349f7cee25f7, type: 3}
   m_Name: NormalGliderConfig
   m_EditorClassIdentifier: 
-  fuelHack: 1
+  fuelHack: 0
   rollControlSensitivity: 0.1
   pitchControlSensitivity: 0.1
   yawControlSensitivity: 0.2
@@ -104,3 +104,4 @@ MonoBehaviour:
   increaseTime: 6
   impactOfVelocity: 4
   terminalVelocity: 350
+  dragAmount: 0.001

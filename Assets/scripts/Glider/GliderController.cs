@@ -8,11 +8,11 @@ public class GliderController : MonoBehaviour
 {
     [Header("Config")]
     public GliderControllerConfig config;
+    GliderControllerConfig configCopy;
 
     [Header("Control Parameters")]
     [SerializeField]
     List<AeroSurface> controlSurfaces = null;
-    readonly float[] sensitivitySaves = new float[3];
     public FlapController[] flaps;
     float[] flapAngles = { 0, 0, 0, 0 }; // top to bottom then left to right
 
@@ -28,14 +28,14 @@ public class GliderController : MonoBehaviour
 
     [Header("Physics")]
     AircraftPhysics aircraftPhysics;
-    Rigidbody rb;
+    [HideInInspector] public Rigidbody rb;
 
     [Header("Jet Parameters")]
     public ParticleSystem jet;
     float thrustPercent;
     bool speeding = false;
     bool jetEmpty = false;
-    float fuelAmount = 0f;
+    [HideInInspector] public float fuelAmount = 0f;
 
     [Header("Trails")]
     public TrailRenderer rightTrail;
@@ -44,10 +44,7 @@ public class GliderController : MonoBehaviour
     public Material trailBoost;
     public Material trailGround;
 
-    [Header("Dampening Parameters")]
-    public ControlDampener controlDampener;
-
-    [Header("Camera")]
+    [Header("Cameras")]
     public CinemachineVirtualCamera followCam;
     public CinemachineVirtualCamera followCamRoll;
     public CinemachineVirtualCamera shakeCam;
@@ -58,19 +55,14 @@ public class GliderController : MonoBehaviour
     public AeroSurface brake;
     bool braking;
 
-    bool dead = false;
+    [HideInInspector] public bool dead = false;
     Vector3 startPos;
     Quaternion startRot;
-    Vector3 startScale;
-    bool launched = false;
     float[] groundNear = new float[1];
-    float aliveSince = 0;
+    [HideInInspector] public float aliveSince = 0;
 
-    [HideInInspector]
-    public PlayerInput input;
 
-    //("Game loop do not touch")
-    bool doNothing = false;
+    [HideInInspector] public PlayerInput input;
 
     [Header("Score")]
     public int highScore = 0;
@@ -83,49 +75,25 @@ public class GliderController : MonoBehaviour
         aircraftPhysics = GetComponent<AircraftPhysics>();
         rb = GetComponent<Rigidbody>();
 
+        config = config.clone();
+
         input.actions["Respawn"].performed += _ => { dead = true; };
     }
 
     private void Start()
     {
-        StartCoroutine(AddToScore());
+        startPos = transform.position;
+        startRot = transform.rotation;
 
         dead = false;
         jet.Stop();
-        startPos = transform.position;
-        startRot = transform.rotation;
-        startScale = transform.localScale;
         
         rightTrail.emitting = false;
         leftTrail.emitting = false;
-        sensitivitySaves[0] = config.rollControlSensitivity;
-        sensitivitySaves[1] = config.pitchControlSensitivity;
-        sensitivitySaves[2] = config.yawControlSensitivity;
-        Respawn();
-    }
-    void CheckHeight()
-    {
-        if (transform.position.y < -1)
-        {
-            dead = true;
-        }
-    }
-
-    public void SetAttitude()
-    {
-        Vector2 value = input.actions["Attitude"].ReadValue<Vector2>();
-
-        Roll = value.x;
-        Pitch = value.y;
-        Yaw = input.actions["Yaw"].ReadValue<float>();
-
-        controlDampener.Dampen(ref Pitch, ref Roll, rb.velocity.magnitude, config.terminalVelocity);
     }
 
     private void Update()
     {
-        if (doNothing) return;
-
         SetAttitude();
         SetJet();
 
@@ -266,30 +234,72 @@ public class GliderController : MonoBehaviour
             flaps[i].SetFlap(flapAngles[i]);
         }
 
-        if (!launched) fuelAmount = 0;
-
         rb.velocity = Vector3.ClampMagnitude(rb.velocity, config.terminalVelocity);
-    }
-
-    public void SetJet()
-    {
-        float boostAmount = input.actions["Boost"].ReadValue<float>();
-        if (!jetEmpty && boostAmount > 0)
-        {
-            SetThrust(boostAmount, 0.1f);
-            fuelAmount -= (1 / config.decreaseTime) * Time.deltaTime * boostAmount;
-            speeding = true;
-        }
     }
 
     private void FixedUpdate()
     {
-        if (!dead)
-        {
-            SetControlSurfacesAngles(Pitch, Roll, Yaw, Flap);
-            aircraftPhysics.SetThrustPercent(thrustPercent);
-        }
+        SetControlSurfacesAngles(Pitch, Roll, Yaw, Flap);
+        aircraftPhysics.SetThrustPercent(thrustPercent);
+    }
 
+    public void EnableAutoFly()
+    {
+        dead = false;
+        rb.isKinematic = false;
+
+        configCopy = config.clone();
+
+        config.dragAmount = 0;
+
+        rb.useGravity = false;
+
+        rb.velocity = transform.forward * 50;
+    }
+
+    public void DisableAutoFly()
+    {
+        config = configCopy.clone();
+
+        rb.useGravity = true;
+    }
+
+    void CheckHeight()
+    {
+        if (transform.position.y < -1)
+        {
+            dead = true;
+        }
+    }
+
+    public void SetAttitude()
+    {
+        if (input.currentActionMap == input.actions.FindActionMap("Game"))
+        {
+            Vector2 value = input.actions["Attitude"].ReadValue<Vector2>();
+
+            Roll = value.x;
+            Pitch = value.y;
+            Yaw = input.actions["Yaw"].ReadValue<float>();
+
+            Pitch *= config.pitchCurve.Evaluate(Mathf.InverseLerp(0, config.terminalVelocity, rb.velocity.magnitude));
+            Roll *= config.pitchCurve.Evaluate(Mathf.InverseLerp(0, config.terminalVelocity, rb.velocity.magnitude));
+        }
+        
+    }
+
+    public void SetJet()
+    {
+        if (input.currentActionMap == input.actions.FindActionMap("Game"))
+        {
+            float boostAmount = input.actions["Boost"].ReadValue<float>();
+            if (!jetEmpty && boostAmount > 0)
+            {
+                SetThrust(boostAmount, 0.1f);
+                fuelAmount -= (1 / config.decreaseTime) * Time.deltaTime * boostAmount;
+                speeding = true;
+            }
+        }
     }
 
     public void SetControlSurfacesAngles(float pitch, float roll, float yaw, float flap)
@@ -349,41 +359,30 @@ public class GliderController : MonoBehaviour
         thrustPercent = 0;
     }
 
-    public void Kill()
-    {
-        dead = true;
-
-    }
-
-    public bool IsDead()
-    {
-        return dead;
-    }
-
     public void Respawn()
     {
         lastScore = currentScore;
         if (lastScore > highScore) highScore = lastScore;
         currentScore = 0;
-        transform.position = startPos;
+
         transform.rotation = startRot;
-        transform.localScale = startScale;
+        transform.position = startPos;
+
         rb.constraints = RigidbodyConstraints.None;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
-        rb.isKinematic = true;
+
         fuelAmount = 0f;
-        launched = false;
         dead = false;
         ResetThrust();
     }
 
     public void Brake()
     {
-        float amount = Mathf.Clamp(input.actions["Brake"].ReadValue<float>(), (float)0.001, 1);
+        float amount = Mathf.Clamp(input.actions["Brake"].ReadValue<float>(), config.dragAmount, 1);
         
         brake.config.chord = amount;
-        braking = amount >= 0.002;
+        braking = amount >= config.dragAmount + 1;
 
         if (braking)
         {
@@ -395,54 +394,18 @@ public class GliderController : MonoBehaviour
                     _ => Mathf.Lerp(flapAngles[i], -90 * amount, config.flapOpenSpeed),
                 };
             }
-
-            config.rollControlSensitivity = sensitivitySaves[0] * 2f;
-            config.pitchControlSensitivity = sensitivitySaves[1] * 2f;
-        } else
-        {
-            config.rollControlSensitivity = sensitivitySaves[0];
-            config.pitchControlSensitivity = sensitivitySaves[1];
         }
     }
-
-    public Rigidbody GetRB()
-    {
-        return rb;
-    }
-
-    public void SetLaunched(bool val)
-    {
-        launched = val;
-        if (launched == true) aliveSince = Time.time;
-    }
-
-    public float RemainingFuel() { return fuelAmount;  }
 
     public float GetMinDistance()
     {
         return Mathf.Min(groundNear);
     }
 
-    public float GetAliveSince()
-    {
-        return aliveSince;
-    }
-    
-    public bool GetLaunched()
-    {
-        return launched;
-    }
-    public void SetNothing(bool val)
-    {
-        doNothing = val;
-    }
     public IEnumerator AddToScore()
     {
         yield return new WaitForSeconds(1f);
-        if (launched)
-        {
-            currentScore += 1;
-        }
+        currentScore += 1;
         StartCoroutine(AddToScore());
     }
 }

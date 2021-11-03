@@ -10,15 +10,15 @@ public class GliderControllerConfig : ScriptableObject
 
     [Header("Control")]
     [Tooltip("Basic multiplier for roll")]
-    public float rollControlSensitivity = 0.2f;
+    public float rollControlSensitivity = 0.1f;
     [Tooltip("Basic multiplier for roll")]
-    public float pitchControlSensitivity = 0.2f;
+    public float pitchControlSensitivity = 0.1f;
     [Tooltip("Basic multiplier for roll")]
     public float yawControlSensitivity = 0.2f;
     [Tooltip("Curve that maps speed to a pitch multipler")]
-    public AnimationCurve pitchCurve;
+    public AnimationCurve pitchCurve = new AnimationCurve();
     [Tooltip("Curve that maps speed to a roll multipler")]
-    public AnimationCurve rollCurve;
+    public AnimationCurve rollCurve = new AnimationCurve();
     [Tooltip("Curve that maps nitro increase to distance from ground")]
 
     [Header("Flaps")]
@@ -29,12 +29,18 @@ public class GliderControllerConfig : ScriptableObject
 
     [Header("Jet Parameters")]
     public float thrust = 1800;
-    public AnimationCurve proximityCurve;
-    public float decreaseTime = 200;
-    public float increaseTime = 100;
+    public AnimationCurve proximityCurve = new AnimationCurve();
+    public float decreaseTime = 4;
+    public float increaseTime = 5;
     [Tooltip("Bigger values shrink the impact of velocity (increaseMultiplier = velocity/impactOfVelocity)")]
-    public float impactOfVelocity = 5;
+    public float impactOfVelocity = 4;
 
     [Header("Physics")]
-    public float terminalVelocity = 200f;
+    public float terminalVelocity = 350;
+    public float dragAmount = 0.001f;
+
+    public GliderControllerConfig clone()
+    {
+        return Instantiate(this);
+    }
 }

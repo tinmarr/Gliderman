@@ -93,9 +93,12 @@ public class TerrainGenerator : MonoBehaviour {
 
 	public TerrainChunk GetChunk(Vector2 pos)
     {
+		Vector2 chunkPos = pos / meshWorldSize;
+		chunkPos = new Vector2(Mathf.RoundToInt(chunkPos.x), Mathf.RoundToInt(chunkPos.y));
+
 		try
         {
-			return terrainChunkDictionary[pos];
+			return terrainChunkDictionary[chunkPos];
 		} catch
         {
 			return null;

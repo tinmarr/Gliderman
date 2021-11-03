@@ -37,7 +37,7 @@ public class HUDController : MonoBehaviour
     {
         timer.text = "";
 
-        speedDisplay.text = (int) controller.GetRB().velocity.magnitude + " m/s";
+        speedDisplay.text = (int) controller.rb.velocity.magnitude + " m/s";
         accelerationDisplay.text = controller.currentScore + " pts";
         debugScreen.SetActive(f3Screen);
 
@@ -49,12 +49,12 @@ public class HUDController : MonoBehaviour
         angles.x += 90;
         plane.rotation = Quaternion.Euler(angles.x, 0, angles.z);
 
-        nitroBar.fillAmount = controller.RemainingFuel();
+        nitroBar.fillAmount = controller.fuelAmount;
         Color32 redColor = new Color32(0xe7, 0x4c, 0x3c, 0xff);
         Color32 yellowColor = new Color32(0xf3, 0x9c, 0x12, 0xff);
         Color32 greenColor = new Color32(0x27, 0xae, 0x60, 0xff);
-        if (controller.RemainingFuel() < 0.2f) nitroBar.color = Color32.Lerp(redColor, yellowColor, nitroBarCurve.Evaluate(controller.RemainingFuel() * 5));
-        else if (controller.RemainingFuel() < 0.6f) nitroBar.color = Color32.Lerp(yellowColor, greenColor, nitroBarCurve.Evaluate((controller.RemainingFuel() - 0.2f) * 2.5f));
+        if (controller.fuelAmount < 0.2f) nitroBar.color = Color32.Lerp(redColor, yellowColor, nitroBarCurve.Evaluate(controller.fuelAmount * 5));
+        else if (controller.fuelAmount < 0.6f) nitroBar.color = Color32.Lerp(yellowColor, greenColor, nitroBarCurve.Evaluate((controller.fuelAmount - 0.2f) * 2.5f));
         else nitroBar.color = greenColor;
 
         if (timeCounter < refreshTime)
@@ -77,7 +77,7 @@ public class HUDController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        accel = (controller.GetRB().velocity.magnitude - prevV) / Time.fixedDeltaTime;
-        prevV = controller.GetRB().velocity.magnitude;
+        accel = (controller.rb.velocity.magnitude - prevV) / Time.fixedDeltaTime;
+        prevV = controller.rb.velocity.magnitude;
     }
 }

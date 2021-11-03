@@ -46,7 +46,7 @@ public class AircraftPhysics : MonoBehaviour
             CalculateAerodynamicForces(velocityPrediction, angularVelocityPrediction, wind, 1.2f, rb.worldCenterOfMass);
 
         currentForceAndTorque = (forceAndTorqueThisFrame + forceAndTorquePrediction) * 0.5f;
-        if (!controller.IsDead())
+        if (!controller.dead)
         {
             if (float.IsNaN(currentForceAndTorque.p.x)) currentForceAndTorque.p = Vector3.zero;
             if (float.IsNaN(currentForceAndTorque.q.x)) currentForceAndTorque.q = Vector3.zero;
