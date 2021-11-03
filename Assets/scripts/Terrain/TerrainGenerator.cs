@@ -102,7 +102,7 @@ public class TerrainGenerator : MonoBehaviour {
 	public void ClearAllTerrain()
     {
 		Random.InitState(settings.seed);
-		Noise.newSeed(settings.seed);
+		HeightMapGenerator.NewSeed(settings.seed);
 		int childs = transform.childCount;
 
 		for (int i = childs - 1; i >= 0; i--)
