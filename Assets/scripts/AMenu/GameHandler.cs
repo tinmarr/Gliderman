@@ -29,21 +29,22 @@ public class GameHandler : MonoBehaviour
     public HeightMapSettings[] biomes;
     public SettingsConfig settings;
 
-    [Header("Other")]
-    public GameObject startTerrain;
-
     void Start()
     {
         glider.input.actions["Continue"].performed += _ => Begin();
         glider.input.actions["Quit"].performed += _ => Quit();
         glider.input.actions["Pause"].performed += _ => ToggleRunState();
 
+        ResetLevel();
+
         HUD.SetActive(false);
         Menu.SetActive(true);
         Pause.SetActive(false);
         state = State.Menu;
         glider.input.SwitchCurrentActionMap("Menu");
-        ResetLevel();
+
+        launchPad.transform.position += new Vector3(0, terrain.currentChunk().heightMap.maxValue, 0);
+        glider.transform.position += new Vector3(0, terrain.currentChunk().heightMap.maxValue, 0);
     }
 
     void Update()
@@ -86,7 +87,6 @@ public class GameHandler : MonoBehaviour
 
         glider.Respawn();
 
-        startTerrain.SetActive(true);
         glider.input.SwitchCurrentActionMap("Menu");
         glider.SetNothing(true);
     }

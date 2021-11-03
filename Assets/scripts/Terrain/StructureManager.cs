@@ -19,11 +19,11 @@ public static class StructureManager
             for (int j = 0; j < hm.GetLength(1); j++)
             {
                 Vector2 coords = new Vector2(i > hm.GetLength(0)/2 ? i - hm.GetLength(0) : i, j > hm.GetLength(0) / 2 ? j - hm.GetLength(0) : j);
-                if (hm[i,j] == chunk.heightMap.minValue &&  rand < windSpawnChance && !chunk.flat)
+                if (hm[i,j] == chunk.heightMap.minValue &&  rand < windSpawnChance)
                 {
                     structures.Add($"{structures.Count}Wind", coords);
                 }
-                if (hm[i,j] == chunk.heightMap.maxValue && rand < speedSpawnChance && !chunk.flat)
+                if (hm[i,j] == chunk.heightMap.maxValue && rand < speedSpawnChance)
                 {
                     structures.Add($"{structures.Count}Speed", coords);
                 }

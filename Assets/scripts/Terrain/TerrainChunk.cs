@@ -29,7 +29,6 @@ public class TerrainChunk {
 	int previousLODIndex = -1;
 	bool hasSetCollider;
 	float maxViewDst;
-	public bool flat = false;
 
 	public HeightMapSettings heightMapSettings;
 	MeshSettings meshSettings;
@@ -74,9 +73,8 @@ public class TerrainChunk {
 		maxViewDst = detailLevels [detailLevels.Length - 1].visibleDstThreshold;
 	}
 
-	public void Load(bool flat) {
-		this.flat = flat;
-		ThreadedDataRequester.RequestData(() => HeightMapGenerator.Generate(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, sampleCentre, flat), OnHeightMapReceived);
+	public void Load() {
+		ThreadedDataRequester.RequestData(() => HeightMapGenerator.Generate(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, sampleCentre), OnHeightMapReceived);
 	}
 
 	public void LoadStructures()

@@ -11,10 +11,8 @@ public static class HeightMapGenerator {
         HeightMapGenerator.noise = new OpenSimplexNoise(seed);
     }
 
-    public static HeightMap Generate(int width, int height, HeightMapSettings config, Vector2 sampleCenter, bool flat)
+    public static HeightMap Generate(int width, int height, HeightMapSettings config, Vector2 sampleCenter)
 	{
-		if (flat) return new HeightMap(new float[width, height], 0, 0);
-
         /*
          * Height Multiplier is the maximum height of the terrain
          * Height Curve is a map from the generated noise to a new noiseMap

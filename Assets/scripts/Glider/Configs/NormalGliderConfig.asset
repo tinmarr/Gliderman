@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5630ac7ba71b0b48bb0349f7cee25f7, type: 3}
   m_Name: NormalGliderConfig
   m_EditorClassIdentifier: 
-  fuelHack: 0
+  fuelHack: 1
   rollControlSensitivity: 0.1
   pitchControlSensitivity: 0.1
   yawControlSensitivity: 0.2
