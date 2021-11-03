@@ -91,12 +91,16 @@ public class TerrainGenerator : MonoBehaviour {
 		}
 	}
 
-	public TerrainChunk currentChunk()
+	public TerrainChunk GetChunk(Vector2 pos)
     {
-		int currentChunkCoordX = Mathf.RoundToInt(viewerPosition.x / meshWorldSize);
-		int currentChunkCoordY = Mathf.RoundToInt(viewerPosition.y / meshWorldSize);
-
-		return terrainChunkDictionary[new Vector2(currentChunkCoordX, currentChunkCoordY)];
+		try
+        {
+			return terrainChunkDictionary[pos];
+		} catch
+        {
+			return null;
+        }
+		
 	}
 
 	void OnTerrainChunkVisibilityChanged(TerrainChunk chunk, bool isVisible) {

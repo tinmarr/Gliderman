@@ -2510,7 +2510,6 @@ MonoBehaviour:
   terrain: {fileID: 489604879}
   biomes: []
   settings: {fileID: 11400000, guid: 626e59efd5b20c44a85a54f1ca758539, type: 2}
-  startTerrain: {fileID: 1799410462}
 --- !u!4 &280996006
 Transform:
   m_ObjectHideFlags: 0
@@ -8264,7 +8263,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1397628904}
   m_LocalRotation: {x: 0, y: 0.6211477, z: 0, w: 0.78369355}
-  m_LocalPosition: {x: 277.72, y: 95.47, z: -26.8}
+  m_LocalPosition: {x: 0, y: 95.47, z: 0}
   m_LocalScale: {x: 4, y: 1, z: 4}
   m_Children: []
   m_Father: {fileID: 0}
@@ -12423,7 +12422,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1895329605}
   m_LocalRotation: {x: 0, y: 0.6211477, z: 0, w: 0.78369355}
-  m_LocalPosition: {x: 277.72, y: 96.109, z: -26.8}
+  m_LocalPosition: {x: 0, y: 96.109, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 171175054}

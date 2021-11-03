@@ -43,8 +43,8 @@ public class GameHandler : MonoBehaviour
         state = State.Menu;
         glider.input.SwitchCurrentActionMap("Menu");
 
-        launchPad.transform.position += new Vector3(0, terrain.currentChunk().heightMap.maxValue, 0);
-        glider.transform.position += new Vector3(0, terrain.currentChunk().heightMap.maxValue, 0);
+        launchPad.transform.position += new Vector3(0, terrain.GetChunk(Vector2.zero).heightMap.maxValue, 0);
+        glider.transform.position += new Vector3(0, terrain.GetChunk(Vector2.zero).heightMap.maxValue, 0);
     }
 
     void Update()
