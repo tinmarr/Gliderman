@@ -15,7 +15,7 @@ MonoBehaviour:
   active: 1
   m_AdvancedMode: 0
   color:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: {r: 1, g: 0.54009634, b: 0, a: 1}
     hdr: 0
     showAlpha: 0
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   temperature:
     m_OverrideState: 1
-    m_Value: 50
+    m_Value: 15
     min: -100
     max: 100
   tint:
