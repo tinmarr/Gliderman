@@ -28,7 +28,7 @@ public class HUDController : MonoBehaviour
     float timeCounter = 0.0f;
     float fps = 0.0f;
 
-    private void Awake()
+    private void Start()
     {
         controller.input.actions["Debug"].performed += _ => { f3Screen = !f3Screen; };
     }
