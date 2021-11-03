@@ -65,16 +65,26 @@ public class TerrainGenerator : MonoBehaviour {
 			UpdateVisibleChunks ();
 		}
 	}
-		
-	void UpdateVisibleChunks() {
+	
+	void UpdateVisibleChunks()
+    {
+		StartCoroutine(UpdateVisibleChunksCR());
+    }
+
+	IEnumerator UpdateVisibleChunksCR() {
+		for (int i=0; i<visibleTerrainChunks.Count; i++)
+        {
+			visibleTerrainChunks[i].UpdateTerrainChunk();
+        }
 		int currentChunkCoordX = Mathf.RoundToInt (viewerPosition.x / meshWorldSize);
 		int currentChunkCoordY = Mathf.RoundToInt (viewerPosition.y / meshWorldSize);
 
 		for (int yOffset = -chunksVisibleInViewDst; yOffset <= chunksVisibleInViewDst; yOffset++) {
 			for (int xOffset = -chunksVisibleInViewDst; xOffset <= chunksVisibleInViewDst; xOffset++) {
+				yield return 0;
 				Vector2 viewedChunkCoord = new Vector2(currentChunkCoordX + xOffset, currentChunkCoordY + yOffset);
 				if (terrainChunkDictionary.ContainsKey(viewedChunkCoord)) {
-					terrainChunkDictionary[viewedChunkCoord].UpdateTerrainChunk ();
+					terrainChunkDictionary[viewedChunkCoord].UpdateTerrainChunk();
 				} else {
 					bool flat = false;
                     if (Mathf.Abs(viewedChunkCoord.y) < 4 && Mathf.Abs(viewedChunkCoord.x) < 4)
@@ -93,9 +103,9 @@ public class TerrainGenerator : MonoBehaviour {
 
 	void OnTerrainChunkVisibilityChanged(TerrainChunk chunk, bool isVisible) {
 		if (isVisible) {
-			visibleTerrainChunks.Add (chunk);
+			visibleTerrainChunks.Add(chunk);
 		} else {
-			visibleTerrainChunks.Remove (chunk);
+			visibleTerrainChunks.Remove(chunk);
 		}
 	}
 
