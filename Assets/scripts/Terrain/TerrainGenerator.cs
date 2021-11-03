@@ -86,16 +86,14 @@ public class TerrainGenerator : MonoBehaviour {
 				if (terrainChunkDictionary.ContainsKey(viewedChunkCoord)) {
 					terrainChunkDictionary[viewedChunkCoord].UpdateTerrainChunk();
 				} else {
-					bool flat = false;
-                    if (Mathf.Abs(viewedChunkCoord.y) < 4 && Mathf.Abs(viewedChunkCoord.x) < 4)
-                    { flat = true; }
+					bool flat = Mathf.Abs(viewedChunkCoord.y) < 4 && Mathf.Abs(viewedChunkCoord.x) < 4;
 
                     TerrainChunk newChunk = new TerrainChunk(viewedChunkCoord, heightMapSettings, meshSettings, detailLevels, colliderLODIndex, transform, viewer, mapMaterial, player);
 					terrainChunkDictionary.Add (viewedChunkCoord, newChunk);
 					newChunk.windPrefab = windAreaPrefab;
 					newChunk.speedPrefab = speedAreaPrefab;
 					newChunk.onVisibilityChanged += OnTerrainChunkVisibilityChanged;
-					newChunk.Load (flat);
+					newChunk.Load(flat);
 				}
 			}
 		}
