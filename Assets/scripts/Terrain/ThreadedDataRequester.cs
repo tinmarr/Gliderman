@@ -4,7 +4,8 @@ using UnityEngine;
 using System;
 using System.Threading;
 
-public class ThreadedDataRequester : MonoBehaviour {
+// This is basically an older version of jobs!!!
+public class ThreadedDataRequester : MonoBehaviour { // TODO convert this function to a JOB
 
 	static ThreadedDataRequester instance;
 	Queue<ThreadInfo> dataQueue = new Queue<ThreadInfo>();
