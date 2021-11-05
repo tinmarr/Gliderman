@@ -13,7 +13,6 @@ public enum State
 public class GameHandler : MonoBehaviour
 {
     State state;
-    public CinemachineVirtualCamera topDownCamera;
 
     [Header("Menu Items")]
     public GameObject HUD;
@@ -61,8 +60,6 @@ public class GameHandler : MonoBehaviour
 
     public void Begin()
     {
-        topDownCamera.Priority = 1;
-
         state = State.Game;
         glider.input.SwitchCurrentActionMap("Game");
         
@@ -119,6 +116,5 @@ public class GameHandler : MonoBehaviour
         HeightMapSettings nextBiome = biomes.Length == 0 ? terrain.heightMapSettings : biomes[Random.Range(0, biomes.Length - 1)];
         terrain.heightMapSettings = nextBiome;
         terrain.ClearAllTerrain();
-        topDownCamera.Priority = 3;
     }
 }

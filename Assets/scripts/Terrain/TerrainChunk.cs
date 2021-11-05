@@ -10,15 +10,12 @@ public class TerrainChunk {
 	public event System.Action<TerrainChunk, bool> onVisibilityChanged;
 	public Vector2 coord;
 	 
-	public GameObject meshObject;
+	public GameObject gameObject;
 	Vector2 sampleCentre;
 	Bounds bounds;
 
-	MeshRenderer meshRenderer;
-	MeshFilter meshFilter;
-	MeshCollider meshCollider;
-
-	CollisionLogic collisionLogic;
+    MeshFilter meshFilter;
+    MeshCollider meshCollider;
 
 	LODInfo[] detailLevels;
 	LODMesh[] lodMeshes;
@@ -34,31 +31,25 @@ public class TerrainChunk {
 	MeshSettings meshSettings;
 	Transform viewer;
 
-	public TerrainChunk(Vector2 coord, HeightMapSettings heightMapSettings, MeshSettings meshSettings, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Transform viewer, Material material, GliderController player) {
+	bool isVisible = false;
+
+	public TerrainChunk(Vector2 coord, HeightMapSettings heightMapSettings, MeshSettings meshSettings, LODInfo[] detailLevels, int colliderLODIndex, Transform viewer, GameObject gameObject) {
 		this.coord = coord;
 		this.detailLevels = detailLevels;
 		this.colliderLODIndex = colliderLODIndex;
 		this.heightMapSettings = heightMapSettings;
 		this.meshSettings = meshSettings;
 		this.viewer = viewer;
+		this.gameObject = gameObject;
 
 		sampleCentre = coord * meshSettings.meshWorldSize / meshSettings.meshScale;
 		Vector2 position = coord * meshSettings.meshWorldSize ;
 		bounds = new Bounds(position,Vector2.one * meshSettings.meshWorldSize );
 
-		meshObject = new GameObject("Terrain Chunk");
-		meshRenderer = meshObject.AddComponent<MeshRenderer>();
-		meshFilter = meshObject.AddComponent<MeshFilter>();
-		meshCollider = meshObject.AddComponent<MeshCollider>();
-		collisionLogic = meshObject.AddComponent<CollisionLogic>();
-		meshRenderer.material = material;
-		collisionLogic.player = player;
-		meshObject.tag = "Terrain";
-		meshObject.layer = 3;
+        meshFilter = this.gameObject.GetComponent<MeshFilter>();
+        meshCollider = this.gameObject.GetComponent<MeshCollider>();
 
-		meshObject.transform.position = new Vector3(position.x,0,position.y);
-		meshObject.transform.parent = parent;
-		SetVisible(false);
+		gameObject.transform.position = new Vector3(position.x, 0, position.y);
 
 		lodMeshes = new LODMesh[detailLevels.Length];
 		for (int i = 0; i < detailLevels.Length; i++) {
@@ -91,15 +82,15 @@ public class TerrainChunk {
         {
             if (structureDictionary.TryGetValue($"{i}Wind", out Vector2 windCoords))
             {
-				Vector2 pos = new Vector2(meshObject.transform.position.x + (windCoords.x * meshSettings.meshScale), meshObject.transform.position.z + (windCoords.y * meshSettings.meshScale));
+				Vector2 pos = new Vector2(gameObject.transform.position.x + (windCoords.x * meshSettings.meshScale), gameObject.transform.position.z + (windCoords.y * meshSettings.meshScale));
 				GameObject obj = Object.Instantiate(windPrefab, new Vector3(pos.x, -1,  pos.y), Quaternion.identity);
-				obj.transform.parent = meshObject.transform;
+				obj.transform.parent = gameObject.transform;
 				WindArea windArea = obj.GetComponent<WindArea>();
 			} else if (structureDictionary.TryGetValue($"{i}Speed", out Vector2 boostCoords))
             {
-				Vector2 pos = new Vector2(meshObject.transform.position.x + (boostCoords.x * meshSettings.meshScale), meshObject.transform.position.z + (boostCoords.y * meshSettings.meshScale));
+				Vector2 pos = new Vector2(gameObject.transform.position.x + (boostCoords.x * meshSettings.meshScale), gameObject.transform.position.z + (boostCoords.y * meshSettings.meshScale));
 				GameObject obj = Object.Instantiate(speedPrefab, new Vector3(pos.x, heightMap.maxValue + 20, pos.y), Quaternion.Euler(0, (float)rand.Next(), 0));
-				obj.transform.parent = meshObject.transform;
+				obj.transform.parent = gameObject.transform;
 			}
         }
     }
@@ -110,7 +101,7 @@ public class TerrainChunk {
 
 		//LoadStructures();
 
-		UpdateTerrainChunk ();
+		UpdateTerrainChunk();
 	}
 
 	Vector2 viewerPosition {
@@ -124,10 +115,10 @@ public class TerrainChunk {
 		if (heightMapReceived) {
 			float viewerDstFromNearestEdge = Mathf.Sqrt (bounds.SqrDistance (viewerPosition));
 
-			bool wasVisible = IsVisible ();
-			bool visible = viewerDstFromNearestEdge <= maxViewDst;
+			bool wasVisible = isVisible;
+			isVisible = viewerDstFromNearestEdge <= maxViewDst;
 
-			if (visible) {
+			if (isVisible) {
 				int lodIndex = 0;
 
 				for (int i = 0; i < detailLevels.Length - 1; i++) {
@@ -144,18 +135,14 @@ public class TerrainChunk {
 						previousLODIndex = lodIndex;
 						meshFilter.mesh = lodMesh.mesh;
 					} else if (!lodMesh.hasRequestedMesh) {
-						lodMesh.RequestMesh (heightMap, meshSettings);
+						lodMesh.RequestMesh(heightMap, meshSettings);
 					}
 				}
 			}
 
-			if (wasVisible != visible) {
-				
-				SetVisible (visible);
-				if (onVisibilityChanged != null) {
-					onVisibilityChanged (this, visible);
-				}
-			}
+			if (wasVisible != isVisible) {
+                onVisibilityChanged?.Invoke(this, isVisible);
+            }
 		}
 	}
 
@@ -177,15 +164,6 @@ public class TerrainChunk {
 			}
 		}
 	}
-
-	public void SetVisible(bool visible) {
-		meshObject.SetActive (visible);
-	}
-
-	public bool IsVisible() {
-		return meshObject.activeSelf;
-	}
-
 }
 
 class LODMesh {
@@ -204,12 +182,12 @@ class LODMesh {
 		mesh = ((MeshData)meshDataObject).CreateMesh ();
 		hasMesh = true;
 
-		updateCallback ();
+		updateCallback();
 	}
 
 	public void RequestMesh(HeightMap heightMap, MeshSettings meshSettings) {
 		hasRequestedMesh = true;
-		ThreadedDataRequester.RequestData (() => MeshGenerator.GenerateTerrainMesh (heightMap.values, meshSettings, lod), OnMeshDataReceived);
+		ThreadedDataRequester.RequestData(() => MeshGenerator.GenerateTerrainMesh(heightMap.values, meshSettings, lod), OnMeshDataReceived);
 	}
 
 }
