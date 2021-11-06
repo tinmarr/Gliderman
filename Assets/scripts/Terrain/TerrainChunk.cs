@@ -68,33 +68,6 @@ public class TerrainChunk {
 		ThreadedDataRequester.RequestData(() => HeightMapGenerator.Generate(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, sampleCentre), OnHeightMapReceived);
 	}
 
-	public void LoadStructures()
-    {
-		ThreadedDataRequester.RequestData(() => StructureManager.GenerateStructures(this), OnStructuresRecieved);
-    }
-
-	private void OnStructuresRecieved(object structDictObj)
-    {
-		System.Random rand = new System.Random(heightMapSettings.noiseSettings.seed);
-		Dictionary<string, Vector2> structureDictionary = (Dictionary<string, Vector2>)structDictObj;
-		int numOfStructs = structureDictionary.Count;
-		for (int i = 0; i < numOfStructs; i++)
-        {
-            if (structureDictionary.TryGetValue($"{i}Wind", out Vector2 windCoords))
-            {
-				Vector2 pos = new Vector2(gameObject.transform.position.x + (windCoords.x * meshSettings.meshScale), gameObject.transform.position.z + (windCoords.y * meshSettings.meshScale));
-				GameObject obj = Object.Instantiate(windPrefab, new Vector3(pos.x, -1,  pos.y), Quaternion.identity);
-				obj.transform.parent = gameObject.transform;
-				WindArea windArea = obj.GetComponent<WindArea>();
-			} else if (structureDictionary.TryGetValue($"{i}Speed", out Vector2 boostCoords))
-            {
-				Vector2 pos = new Vector2(gameObject.transform.position.x + (boostCoords.x * meshSettings.meshScale), gameObject.transform.position.z + (boostCoords.y * meshSettings.meshScale));
-				GameObject obj = Object.Instantiate(speedPrefab, new Vector3(pos.x, heightMap.maxValue + 20, pos.y), Quaternion.Euler(0, (float)rand.Next(), 0));
-				obj.transform.parent = gameObject.transform;
-			}
-        }
-    }
-
 	void OnHeightMapReceived(object heightMapObject) {
 		this.heightMap = (HeightMap)heightMapObject;
 		heightMapReceived = true;
@@ -187,7 +160,7 @@ class LODMesh {
 
 	public void RequestMesh(HeightMap heightMap, MeshSettings meshSettings) {
 		hasRequestedMesh = true;
-		ThreadedDataRequester.RequestData(() => MeshGenerator.GenerateTerrainMesh(heightMap.values, meshSettings, lod), OnMeshDataReceived);
+        ThreadedDataRequester.RequestData(() => MeshGenerator.GenerateTerrainMesh(heightMap.values, meshSettings, lod), OnMeshDataReceived);
 	}
 
 }

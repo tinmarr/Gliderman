@@ -44,7 +44,6 @@ public class TerrainGenerator : MonoBehaviour {
 		collisionLogic.player = player;
 		defaultTerrainObject.tag = "Terrain";
 		defaultTerrainObject.layer = 3;
-		defaultTerrainObject.transform.parent = transform;
 		defaultTerrainObject.SetActive(false);
 
 		heightMapSettings.noiseSettings.seed = settings.seed;

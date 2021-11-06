@@ -8,7 +8,7 @@ public static class HeightMapGenerator {
 
     public static void NewSeed(int seed)
     {
-        HeightMapGenerator.noise = new OpenSimplexNoise(seed);
+        noise = new OpenSimplexNoise(seed);
     }
 
     public static HeightMap Generate(int width, int height, HeightMapSettings config, Vector2 sampleCenter)
@@ -46,7 +46,7 @@ public static class HeightMapGenerator {
                     float dx = Mathf.Pow(config.noiseSettings.lacunarity, i) * (x + sampleCenter.x) / config.noiseSettings.scale,
                         dy = Mathf.Pow(config.noiseSettings.lacunarity, i) * (y - sampleCenter.y) / config.noiseSettings.scale;
 
-                    z += HeightMapGenerator.noise.Evaluate(dx, dy) * Mathf.Pow(config.noiseSettings.persistance, i);
+                    z += noise.Evaluate(dx, dy) * Mathf.Pow(config.noiseSettings.persistance, i);
                 }
 
                 float smooshed = z / (2 * maxHeight);
