@@ -50,7 +50,8 @@ public class AircraftPhysics : MonoBehaviour
         {
             if (float.IsNaN(currentForceAndTorque.p.x)) currentForceAndTorque.p = Vector3.zero;
             if (float.IsNaN(currentForceAndTorque.q.x)) currentForceAndTorque.q = Vector3.zero;
-            rb.AddForce(currentForceAndTorque.p);
+
+            rb.AddForce(currentForceAndTorque.p + (Mathf.Clamp(controller.GetMinDistance()/controller.config.groundEffectThreshold, 0, 1) * currentForceAndTorque.p));
             rb.AddTorque(currentForceAndTorque.q);
 
             rb.AddForce(transform.forward * controller.config.thrust * thrustPercent);

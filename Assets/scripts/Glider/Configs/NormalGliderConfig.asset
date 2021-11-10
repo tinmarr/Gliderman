@@ -105,3 +105,5 @@ MonoBehaviour:
   impactOfVelocity: 4
   terminalVelocity: 350
   dragAmount: 0.001
+  groundEffectThreshold: 30
+  groundEffectPercent: 0.75

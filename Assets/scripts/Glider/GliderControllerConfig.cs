@@ -38,6 +38,8 @@ public class GliderControllerConfig : ScriptableObject
     [Header("Physics")]
     public float terminalVelocity = 350;
     public float dragAmount = 0.001f;
+    [Range(0, 500)] // TODO unhardcode
+    public float groundEffectThreshold = 15f;
 
     public GliderControllerConfig clone()
     {

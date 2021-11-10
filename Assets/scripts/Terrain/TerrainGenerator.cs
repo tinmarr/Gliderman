@@ -16,7 +16,6 @@ public class TerrainGenerator : MonoBehaviour {
 
 	public MeshSettings meshSettings;
 	public HeightMapSettings heightMapSettings;
-	public TextureData textureSettings;
 
 	public GameObject defaultTerrainObject;
 
@@ -47,8 +46,6 @@ public class TerrainGenerator : MonoBehaviour {
 		defaultTerrainObject.SetActive(false);
 
 		heightMapSettings.noiseSettings.seed = settings.seed;
-		textureSettings.ApplyToMaterial(mapMaterial);
-        textureSettings.UpdateMeshHeights(mapMaterial, heightMapSettings.minHeight, heightMapSettings.maxHeight);
 		
 		meshWorldSize = meshSettings.meshWorldSize;
 		chunksVisibleInViewDst = Mathf.RoundToInt(settings.renderDistance / meshWorldSize);
@@ -133,11 +130,11 @@ public class TerrainGenerator : MonoBehaviour {
 		int childs = transform.childCount;
 
 		for (int i = childs - 1; i >= 0; i--)
-		{
-			DestroyImmediate(transform.GetChild(i).gameObject);
-		}
+        {
+            DestroyImmediate(transform.GetChild(i).gameObject);
+        }
 
-		heightMapSettings.noiseSettings.seed = settings.seed;
+        heightMapSettings.noiseSettings.seed = settings.seed;
 		chunksVisibleInViewDst = Mathf.RoundToInt(settings.renderDistance / meshWorldSize);
 		terrainChunkDictionary = new Dictionary<Vector2, TerrainChunk>();
 		visibleTerrainChunks = new List<TerrainChunk>();

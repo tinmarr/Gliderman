@@ -90,7 +90,10 @@ public class GameHandler : MonoBehaviour
     public void Quit()
     {
         // possibly saving
-        Application.Quit();
+        if (state == State.Menu)
+        {
+            Application.Quit();
+        }
     }
 
     public void ToggleRunState()
@@ -99,6 +102,7 @@ public class GameHandler : MonoBehaviour
         {
             state = State.Pause;
             Pause.SetActive(true);
+            HUD.SetActive(false);
             Time.timeScale = 0;
         } else if (state == State.Pause)
         {
