@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class ButtonHandler : MonoBehaviour
+public class MenuButtonHandler : MonoBehaviour
 {
     public int index = 0;
+    public UnityEvent OnPress;
 
     private MenuController controller;
     private Animator animator;
@@ -34,5 +36,10 @@ public class ButtonHandler : MonoBehaviour
         {
             animator.SetInteger("state", 0);
         }
+    }
+
+    public void Press()
+    {
+        OnPress.Invoke();
     }
 }

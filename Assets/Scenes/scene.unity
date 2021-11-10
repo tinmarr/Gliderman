@@ -553,6 +553,34 @@ PrefabInstance:
       propertyPath: index
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2979989827780628590, guid: c0439f0cd7f32d343a1b4fd8e6b6aa9d, type: 3}
+      propertyPath: OnPress.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2979989827780628590, guid: c0439f0cd7f32d343a1b4fd8e6b6aa9d, type: 3}
+      propertyPath: OnPress.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2979989827780628590, guid: c0439f0cd7f32d343a1b4fd8e6b6aa9d, type: 3}
+      propertyPath: OnPress.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 280996005}
+    - target: {fileID: 2979989827780628590, guid: c0439f0cd7f32d343a1b4fd8e6b6aa9d, type: 3}
+      propertyPath: OnPress.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2979989827780628590, guid: c0439f0cd7f32d343a1b4fd8e6b6aa9d, type: 3}
+      propertyPath: OnPress.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Begin
+      objectReference: {fileID: 0}
+    - target: {fileID: 2979989827780628590, guid: c0439f0cd7f32d343a1b4fd8e6b6aa9d, type: 3}
+      propertyPath: OnPress.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2979989827780628590, guid: c0439f0cd7f32d343a1b4fd8e6b6aa9d, type: 3}
+      propertyPath: OnPress.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3943537436806225176, guid: c0439f0cd7f32d343a1b4fd8e6b6aa9d, type: 3}
       propertyPath: m_Text
       value: Play
@@ -563,7 +591,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8771007518865213985, guid: c0439f0cd7f32d343a1b4fd8e6b6aa9d, type: 3}
       propertyPath: m_VerticalAlignment
-      value: 4096
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 8771007518865213985, guid: c0439f0cd7f32d343a1b4fd8e6b6aa9d, type: 3}
       propertyPath: m_HorizontalAlignment
@@ -2632,7 +2660,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
@@ -2797,7 +2825,6 @@ MonoBehaviour:
   - {x: 1720, y: -630, z: 0}
   - {x: 1720, y: -880, z: 0}
   shouldFlip: 000101
-  transitionLength: 5
 --- !u!1 &1234420487
 GameObject:
   m_ObjectHideFlags: 0
@@ -4769,7 +4796,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1922839785}
-  m_LocalRotation: {x: 0.16018224, y: -0.000000004252742, z: 6.9012535e-10, w: 0.9870875}
+  m_LocalRotation: {x: 0.16018224, y: 0.000000004252742, z: -6.9012535e-10, w: 0.9870875}
   m_LocalPosition: {x: 0, y: 502, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

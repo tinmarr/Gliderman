@@ -31,6 +31,7 @@ public class HUDController : MonoBehaviour
     private void Start()
     {
         controller.input.actions["Debug"].performed += _ => { f3Screen = !f3Screen; };
+        Update();
     }
 
     private void Update()

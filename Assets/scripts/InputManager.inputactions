@@ -6,15 +6,6 @@
             "id": "182af1a7-0f70-4f5d-b523-a9a0eaaaaa49",
             "actions": [
                 {
-                    "name": "Start",
-                    "type": "Button",
-                    "id": "db419bc8-ebbc-4932-bb48-df6969dc1f09",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Quit",
                     "type": "Button",
                     "id": "cd7a807a-39b2-4d96-96c2-18e90529bb2c",
@@ -70,28 +61,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "e4510b3f-eb1e-4726-8513-5608e17950ce",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Start",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "82c92183-3e80-4ae3-98a9-bbbb5527327e",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Start",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "067d0da8-8e2c-4f4c-a0d6-661cb7a5b515",
@@ -305,6 +274,17 @@
                     "name": "",
                     "id": "2c4a604a-6ebd-4a7e-af00-595314ae3e16",
                     "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d472d9ec-19c7-441b-b1f7-de40617c3286",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

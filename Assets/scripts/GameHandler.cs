@@ -29,7 +29,6 @@ public class GameHandler : MonoBehaviour
 
     void Start()
     {
-        glider.input.actions["Start"].performed += _ => Begin();
         glider.input.actions["Quit"].performed += _ => Quit();
         glider.input.actions["Pause"].performed += _ => ToggleRunState();
 

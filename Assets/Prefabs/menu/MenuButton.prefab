@@ -79,6 +79,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: -1
+  OnPress:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &8771007518865213985
 MonoBehaviour:
   m_ObjectHideFlags: 0
