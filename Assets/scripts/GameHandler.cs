@@ -91,6 +91,9 @@ public class GameHandler : MonoBehaviour
         // possibly saving
         if (state == State.Menu)
         {
+            #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+            #endif
             Application.Quit();
         }
     }
