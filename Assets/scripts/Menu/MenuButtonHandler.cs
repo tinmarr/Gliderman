@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class MenuButtonHandler : MonoBehaviour
+public class MenuButtonHandler : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
 {
     public int index = 0;
     public UnityEvent OnPress;
@@ -41,5 +43,15 @@ public class MenuButtonHandler : MonoBehaviour
     public void Press()
     {
         OnPress.Invoke();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        controller.currentIndex = index;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        controller.pressed = true;
     }
 }

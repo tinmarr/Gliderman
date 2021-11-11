@@ -115,6 +115,7 @@ public class TerrainGenerator : MonoBehaviour {
 	}
 
 	void OnTerrainChunkVisibilityChanged(TerrainChunk chunk, bool isVisible) {
+		if (!chunk.gameObject) return;
 		chunk.gameObject.SetActive(isVisible);
 		if (isVisible) {
 			visibleTerrainChunks.Add(chunk);
