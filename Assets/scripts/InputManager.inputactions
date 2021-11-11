@@ -291,17 +291,6 @@
                     "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e38b7e02-cd98-4cf6-9d1d-c4b7901bc743",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Submit",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
