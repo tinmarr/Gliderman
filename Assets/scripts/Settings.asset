@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Settings
   m_EditorClassIdentifier: 
   renderDistance: 1000
-  mapQuality: 1
-  seed: 6384
+  mapQuality: 19
+  seed: -7966

@@ -11,8 +11,7 @@ public class TerrainGenerator : MonoBehaviour {
 
 	public SettingsConfig settings;
 
-	public int colliderLODIndex;
-	public LODInfo[] detailLevels;
+	public LODInfo detailLevels;
 
 	public MeshSettings meshSettings;
 	public HeightMapSettings heightMapSettings;
@@ -52,12 +51,8 @@ public class TerrainGenerator : MonoBehaviour {
 	}
 
 	void Update() {
-		for (int i = 0; i < detailLevels.Length; i++) 
-        {
-			int denominator = detailLevels.Length - i;
-			detailLevels[i].visibleDstThreshold = settings.renderDistance / denominator;
-			detailLevels[i].lod = Mathf.Clamp(settings.mapQuality - denominator+1, 0, 4);
-        }
+		detailLevels.visibleDstThreshold = settings.renderDistance;
+		detailLevels.lod = Mathf.Clamp(settings.mapQuality, 0, MeshSettings.numSupportedLODs-1);
 
 		viewerPosition = new Vector2 (viewer.position.x, viewer.position.z);
 
@@ -87,7 +82,7 @@ public class TerrainGenerator : MonoBehaviour {
 				if (terrainChunkDictionary.ContainsKey(viewedChunkCoord)) {
 					terrainChunkDictionary[viewedChunkCoord].UpdateTerrainChunk();
 				} else { 
-					TerrainChunk newChunk = new TerrainChunk(viewedChunkCoord, heightMapSettings, meshSettings, detailLevels, colliderLODIndex, viewer, Instantiate(defaultTerrainObject));
+					TerrainChunk newChunk = new TerrainChunk(viewedChunkCoord, heightMapSettings, meshSettings, detailLevels, viewer, Instantiate(defaultTerrainObject));
 					terrainChunkDictionary.Add(viewedChunkCoord, newChunk);
 					newChunk.gameObject.transform.parent = transform;
 					newChunk.windPrefab = windAreaPrefab;

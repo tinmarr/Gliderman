@@ -1416,14 +1416,9 @@ MonoBehaviour:
   windAreaPrefab: {fileID: 6637008322892789030, guid: 7faf3c8715ac9b54899b65d13f3a07d7, type: 3}
   speedAreaPrefab: {fileID: 3187450930655572355, guid: 852737615e8c65744b9350f40627a33e, type: 3}
   settings: {fileID: 11400000, guid: 626e59efd5b20c44a85a54f1ca758539, type: 2}
-  colliderLODIndex: 0
   detailLevels:
-  - lod: 0
-    visibleDstThreshold: 250
-  - lod: 2
-    visibleDstThreshold: 500
-  - lod: 4
-    visibleDstThreshold: 1000
+    lod: 0
+    visibleDstThreshold: 0
   meshSettings: {fileID: 11400000, guid: 9ae508c0af981d043bacc119b83525e5, type: 2}
   heightMapSettings: {fileID: 11400000, guid: 696d9bc022357485699ab0a3bd545359, type: 2}
   defaultTerrainObject: {fileID: 0}
