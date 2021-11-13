@@ -3775,7 +3775,7 @@ MonoBehaviour:
   roll: {fileID: 1085645360}
   timer: {fileID: 1542467087}
   debugScreen: {fileID: 1520346936}
-  refreshTime: 0.5
+  refreshTime: 0.25
   leftSide: {fileID: 695828487}
   nitroBarCurve:
     serializedVersion: 2
@@ -5094,7 +5094,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1922839785}
-  m_LocalRotation: {x: 0.16018225, y: -0.000000023309845, z: 0.000000003782667, w: 0.9870875}
+  m_LocalRotation: {x: 0.16018224, y: 0.000000004252742, z: -6.9012535e-10, w: 0.9870875}
   m_LocalPosition: {x: 0, y: 502, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
