@@ -79,18 +79,10 @@ public class TerrainChunk {
 
 	public void UpdateTerrainChunk() {
 		if (heightMapReceived) {
-			float viewerDstFromNearestEdge = Mathf.Sqrt (bounds.SqrDistance (viewerPosition));
+			float viewerDstFromNearestEdge = Mathf.Sqrt(bounds.SqrDistance(viewerPosition));
 
 			bool wasVisible = isVisible;
 			isVisible = viewerDstFromNearestEdge <= maxViewDst;
-
-			if (isVisible) {
-				if (lodMesh.hasMesh) {
-					meshFilter.mesh = lodMesh.mesh;
-				} else if (!lodMesh.hasRequestedMesh) {
-					lodMesh.RequestMesh(heightMap, meshSettings);
-				}
-			}
 
 			if (wasVisible != isVisible) {
                 onVisibilityChanged?.Invoke(this, isVisible);
@@ -100,20 +92,24 @@ public class TerrainChunk {
 
 	public void UpdateCollisionMesh() {
 		if (!hasSetCollider) {
-			float sqrDstFromViewerToEdge = bounds.SqrDistance (viewerPosition);
+			float sqrDstFromViewerToEdge = bounds.SqrDistance(viewerPosition);
 
 			if (sqrDstFromViewerToEdge < detailLevels.sqrVisibleDstThreshold) {
 				if (!lodMesh.hasRequestedMesh) {
-					lodMesh.RequestMesh (heightMap, meshSettings);
+					lodMesh.RequestMesh(heightMap, meshSettings);
 				}
 			}
 
-			if (sqrDstFromViewerToEdge < colliderGenerationDistanceThreshold * colliderGenerationDistanceThreshold) {
-				if (lodMesh.hasMesh) {
-					meshCollider.sharedMesh = lodMesh.mesh;
-					hasSetCollider = true;
+			if (lodMesh.hasMesh)
+            {
+				meshFilter.mesh = lodMesh.mesh;
+				if (sqrDstFromViewerToEdge < colliderGenerationDistanceThreshold * colliderGenerationDistanceThreshold)
+				{
+						meshCollider.sharedMesh = lodMesh.mesh;
+						hasSetCollider = true;
 				}
 			}
+			
 		}
 	}
 }
@@ -123,7 +119,7 @@ class LODMesh {
 	public Mesh mesh;
 	public bool hasRequestedMesh;
 	public bool hasMesh;
-	int lod;
+    readonly int lod;
 	public event System.Action updateCallback;
 
 	public LODMesh(int lod) {
@@ -131,7 +127,7 @@ class LODMesh {
 	}
 
 	void OnMeshDataReceived(object meshDataObject) {
-		mesh = ((MeshData)meshDataObject).CreateMesh ();
+		mesh = ((MeshData)meshDataObject).CreateMesh();
 		hasMesh = true;
 
 		updateCallback();

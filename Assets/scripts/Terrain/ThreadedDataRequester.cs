@@ -6,6 +6,8 @@ using System.Threading;
 
 public class ThreadedDataRequester : MonoBehaviour {
 
+	public int maxDequeuePerFrame = 100;
+
 	static ThreadedDataRequester instance;
 	Queue<ThreadInfo> dataQueue = new Queue<ThreadInfo>();
 
@@ -14,24 +16,31 @@ public class ThreadedDataRequester : MonoBehaviour {
 	}
 
 	public static void RequestData(Func<object> generateData, Action<object> callback) {
-		ThreadStart threadStart = delegate {
-			instance.DataThread (generateData, callback);
-		};
+        void threadStart()
+        {
+            instance.DataThread(generateData, callback);
+        }
 
-		new Thread (threadStart).Start ();
+        Thread thread = new Thread(threadStart)
+        {
+            Priority = System.Threading.ThreadPriority.Lowest,
+            IsBackground = true
+        };
+
+        thread.Start();
 	}
 
 	void DataThread(Func<object> generateData, Action<object> callback) {
 		object data = generateData ();
 		lock (dataQueue) {
-			dataQueue.Enqueue (new ThreadInfo (callback, data));
+			dataQueue.Enqueue(new ThreadInfo (callback, data));
 		}
 	}
 		
 
 	void Update() {
 		if (dataQueue.Count > 0) {
-			for (int i = 0; i < dataQueue.Count; i++) {
+			for (int i = 0; i < Mathf.Min(maxDequeuePerFrame, dataQueue.Count); i++) {
 				ThreadInfo threadInfo = dataQueue.Dequeue();
 				try
 				{

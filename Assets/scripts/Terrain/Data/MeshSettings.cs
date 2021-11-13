@@ -9,7 +9,8 @@ public class MeshSettings : ScriptableObject {
 	public static readonly int[] supportedChunkSizes = { 48, 72, 96 };
 	
 	public float meshScale = 2.5f;
-	[HideInInspector] public bool useFlatShading = true;
+	[Tooltip("Flatshading might be faster sometimes but it gives a boxy look")]
+	public bool useFlatShading = true;
 
 	[Range(0,numSupportedFlatshadedChunkSizes-1)]
 	public int chunkSizeIndex;

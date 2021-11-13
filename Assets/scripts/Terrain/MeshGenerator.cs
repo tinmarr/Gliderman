@@ -220,12 +220,14 @@ public class MeshData {
 	}
 
 	public Mesh CreateMesh() {
-		Mesh mesh = new Mesh ();
-		mesh.vertices = vertices;
-		mesh.triangles = triangles;
-		mesh.uv = uvs;
-		if (useFlatShading) {
-			mesh.RecalculateNormals ();
+        Mesh mesh = new Mesh
+        {
+            vertices = vertices,
+            triangles = triangles,
+            uv = uvs
+        };
+        if (useFlatShading) {
+			mesh.RecalculateNormals();
 		} else {
 			mesh.normals = bakedNormals;
 		}

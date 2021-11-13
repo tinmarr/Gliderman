@@ -52,15 +52,9 @@ public class TerrainGenerator : MonoBehaviour {
 
 	void Update() {
 		detailLevels.visibleDstThreshold = settings.renderDistance;
-		detailLevels.lod = Mathf.Clamp(settings.mapQuality, 0, MeshSettings.numSupportedLODs-1);
+		detailLevels.lod = settings.mapQuality;
 
 		viewerPosition = new Vector2 (viewer.position.x, viewer.position.z);
-
-		if (viewerPosition != viewerPositionOld) {
-			foreach (TerrainChunk chunk in visibleTerrainChunks) {
-				chunk.UpdateCollisionMesh();
-			}
-		}
 
 		if ((viewerPositionOld - viewerPosition).sqrMagnitude > sqrViewerMoveThresholdForChunkUpdate) {
 			viewerPositionOld = viewerPosition;
@@ -72,7 +66,8 @@ public class TerrainGenerator : MonoBehaviour {
 		for (int i=0; i<visibleTerrainChunks.Count; i++)
         {
 			visibleTerrainChunks[i].UpdateTerrainChunk();
-        }
+			visibleTerrainChunks[i].UpdateCollisionMesh();
+		}
 
 		Vector2Int currentChunkCoord = new Vector2Int(Mathf.RoundToInt(viewerPosition.x / meshWorldSize), Mathf.RoundToInt(viewerPosition.y / meshWorldSize));
 
