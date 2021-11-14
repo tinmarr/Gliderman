@@ -67,7 +67,7 @@ public class HUDController : MonoBehaviour
         {
             fps = frameCounter / timeCounter;
             frameCounter = 0;
-            timeCounter = 0.0f;
+            timeCounter = 0.0f; 
         }
 
         leftSide.text = @$" FPS: {(int)fps}
