@@ -8,32 +8,29 @@ public class TerrainChunk {
 
 	const float colliderGenerationDistanceThreshold = 5;
 	public event System.Action<TerrainChunk, bool> onVisibilityChanged;
-	public Vector2 coord;
 	 
 	public GameObject gameObject;
 	Vector2 sampleCentre;
 	Bounds bounds;
 
-    MeshFilter meshFilter;
-    MeshCollider meshCollider;
+    readonly MeshFilter meshFilter;
+    readonly MeshCollider meshCollider;
 
 	LODInfo detailLevels;
-	LODMesh lodMesh;
+	readonly LODMesh lodMesh;
 
 	public HeightMap heightMap;
 	bool heightMapReceived = false;
-	int previousLODIndex = -1;
 	bool hasSetCollider;
-	float maxViewDst;
+	readonly float maxViewDst;
 
-	public HeightMapSettings heightMapSettings;
-	MeshSettings meshSettings;
-	Transform viewer;
+	public readonly HeightMapSettings heightMapSettings;
+	readonly MeshSettings meshSettings;
+	readonly Transform viewer;
 
 	bool isVisible = false;
 
 	public TerrainChunk(Vector2 coord, HeightMapSettings heightMapSettings, MeshSettings meshSettings, LODInfo detailLevels, Transform viewer, GameObject gameObject) {
-		this.coord = coord;
 		this.detailLevels = detailLevels;
 		this.heightMapSettings = heightMapSettings;
 		this.meshSettings = meshSettings;

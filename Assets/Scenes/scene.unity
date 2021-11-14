@@ -1414,6 +1414,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bc501c1c720dfc4f8f0ce63065021ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadingDistance: 2000
+  maxLoadedPerFrame: 10
   windAreaPrefab: {fileID: 6637008322892789030, guid: 7faf3c8715ac9b54899b65d13f3a07d7, type: 3}
   speedAreaPrefab: {fileID: 3187450930655572355, guid: 852737615e8c65744b9350f40627a33e, type: 3}
   settings: {fileID: 11400000, guid: 626e59efd5b20c44a85a54f1ca758539, type: 2}
