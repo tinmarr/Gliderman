@@ -62,10 +62,13 @@ public class TerrainGenerator : MonoBehaviour {
 
 		viewerPosition = new Vector2 (viewer.position.x, viewer.position.z);
 
-		if ((viewerPositionOld - viewerPosition).sqrMagnitude > sqrViewerMoveThresholdForChunkUpdate)
+		Vector2Int oldChunkCoord = new Vector2Int(Mathf.RoundToInt(viewerPositionOld.x / meshWorldSize), Mathf.RoundToInt(viewerPositionOld.y / meshWorldSize));
+		Vector2Int currentChunkCoord = new Vector2Int(Mathf.RoundToInt(viewerPosition.x / meshWorldSize), Mathf.RoundToInt(viewerPosition.y / meshWorldSize));
+
+		if (oldChunkCoord != currentChunkCoord)
 		{
+            UpdateVisibleChunks();
 			viewerPositionOld = viewerPosition;
-			UpdateVisibleChunks();
 		}
 		GenerateChunks();
 	}
