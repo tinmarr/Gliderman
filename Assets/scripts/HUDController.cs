@@ -65,7 +65,7 @@ public class HUDController : MonoBehaviour
         }
         else
         {
-            fps = (float)frameCounter / timeCounter;
+            fps = frameCounter / timeCounter;
             frameCounter = 0;
             timeCounter = 0.0f;
         }
