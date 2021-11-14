@@ -23,8 +23,6 @@ public class GameHandler : MonoBehaviour
     public GliderController glider;
 
     [Header("Terrain Generation")]
-    public TerrainGenerator terrain; 
-    public HeightMapSettings[] biomes;
     public SettingsConfig settings;
 
     void Start()
@@ -119,8 +117,8 @@ public class GameHandler : MonoBehaviour
     {
         int seedVal = Random.Range(-10000, 10000);
         settings.seed = seedVal;
-        HeightMapSettings nextBiome = biomes.Length == 0 ? terrain.heightMapSettings : biomes[Random.Range(0, biomes.Length - 1)];
-        terrain.heightMapSettings = nextBiome;
-        terrain.ClearAllTerrain();
+        //HeightMapSettings nextBiome = biomes.Length == 0 ? terrain.heightMapSettings : biomes[Random.Range(0, biomes.Length - 1)];
+        //terrain.heightMapSettings = nextBiome;
+        //terrain.ClearAllTerrain();
     }
 }

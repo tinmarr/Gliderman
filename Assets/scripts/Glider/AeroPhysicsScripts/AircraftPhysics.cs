@@ -90,6 +90,14 @@ public class AircraftPhysics : MonoBehaviour
             * (inertiaTensorWorldRotation * angularVelocityChangeInDiagonalSpace);
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == 3)
+        {
+            controller.dead = true;
+        }
+    }
+
 #if UNITY_EDITOR
     // For gizmos drawing.
     public void CalculateCenterOfLift(out Vector3 center, out Vector3 force, Vector3 displayAirVelocity, float displayAirDensity)

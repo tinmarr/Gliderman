@@ -12,7 +12,6 @@ public class CarrotHandler : MonoBehaviour
     private RectTransform rectTransform;
     private MenuController controller;
     private TMP_Text text;
-    private bool flipped = false;
 
     // Start is called before the first frame update
     void Start()
