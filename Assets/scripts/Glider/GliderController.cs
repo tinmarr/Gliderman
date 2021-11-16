@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
-using Cinemachine;
 using UnityEngine.InputSystem;
 
 public class GliderController : MonoBehaviour
@@ -43,13 +42,6 @@ public class GliderController : MonoBehaviour
     public Material trailNormal;
     public Material trailBoost;
     public Material trailGround;
-
-    [Header("Cameras")]
-    public CinemachineVirtualCamera followCam;
-    public CinemachineVirtualCamera followCamRoll;
-    public CinemachineVirtualCamera shakeCam;
-    public CinemachineVirtualCamera shakeCamRoll;
-    CinemachineVirtualCamera currentCam;
 
     [Header("Brakes")]
     public AeroSurface brake;
@@ -139,30 +131,6 @@ public class GliderController : MonoBehaviour
             jet.Stop();
         }
 
-        // Camera
-        float anglex = transform.eulerAngles.x;
-        if (anglex > 180) anglex -= 360;
-        float abspitch = (anglex / 180);
-
-        CinemachineVirtualCamera cam = followCam;
-        currentCam = currentCam == null ? cam : currentCam;
-        bool roll = Mathf.Abs(abspitch) > 0.3f;
-        if (thrustPercent > 0.6f)
-        {
-            cam = roll ? shakeCamRoll : shakeCam;
-        }
-        else if (roll)
-        {
-            cam = followCamRoll;
-        }
-
-        if (currentCam != cam)
-        {
-
-            currentCam.Priority = 1;
-            cam.Priority = 2;
-            currentCam = cam;
-        }
 
         // Get Distance from Terrain
         float maxSearchDistance = 500;
@@ -371,6 +339,10 @@ public class GliderController : MonoBehaviour
         rb.constraints = RigidbodyConstraints.None;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
+
+        Pitch = 0;
+        Roll = 0;
+        Yaw = 0;
 
         fuelAmount = 0f;
         dead = false;
