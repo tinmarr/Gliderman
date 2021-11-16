@@ -19,7 +19,9 @@ public class GliderControllerConfig : ScriptableObject
     public AnimationCurve pitchCurve = new AnimationCurve();
     [Tooltip("Curve that maps speed to a roll multipler")]
     public AnimationCurve rollCurve = new AnimationCurve();
-    [Tooltip("Curve that maps nitro increase to distance from ground")]
+    [Tooltip("Curve that maps speed to a yaw multipler")]
+    public AnimationCurve yawCurve = new AnimationCurve();
+    
 
     [Header("Flaps")]
     [Range(0, 1)]
@@ -29,6 +31,7 @@ public class GliderControllerConfig : ScriptableObject
 
     [Header("Jet Parameters")]
     public float thrust = 1800;
+    [Tooltip("Curve that maps nitro increase to distance from ground")]
     public AnimationCurve proximityCurve = new AnimationCurve();
     public float decreaseTime = 4;
     public float increaseTime = 5;

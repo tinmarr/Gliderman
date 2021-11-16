@@ -251,7 +251,8 @@ public class GliderController : MonoBehaviour
             Yaw = input.actions["Yaw"].ReadValue<float>();
 
             Pitch *= config.pitchCurve.Evaluate(Mathf.InverseLerp(0, config.terminalVelocity, rb.velocity.magnitude));
-            Roll *= config.pitchCurve.Evaluate(Mathf.InverseLerp(0, config.terminalVelocity, rb.velocity.magnitude));
+            Roll *= config.rollCurve.Evaluate(Mathf.InverseLerp(0, config.terminalVelocity, rb.velocity.magnitude));
+            Yaw *= config.yawCurve.Evaluate(Mathf.InverseLerp(0, config.terminalVelocity, rb.velocity.magnitude));
         }
         
     }
