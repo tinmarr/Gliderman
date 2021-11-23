@@ -1,4 +1,4 @@
-# GliderGame
+# Gliderman
 A game where you fly randomly generated terrain. You will encounter wind columns and speed boosts! Built with Unity 3D.
 
 ### Authors: 
