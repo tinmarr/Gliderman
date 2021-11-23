@@ -1,6 +1,6 @@
 # Gliderman
 * Glider physics simulator.
-* Fly through procedurally generated terrain.
+* Fly through ifinite procedurally generated terrain.
 * Gain speed boosts from dangerously fast experiences.
 
 
