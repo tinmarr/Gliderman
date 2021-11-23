@@ -15,7 +15,6 @@ Download Links: [https://github.com/tinmarr/GliderGame/releases/tag/1.0](https:/
 
 # Gameplay
 
-
 https://user-images.githubusercontent.com/52299477/142960577-8d38ed2b-5101-434e-bba0-d3db2b60575a.mp4
 
 
