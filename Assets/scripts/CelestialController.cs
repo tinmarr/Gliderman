@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class CelestialController : MonoBehaviour
 {
     [Tooltip("Length of a day in seconds")]
-    public int dayTime = 5*60;
+    public int dayTime = 5 * 60;
 
     public int timeOfDay = 0;
+
+    public int forcedToD = -1;
 
     float dayLength = 24 * 60f;
     float angle = 0;
@@ -21,6 +24,11 @@ public class CelestialController : MonoBehaviour
 
     private void Update()
     {
+        if (forcedToD != -1)
+        {
+            timeOfDay = forcedToD;
+        }
+
         angle = Mathf.Lerp(0, 360, timeOfDay / dayLength);
 
         sunlight.transform.rotation = Quaternion.Euler(new Vector3(angle, -90, 0));
